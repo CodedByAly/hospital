@@ -1,26 +1,20 @@
 import { useEffect, useRef, useState } from 'react'
-import { MessageCircle, Minus, Plus, ShoppingBag, Trash2, X } from 'lucide-react'
+import { Minus, Plus, X } from 'lucide-react'
 import { useCart } from '../cart.jsx'
 import { BRANCHES, WHATSAPP, formatLBP } from '../data/menu.js'
-import { FLYERS } from './FoodIcons.jsx'
-
-function LineIcon({ name }) {
-  const Icon = FLYERS[name]
-  return <span className="line__ph">{Icon && <Icon width="80%" height="80%" />}</span>
-}
 
 const EMPTY = { name: '', phone: '', mode: 'delivery', branch: 'sarba', address: '', notes: '' }
 
 function validate(f) {
   const e = {}
-  if (!f.name.trim()) e.name = 'Enter your name so we know who the order is for.'
-  if (!/^[+\d][\d\s-]{6,}$/.test(f.phone.trim())) e.phone = 'Enter a phone number, for example 03 123 456.'
-  if (f.mode === 'delivery' && f.address.trim().length < 6) e.address = 'Enter a delivery address with street and building.'
+  if (!f.name.trim()) e.name = 'Please add your name.'
+  if (!/^[+\d][\d\s-]{6,}$/.test(f.phone.trim())) e.phone = 'Please add a phone number, like 03 123 456.'
+  if (f.mode === 'delivery' && f.address.trim().length < 6) e.address = 'Please add your address so we can find you.'
   return e
 }
 
 export default function CartDrawer({ open, onClose }) {
-  const { lines, total, count, dispatch } = useCart()
+  const { lines, total, dispatch } = useCart()
   const dialog = useRef(null)
   const summary = useRef(null)
   const [form, setForm] = useState(EMPTY)
@@ -28,7 +22,7 @@ export default function CartDrawer({ open, onClose }) {
   const [errors, setErrors] = useState({})
   const [submitted, setSubmitted] = useState(false)
 
-  // <dialog>.showModal() gives us focus trapping, Esc to close and an inert page for free
+  // showModal() traps focus, closes on Esc and makes the page behind inert
   useEffect(() => {
     const d = dialog.current
     if (open && !d.open) d.showModal()
@@ -57,12 +51,12 @@ export default function CartDrawer({ open, onClose }) {
     }
     const branch = BRANCHES.find((b) => b.id === form.branch)
     const body = [
-      'Hello Taktawook! I would like to order:',
+      'Hi Taktawook, I would like to order:',
       '',
-      ...lines.map((l) => `• ${l.qty} × ${l.name}${l.opts?.length ? ` (${l.opts.join(', ')})` : ''}: ${formatLBP(l.unit * l.qty)}`),
+      ...lines.map((l) => `${l.qty} x ${l.name}${l.opts?.length ? ` (${l.opts.join(', ')})` : ''}: ${formatLBP(l.unit * l.qty)} LBP`),
       '',
-      `Total: ${formatLBP(total)}`,
-      `${form.mode === 'delivery' ? 'Delivery' : 'Pickup'} from: ${branch.name}`,
+      `Total: ${formatLBP(total)} LBP`,
+      `${form.mode === 'delivery' ? 'Delivery' : 'Pickup'}, ${branch.name} branch`,
       `Name: ${form.name.trim()}`,
       `Phone: ${form.phone.trim()}`,
       form.mode === 'delivery' ? `Address: ${form.address.trim()}` : null,
@@ -77,26 +71,23 @@ export default function CartDrawer({ open, onClose }) {
     <dialog
       ref={dialog}
       className="drawer"
-      aria-labelledby="bag-title"
+      aria-labelledby="order-title"
       onClose={onClose}
       onClick={(e) => e.target === dialog.current && onClose()}
     >
       <div className="drawer__panel">
         <header className="drawer__head">
-          <h2 id="bag-title">
-            <ShoppingBag size={24} aria-hidden="true" /> Your bag <span>({count})</span>
-          </h2>
-          <button className="icon-btn" onClick={onClose} aria-label="Close bag">
+          <h2 id="order-title">Your order</h2>
+          <button className="icon-btn" onClick={onClose} aria-label="Close">
             <X size={22} aria-hidden="true" />
           </button>
         </header>
 
         {lines.length === 0 ? (
           <div className="drawer__empty">
-            <img src="/images/logo.png" alt="" width="120" height="120" />
-            <p>Your bag is empty. The chicken is waiting.</p>
-            <button className="btn btn--primary" onClick={onClose}>
-              Browse the menu
+            <p>Nothing here yet. Tap any price on the menu to add it.</p>
+            <button className="btn btn--red" onClick={onClose}>
+              Back to the menu
             </button>
           </div>
         ) : (
@@ -104,37 +95,32 @@ export default function CartDrawer({ open, onClose }) {
             <ul className="lines">
               {lines.map((l) => (
                 <li key={l.key} className="line">
-                  {l.img ? (
-                    <img src={`/images/${l.img}.webp`} alt="" />
-                  ) : (
-                    <LineIcon name={l.icon} />
-                  )}
                   <div className="line__info">
                     <strong>{l.name}</strong>
-                    {l.opts?.length > 0 && <small>{l.opts.join(' · ')}</small>}
-                    <span>{formatLBP(l.unit * l.qty)}</span>
+                    {l.opts?.length > 0 && <small>{l.opts.join(', ')}</small>}
                   </div>
-                  <div className="stepper" role="group" aria-label={`Quantity of ${l.name}`}>
-                    <button type="button" onClick={() => dispatch({ type: 'qty', key: l.key, delta: -1 })} aria-label="Remove one">
-                      {l.qty === 1 ? <Trash2 size={16} aria-hidden="true" /> : <Minus size={16} aria-hidden="true" />}
+                  <div className="stepper" role="group" aria-label={`How many ${l.name}`}>
+                    <button type="button" onClick={() => dispatch({ type: 'qty', key: l.key, delta: -1 })} aria-label="One less">
+                      <Minus size={16} aria-hidden="true" />
                     </button>
                     <output aria-live="polite">{l.qty}</output>
-                    <button type="button" onClick={() => dispatch({ type: 'qty', key: l.key, delta: 1 })} aria-label="Add one">
+                    <button type="button" onClick={() => dispatch({ type: 'qty', key: l.key, delta: 1 })} aria-label="One more">
                       <Plus size={16} aria-hidden="true" />
                     </button>
                   </div>
+                  <span className="line__price">{formatLBP(l.unit * l.qty)}</span>
                 </li>
               ))}
             </ul>
 
             <div className="drawer__total">
               <span>Total</span>
-              <strong>{formatLBP(total)}</strong>
+              <strong>{formatLBP(total)} LBP</strong>
             </div>
 
             {submitted && errList.length > 0 && (
               <div className="err-summary" role="alert" tabIndex={-1} ref={summary} aria-labelledby="err-title">
-                <h3 id="err-title">Please fix {errList.length === 1 ? 'one thing' : `${errList.length} things`}</h3>
+                <h3 id="err-title">A few details are missing</h3>
                 <ul>
                   {errList.map(([k, m]) => (
                     <li key={k}>
@@ -145,14 +131,16 @@ export default function CartDrawer({ open, onClose }) {
               </div>
             )}
 
-            <fieldset className="seg seg--wide">
-              <legend className="label">How do you want it?</legend>
-              {['delivery', 'pickup'].map((m) => (
-                <label key={m} className={form.mode === m ? 'is-on' : ''}>
-                  <input type="radio" name="mode" value={m} checked={form.mode === m} onChange={set('mode')} />
-                  {m === 'delivery' ? 'Delivery' : 'Pickup'}
-                </label>
-              ))}
+            <fieldset className="fs">
+              <legend className="label">Delivery or pickup?</legend>
+              <div className="seg">
+                {['delivery', 'pickup'].map((m) => (
+                  <label key={m} className={form.mode === m ? 'is-on' : ''}>
+                    <input type="radio" name="mode" value={m} checked={form.mode === m} onChange={set('mode')} />
+                    {m === 'delivery' ? 'Delivery' : 'Pickup'}
+                  </label>
+                ))}
+              </div>
             </fieldset>
 
             <div className="field">
@@ -165,8 +153,8 @@ export default function CartDrawer({ open, onClose }) {
             </div>
 
             {[
-              ['name', 'Your name', 'text', 'name'],
-              ['phone', 'Phone number', 'tel', 'tel'],
+              ['name', 'Name', 'text', 'name'],
+              ['phone', 'Phone', 'tel', 'tel'],
             ].map(([k, label, type, ac]) => (
               <div className={`field ${show(k) ? 'has-err' : ''}`} key={k}>
                 <label htmlFor={`f-${k}`} className="label">{label}</label>
@@ -186,34 +174,31 @@ export default function CartDrawer({ open, onClose }) {
 
             {form.mode === 'delivery' && (
               <div className={`field ${show('address') ? 'has-err' : ''}`}>
-                <label htmlFor="f-address" className="label">Delivery address</label>
+                <label htmlFor="f-address" className="label">Address</label>
                 <textarea
                   id="f-address"
                   rows="2"
                   autoComplete="street-address"
+                  placeholder="Area, street, building, floor"
                   value={form.address}
                   onChange={set('address')}
                   onBlur={blur('address')}
                   aria-invalid={!!show('address')}
-                  aria-describedby={show('address') ? 'e-address' : 'h-address'}
+                  aria-describedby={show('address') ? 'e-address' : undefined}
                 />
-                {show('address') ? (
-                  <p className="field__err" id="e-address">{errors.address}</p>
-                ) : (
-                  <p className="field__help" id="h-address">Area, street, building and floor.</p>
-                )}
+                {show('address') && <p className="field__err" id="e-address">{errors.address}</p>}
               </div>
             )}
 
             <div className="field">
-              <label htmlFor="f-notes" className="label">Notes <span className="opt">(optional)</span></label>
-              <input id="f-notes" value={form.notes} onChange={set('notes')} placeholder="Extra garlic, no pickles…" />
+              <label htmlFor="f-notes" className="label">Notes</label>
+              <input id="f-notes" value={form.notes} onChange={set('notes')} />
             </div>
 
-            <button type="submit" className="btn btn--whatsapp btn--block">
-              <MessageCircle size={20} aria-hidden="true" /> Send order on WhatsApp
+            <button type="submit" className="btn btn--red btn--block">
+              Send on WhatsApp
             </button>
-            <p className="drawer__fine">Opens WhatsApp with your order ready to send. Payment on delivery or pickup.</p>
+            <p className="drawer__fine">This opens WhatsApp with your order written out. You pay on delivery or pickup.</p>
           </form>
         )}
       </div>
