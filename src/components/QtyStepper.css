@@ -1,0 +1,50 @@
+.qty {
+  display: inline-flex;
+  align-items: center;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  background: var(--bone);
+  flex-shrink: 0;
+}
+
+.qty button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  transition: background-color var(--t-fast);
+}
+
+.qty button:hover:not(:disabled) {
+  background: var(--paper-2);
+}
+
+.qty button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.qty output {
+  min-width: 1.8ch;
+  text-align: center;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  animation: qty-tick var(--t) var(--ease-out);
+}
+
+.qty--sm button {
+  width: 36px;
+  height: 36px;
+}
+
+.qty--sm output {
+  font-size: var(--fs-sm);
+}
+
+@keyframes qty-tick {
+  from {
+    transform: translateY(-35%);
+    opacity: 0;
+  }
+}

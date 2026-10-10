@@ -1,0 +1,35 @@
+.favourites__grid > div {
+  display: grid;
+}
+
+.favourites__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+@media (min-width: 900px) {
+  .favourites__grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 479px) {
+  .favourites .menu-card--tile .menu-card__body {
+    padding: 0.8rem 0.85rem 1rem;
+    padding-inline-end: 0.85rem;
+  }
+
+  .favourites .menu-card--tile .menu-card__desc {
+    display: none;
+  }
+
+  .favourites .menu-card--tile .menu-card__add {
+    top: 0.6rem;
+    bottom: auto;
+    inset-inline-end: 0.6rem;
+    width: 36px;
+    height: 36px;
+  }
+}

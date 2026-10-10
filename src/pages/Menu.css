@@ -1,0 +1,215 @@
+.menu-page__head {
+  padding-block: clamp(2rem, 1.5rem + 3vw, 4rem) 1.5rem;
+}
+
+.menu-page__title {
+  font-size: var(--fs-hero);
+  font-stretch: 75%;
+  font-weight: 800;
+  line-height: 0.9;
+}
+
+:root[dir='rtl'] .menu-page__title {
+  font-size: var(--fs-3xl);
+  line-height: 1.2;
+}
+
+.menu-page__intro {
+  max-width: 52ch;
+  margin-top: 1rem;
+  color: var(--text-muted);
+}
+
+/* sticky search + category bar */
+.menu-bar {
+  position: sticky;
+  top: var(--header-h);
+  z-index: 30;
+  background: rgba(244, 238, 228, 0.97);
+  backdrop-filter: saturate(1.4) blur(12px);
+  -webkit-backdrop-filter: saturate(1.4) blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+
+.menu-bar__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.6rem;
+  padding-block: 0.75rem 0;
+}
+
+.search {
+  position: relative;
+}
+
+.search__icon {
+  position: absolute;
+  inset-inline-start: 1rem;
+  top: 50%;
+  translate: 0 -50%;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.search__input {
+  width: 100%;
+  height: 48px;
+  padding-inline: 2.8rem;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  background: var(--bone);
+  font-size: 1rem;
+  transition: border-color var(--t-fast), box-shadow var(--t-fast);
+  appearance: none;
+}
+
+.search__input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.search__input:focus {
+  outline: none;
+  border-color: var(--ink);
+  box-shadow: 0 0 0 3px rgba(246, 179, 19, 0.35);
+}
+
+.search__clear {
+  position: absolute;
+  inset-inline-end: 0.5rem;
+  top: 50%;
+  translate: 0 -50%;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--paper-2);
+}
+
+.cat-nav__list {
+  position: relative;
+  display: flex;
+  gap: 0.25rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin-inline: calc(var(--gutter) * -1);
+  padding-inline: var(--gutter);
+}
+
+.cat-nav__list::-webkit-scrollbar {
+  display: none;
+}
+
+.cat-nav__link {
+  display: block;
+  padding: 0.7rem 0.85rem 0.85rem;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--text-muted);
+  transition: color var(--t-fast);
+}
+
+.cat-nav__link:hover,
+.cat-nav__link[aria-current] {
+  color: var(--ink);
+}
+
+/* offsetLeft is measured from the physical left edge in both directions */
+.cat-nav__indicator {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: var(--ink);
+  transition: transform 0.35s var(--ease-out), width 0.35s var(--ease-out);
+}
+
+.menu-page__body {
+  padding-bottom: var(--section);
+}
+
+.menu-page__count {
+  padding-top: 1.5rem;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.menu-section {
+  padding-top: 2.25rem;
+  scroll-margin-top: calc(var(--header-h) + var(--menubar-h, 136px) + 8px);
+}
+
+.menu-section__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--ink);
+}
+
+.menu-section__head h2 {
+  font-size: var(--fs-2xl);
+}
+
+.menu-section__head .muted {
+  font-size: var(--fs-sm);
+}
+
+.menu-section__grid {
+  display: grid;
+  gap: 0.6rem;
+}
+
+@media (min-width: 760px) {
+  .menu-section__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem;
+  }
+}
+
+@media (min-width: 1120px) {
+  .menu-section__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .menu-bar__inner {
+    grid-template-columns: minmax(240px, 340px) minmax(0, 1fr);
+    align-items: end;
+    gap: 1.5rem;
+    padding-top: 0.6rem;
+  }
+
+  .search {
+    padding-bottom: 0.6rem;
+  }
+
+  .cat-nav__list {
+    margin-inline: 0;
+    padding-inline: 0;
+  }
+}
+
+.menu-empty {
+  display: grid;
+  justify-items: center;
+  gap: 0.6rem;
+  padding-block: 4rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.menu-empty__title {
+  font-size: var(--fs-lg);
+  font-weight: 650;
+  color: var(--ink);
+}
+
+.menu-empty .btn {
+  margin-top: 0.75rem;
+}

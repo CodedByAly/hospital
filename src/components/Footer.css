@@ -1,0 +1,113 @@
+.site-footer {
+  background: var(--ink);
+  color: var(--text-on-dark-muted);
+  padding-top: clamp(3rem, 2rem + 4vw, 5.5rem);
+  font-size: var(--fs-sm);
+}
+
+.site-footer__grid {
+  display: grid;
+  gap: 2.5rem 2rem;
+}
+
+.site-footer__grid {
+  grid-template-columns: 1fr 1.4fr;
+}
+
+.site-footer__brand {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 700px) {
+  .site-footer__grid {
+    grid-template-columns: 1.4fr 1fr 1.3fr 1fr;
+  }
+
+  .site-footer__brand {
+    grid-column: auto;
+  }
+}
+
+.site-footer__brand img {
+  width: 132px;
+  margin-bottom: 1.25rem;
+}
+
+.site-footer__brand p {
+  max-width: 30ch;
+  margin-bottom: 1.25rem;
+}
+
+.site-footer__social a {
+  color: var(--paper);
+  background: var(--ink-3);
+}
+
+.site-footer__social a:hover {
+  background: var(--mango);
+  color: var(--ink);
+}
+
+.site-footer__title {
+  margin-bottom: 1rem;
+  font-family: var(--font-body);
+  font-stretch: 100%;
+  font-size: var(--fs-xs);
+  font-weight: 650;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--paper);
+}
+
+:root[dir='rtl'] .site-footer__title {
+  letter-spacing: 0;
+  font-size: var(--fs-sm);
+}
+
+.site-footer__list {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.site-footer__list a {
+  transition: color var(--t-fast);
+}
+
+.site-footer__list a:hover,
+.site-footer__hours a:hover {
+  color: var(--paper);
+}
+
+.site-footer__contact li {
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  gap: 0.65rem;
+  align-items: start;
+}
+
+.site-footer__contact .icon {
+  margin-top: 0.15rem;
+  color: var(--mango);
+}
+
+.site-footer__base {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 2rem;
+  margin-top: clamp(2.5rem, 2rem + 3vw, 4.5rem);
+  padding-block: 1.5rem;
+  border-top: 1px solid var(--line-dark);
+  font-size: var(--fs-xs);
+}
+
+.site-footer__tagline {
+  color: var(--mango);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+:root[dir='rtl'] .site-footer__tagline {
+  letter-spacing: 0;
+}
