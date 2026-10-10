@@ -6,12 +6,12 @@ import { WHATSAPP } from '../data/menu.js'
 
 // Desktop spots (x, y) keep clear of the headline; mobile spots (mx, my) sit around it.
 const FOOD = [
-  { src: 'cut-burger', x: '70%', y: '12%', w: 220, depth: 3, rotate: -8, mx: '56%', my: '70%' },
-  { src: 'cut-wings', x: '88%', y: '13%', w: 140, depth: 1, rotate: 14, hideMobile: true },
-  { src: 'cut-sub', x: '76%', y: '47%', w: 290, depth: 2, rotate: 10, mx: '-14%', my: '74%' },
-  { src: 'cut-curly', x: '47%', y: '64%', w: 190, depth: 1, rotate: -6, hideMobile: true },
-  { src: 'cut-tenders', x: '64%', y: '82%', w: 120, depth: 2, rotate: -16, hideMobile: true },
-  { src: 'cut-fries', x: '-5%', y: '80%', w: 180, depth: 2, rotate: 18, hideMobile: true },
+  { src: 'photo-tak-burger', x: '71%', y: '15%', w: 210, depth: 3, rotate: -6, mx: '48%', my: '67%' },
+  { src: 'photo-wrap-1', x: '87%', y: '32%', w: 170, depth: 1, rotate: 7, hideMobile: true },
+  { src: 'photo-popcorn', x: '77%', y: '54%', w: 200, depth: 2, rotate: -4, mx: '2%', my: '73%' },
+  { src: 'photo-tenders', x: '49%', y: '66%', w: 180, depth: 1, rotate: 5, hideMobile: true },
+  { src: 'photo-chili-burger', x: '64%', y: '80%', w: 160, depth: 2, rotate: -9, hideMobile: true },
+  { src: 'photo-wrap-2', x: '-4%', y: '80%', w: 160, depth: 2, rotate: 8, hideMobile: true },
 ]
 
 export default function Hero() {

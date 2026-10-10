@@ -4,8 +4,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// Real food cut out of Taktawook's own photos, floating around a section.
-// items: [{ src: 'cut-burger', x, y, mx?, my?, w, depth: 1..3, rotate, hideMobile? }]
+// Taktawook's own menu photos as framed stickers, floating around a section.
+// items: [{ src: 'photo-tak-burger', x, y, mx?, my?, w, depth: 1..3, rotate, hideMobile? }]
 // depth drives mouse and scroll movement, so nearer pieces move more.
 export default function FlyingItems({ items, className = '', mouse = true }) {
   const root = useRef(null)
@@ -89,7 +89,7 @@ export default function FlyingItems({ items, className = '', mouse = true }) {
           <div data-scroll>
             <div data-idle>
               <div data-mouse>
-                <img src={`/images/${it.src}.webp`} alt="" style={{ rotate: `${it.rotate ?? 0}deg` }} />
+                <img className="sticker" src={`/images/${it.src}.webp`} alt="" style={{ rotate: `${it.rotate ?? 0}deg` }} />
               </div>
             </div>
           </div>
