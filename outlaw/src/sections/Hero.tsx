@@ -83,7 +83,7 @@ export default function Hero() {
             onClick={() => open(dish.id)}
             aria-label={`${dish.name}, ${formatPrice(dish.price ?? 0)}. Open details`}
           >
-            <img src={asset('img/cut/outlaw-dragon.webp')} alt="" width="853" height="675" fetchPriority="high" />
+            <img src={asset('img/cut/outlaw-dragon.webp')} alt="" width="876" height="599" fetchPriority="high" />
           </motion.button>
           <motion.p className="hero__caption" initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.2 }}>
             <span className="mark">On the plate</span>
