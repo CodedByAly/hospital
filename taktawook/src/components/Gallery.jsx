@@ -56,7 +56,7 @@ export default function Gallery() {
         <ul className="gallery__track" ref={track}>
           {SHOTS.map(([src, alt], i) => (
             <li key={src} className={`shot shot--${i % 3}`}>
-              <img src={`/images/${src}.webp`} alt={alt} loading="lazy" />
+              <img src={`/images/${src}.webp`} alt={alt} />
             </li>
           ))}
         </ul>
