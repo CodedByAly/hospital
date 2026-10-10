@@ -1,9 +1,11 @@
 import { useRef } from 'react'
+import { Plus } from 'lucide-react'
 import { flyToCart, useCart } from '../cart.jsx'
 import { COMBOS, WHATSAPP, WING_FLAVORS, formatLBP } from '../data/menu.js'
 
 function Combo({ combo, onAdded }) {
-  const { dispatch } = useCart()
+  const { lines, dispatch } = useCart()
+  const qty = lines.find((l) => l.key === combo.id)?.qty ?? 0
   const img = useRef(null)
   return (
     <div className="combo">
@@ -14,14 +16,20 @@ function Combo({ combo, onAdded }) {
           <p className="combo__price">{formatLBP(combo.price)} LBP</p>
         </div>
         <button
-          className="btn btn--small btn--red"
+          className="btn btn--small btn--red btn--add"
+          aria-label={`Add ${combo.name}${qty ? `, ${qty} in your order` : ''}`}
           onClick={() => {
             dispatch({ type: 'add', line: { key: combo.id, name: combo.name, unit: combo.price, img: combo.img } })
             flyToCart(img.current)
             onAdded(combo.name)
           }}
         >
-          Add
+          <Plus size={18} strokeWidth={3} aria-hidden="true" /> Add
+          {qty > 0 && (
+            <span className="qty" aria-hidden="true">
+              {qty}
+            </span>
+          )}
         </button>
       </div>
     </div>

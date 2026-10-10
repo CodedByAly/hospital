@@ -1,33 +1,44 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { Plus } from 'lucide-react'
 import { flyToCart, useCart } from '../cart.jsx'
 import { BOOSTER_SECTIONS, MEAL_BOOSTER, SECTIONS, formatLBP } from '../data/menu.js'
 import Footprints from './Footprints.jsx'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// One price button. Tapping a price adds that exact item and size to the order.
+// An add button showing the price. Each tap adds that exact item and size;
+// the little bubble shows how many are already in the order.
 function Price({ value, label, size, line, photo, onAdded }) {
-  const { dispatch } = useCart()
+  const { lines, dispatch } = useCart()
   const self = useRef(null)
   if (value == null) return <span className="price price--empty" aria-hidden="true" />
+  const qty = lines.find((l) => l.key === line.key)?.qty ?? 0
   return (
     <button
       ref={self}
-      className="price"
-      aria-label={`Add ${line.name}${size ? `, ${size}` : ''}, ${formatLBP(value)} pounds`}
+      className={`price ${qty ? 'is-in' : ''}`}
+      aria-label={`Add ${line.name}${size ? `, ${size}` : ''}, ${formatLBP(value)} pounds${qty ? `, ${qty} in your order` : ''}`}
       onClick={() => {
         dispatch({ type: 'add', line: { ...line, unit: value } })
-        // Throw the section photo if it's on screen, otherwise the price itself
+        // Throw the section photo if it's on screen, otherwise the button itself
         const img = photo?.current
         const box = img?.getBoundingClientRect()
         flyToCart(box && box.bottom > 0 && box.top < window.innerHeight ? img : self.current)
         onAdded(line.name)
       }}
     >
-      {label && <small>{label}</small>}
-      {formatLBP(value)}
+      <Plus className="price__plus" size={16} strokeWidth={3} aria-hidden="true" />
+      <span className="price__amount">
+        {label && <small>{label}</small>}
+        {formatLBP(value)}
+      </span>
+      {qty > 0 && (
+        <span className="qty" aria-hidden="true">
+          {qty}
+        </span>
+      )}
     </button>
   )
 }
@@ -48,7 +59,7 @@ function Row({ item, sizes, photo, onAdded }) {
               <Price
                 key={rowSizes[i]}
                 value={p}
-                label={item.sizes ? rowSizes[i] : undefined}
+                label={rowSizes[i]}
                 size={rowSizes[i]}
                 line={{ key: `${item.id}|${rowSizes[i]}`, name: item.name, opts: [rowSizes[i]] }}
                 photo={photo}
@@ -77,12 +88,14 @@ function Row({ item, sizes, photo, onAdded }) {
 }
 
 function Booster({ onAdded }) {
-  const { dispatch } = useCart()
+  const { lines, dispatch } = useCart()
   const self = useRef(null)
+  const qty = lines.find((l) => l.key === MEAL_BOOSTER.id)?.qty ?? 0
   return (
     <button
       ref={self}
       className="booster"
+      aria-label={`Add a Meal Booster, fries and a soft drink, ${formatLBP(MEAL_BOOSTER.price)} pounds${qty ? `, ${qty} in your order` : ''}`}
       onClick={() => {
         dispatch({ type: 'add', line: { key: MEAL_BOOSTER.id, name: MEAL_BOOSTER.name, unit: MEAL_BOOSTER.price } })
         flyToCart(self.current)
@@ -91,7 +104,14 @@ function Booster({ onAdded }) {
     >
       <strong>Meal booster</strong>
       <span>add fries &amp; soft drink</span>
-      <b>{formatLBP(MEAL_BOOSTER.price)}</b>
+      <b>
+        <Plus size={18} strokeWidth={3} aria-hidden="true" /> {formatLBP(MEAL_BOOSTER.price)}
+      </b>
+      {qty > 0 && (
+        <span className="qty" aria-hidden="true">
+          {qty}
+        </span>
+      )}
     </button>
   )
 }
@@ -139,18 +159,7 @@ function Section({ section, onAdded }) {
           </h3>
           {section.groups.map((g, gi) => (
             <div className="group" key={g.title ?? gi}>
-              {(g.title || g.sizes) && (
-                <div className="group__head">
-                  {g.title && <h4>{g.title}</h4>}
-                  {g.sizes && (
-                    <div className="group__sizes" aria-hidden="true">
-                      {g.sizes.map((s) => (
-                        <span key={s}>{s}</span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )}
+              {g.title && <h4 className="group__title">{g.title}</h4>}
               <ul className="rows">
                 {g.items.map((item) => (
                   <Row key={item.id} item={item} sizes={g.sizes} photo={photo} onAdded={onAdded} />
@@ -197,7 +206,7 @@ export default function Menu({ onAdded }) {
     <section className="menu" id="menu" aria-labelledby="menu-title">
       <div className="wrap menu__head">
         <h2 id="menu-title">The menu</h2>
-        <p>Tap a price to add it to your order. Prices in Lebanese pounds.</p>
+        <p>Tap <span className="hint-plus" aria-hidden="true">+</span> to add to your order. Prices in Lebanese pounds.</p>
       </div>
 
       <nav className="cats" aria-label="Menu sections">
