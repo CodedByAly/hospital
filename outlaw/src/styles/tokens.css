@@ -1,0 +1,63 @@
+/*
+ * Outlaw Sushi Bar — visual identity
+ * Layout: asymmetric, left-anchored compositions on lacquer black; the
+ * logo's crossed chopsticks (an X) and its orange salmon-sun disc are the
+ * two structural devices, used at full scale only in the hero and stage.
+ * A single deliberate dark look, like the counter at night.
+ */
+:root {
+  color-scheme: dark;
+
+  /* colour */
+  --ink: #0e0d0c;        /* lacquer black */
+  --ink-2: #151311;
+  --ink-3: #1e1b18;
+  --ink-4: #2a2622;
+  --rice: #efe9df;       /* rice-paper white */
+  --rice-2: #c9c1b4;
+  --rice-dim: #9b9286;
+  --ember: #e4532f;      /* the salmon-sun orange from the logo */
+  --ember-hot: #f26a43;
+  --ember-deep: #a8361c;
+  --wasabi: #2f9e5d;     /* WhatsApp actions only */
+  --line: rgba(239, 233, 223, 0.12);
+  --line-strong: rgba(239, 233, 223, 0.24);
+  --danger: #ff7a5c;
+
+  /* type */
+  --font-display: 'Big Shoulders Display Variable', 'Arial Narrow', Impact, sans-serif;
+  --font-body: 'Hanken Grotesk Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mark: 'Michroma', 'Eurostile', 'Arial', sans-serif;
+
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.125rem;
+  --fs-xl: clamp(1.3rem, 1.15rem + 0.6vw, 1.6rem);
+  --fs-2xl: clamp(1.9rem, 1.5rem + 1.6vw, 2.8rem);
+  --fs-3xl: clamp(2.6rem, 1.8rem + 3.4vw, 4.8rem);
+  --fs-hero: clamp(3.6rem, 2rem + 7.4vw, 9rem);
+
+  /* space & shape */
+  --gutter: clamp(1rem, 0.4rem + 2.6vw, 2.75rem);
+  --section: clamp(4.5rem, 3rem + 6vw, 9rem);
+  --container: 1320px;
+  --radius: 4px;
+  --header-h: 72px;
+  --dock-h: 0px;
+
+  /* depth */
+  --shadow-plate: 0 40px 60px -30px rgba(0, 0, 0, 0.85), 0 18px 24px -18px rgba(0, 0, 0, 0.7);
+  --shadow-sheet: 0 40px 120px rgba(0, 0, 0, 0.6);
+
+  /* motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@media (max-width: 899px) {
+  :root {
+    --header-h: 60px;
+    --dock-h: 72px;
+  }
+}

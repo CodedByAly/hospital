@@ -1,0 +1,82 @@
+.deal {
+  padding-top: var(--section);
+}
+
+.deal__grid {
+  display: grid;
+  gap: 3rem;
+  align-items: center;
+}
+
+.deal__copy {
+  display: grid;
+  gap: 1.1rem;
+  justify-items: start;
+}
+
+.deal__title {
+  font-size: var(--fs-3xl);
+}
+
+.deal__text {
+  max-width: 40ch;
+  color: var(--rice-2);
+}
+
+.deal__list {
+  width: 100%;
+  max-width: 460px;
+  margin-block: 0.5rem 1rem;
+}
+
+.deal__list button {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  width: 100%;
+  padding-block: 0.7rem;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  font-weight: 600;
+  transition: color 0.2s, padding 0.3s var(--ease-out);
+}
+
+.deal__list button:hover {
+  color: var(--ember);
+  padding-left: 0.4rem;
+}
+
+.deal__leader {
+  flex: 1;
+  border-bottom: 1px dotted var(--line-strong);
+  translate: 0 -4px;
+}
+
+.deal__fan {
+  position: relative;
+  height: clamp(220px, 58vw, 380px);
+  perspective: 1000px;
+}
+
+.deal__card {
+  position: absolute;
+  left: 50%;
+  top: 10%;
+  width: min(46%, 300px);
+  margin-left: calc(min(46%, 300px) / -2);
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: var(--shadow-plate), 0 0 0 1px var(--line);
+  transform-origin: 50% 120%;
+}
+
+.deal__card img {
+  width: 100%;
+  height: auto;
+}
+
+@media (min-width: 900px) {
+  .deal__grid {
+    grid-template-columns: 0.9fr 1.1fr;
+  }
+}

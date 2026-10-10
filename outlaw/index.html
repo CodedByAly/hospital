@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Outlaw Sushi Bar — Sushi in Mansourieh</title>
+    <meta name="description" content="Outlaw Sushi Bar in Mansourieh, facing the municipality. Dragon maki, ura maki, futo, burritos, platters and sushi cakes — order for take away or delivery on WhatsApp." />
+    <meta name="theme-color" content="#0e0d0c" />
+    <link rel="icon" type="image/png" href="%BASE_URL%favicon.png" />
+    <link rel="apple-touch-icon" href="%BASE_URL%apple-touch-icon.png" />
+    <link rel="manifest" href="%BASE_URL%manifest.webmanifest" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Outlaw Sushi Bar" />
+    <meta property="og:title" content="Outlaw Sushi Bar — Mansourieh" />
+    <meta property="og:description" content="Dragon maki, ura maki, futo, burritos, platters and sushi cakes. Dine in, take away, delivery." />
+    <meta property="og:image" content="%BASE_URL%og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Restaurant",
+        "name": "Outlaw Sushi Bar",
+        "servesCuisine": ["Sushi", "Japanese"],
+        "image": "%BASE_URL%img/brand/logo.png",
+        "telephone": ["+96178997164", "+96178944899"],
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Mansourieh main road, facing the municipality",
+          "addressLocality": "Mansourieh",
+          "addressRegion": "Mount Lebanon",
+          "addressCountry": "LB"
+        },
+        "currenciesAccepted": "USD",
+        "hasMenu": "/menu",
+        "sameAs": ["https://www.instagram.com/outlawsushibar/"]
+      }
+    </script>
+    <script>
+      // Show the intro once per visit, never for reduced motion.
+      try {
+        if (sessionStorage.getItem('outlaw:intro') || matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('no-splash')
+        sessionStorage.setItem('outlaw:intro', '1')
+      } catch (e) {}
+    </script>
+    <style>
+      html, body { background: #0e0d0c; }
+      #splash { position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; background: #0e0d0c; transition: opacity .5s ease, visibility .5s; }
+      .no-splash #splash { display: none; }
+      #splash.splash--out { opacity: 0; visibility: hidden; }
+      .splash__mark { position: relative; width: min(40vw, 190px); aspect-ratio: 1; }
+      .splash__mark img { width: 100%; height: 100%; animation: splash-in .9s cubic-bezier(.16,1,.3,1) both; }
+      .splash__mark::before, .splash__mark::after { content: ''; position: absolute; left: 50%; top: -18%; width: 3px; height: 136%; margin-left: -1.5px; background: #efe9df; transform-origin: 50% 30%; animation: splash-stick .7s cubic-bezier(.65,0,.35,1) both; }
+      .splash__mark::before { rotate: 32deg; }
+      .splash__mark::after { rotate: -32deg; animation-delay: .08s; }
+      @keyframes splash-in { from { transform: scale(.85) rotate(-20deg); opacity: 0; } }
+      @keyframes splash-stick { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0 0); opacity: 0; } }
+    </style>
+  </head>
+  <body>
+    <div id="splash" aria-hidden="true"><div class="splash__mark"><img src="%BASE_URL%img/brand/logo.png" alt="" width="190" height="190" /></div></div>
+    <script>document.getElementById('splash') && (document.getElementById('splash').dataset.start = performance.now())</script>
+    <div id="root"></div>
+    <noscript>
+      <h1>Outlaw Sushi Bar</h1>
+      <p>Sushi restaurant on the Mansourieh main road, facing the municipality. Dine in, take away, delivery.</p>
+      <p>WhatsApp: <a href="https://wa.me/96178997164">78 997 164</a> or <a href="https://wa.me/96178944899">78 944 899</a> · Instagram: <a href="https://www.instagram.com/outlawsushibar/">@outlawsushibar</a></p>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

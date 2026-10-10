@@ -1,0 +1,36 @@
+.dish-img {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 466 / 356;
+  background: var(--ink-3);
+}
+
+.dish-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* cans and bottles stand on a dark plate instead of filling the frame */
+.dish-img--cutout {
+  display: grid;
+  place-items: center;
+  background: radial-gradient(60% 60% at 50% 60%, var(--ink-4), var(--ink-2));
+}
+
+.dish-img--cutout img {
+  width: auto;
+  height: 82%;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 14px rgba(0, 0, 0, 0.6));
+}
+
+.dish-img--none {
+  display: grid;
+  place-items: center;
+}
+
+.dish-img--none img {
+  opacity: 0.35;
+  filter: grayscale(1);
+}

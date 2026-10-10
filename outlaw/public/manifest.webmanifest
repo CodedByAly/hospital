@@ -1,0 +1,13 @@
+{
+  "name": "Outlaw Sushi Bar",
+  "short_name": "Outlaw",
+  "description": "Sushi restaurant in Mansourieh, facing the municipality. Dine in, take away, delivery.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0e0d0c",
+  "theme_color": "#0e0d0c",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
