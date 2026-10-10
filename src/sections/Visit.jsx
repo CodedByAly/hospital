@@ -1,3 +1,4 @@
+import { asset } from '../lib/asset'
 import { restaurant, whatsappLink } from '../config/restaurant'
 import { useLanguage } from '../context/LanguageContext'
 import Hours from '../components/Hours'
@@ -16,7 +17,7 @@ export default function Visit({ headingLevel = 2, showPhoto = true, id = 'visit'
       <div className="container visit__grid">
         {showPhoto && (
           <figure className="visit__photo reveal">
-            <img src="/img/brand/storefront.webp" alt={`${restaurant.fullName} — ${pick(restaurant.address)}`} loading="lazy" decoding="async" width="1290" height="564" />
+            <img src={asset('img/brand/storefront.webp')} alt={`${restaurant.fullName} — ${pick(restaurant.address)}`} loading="lazy" decoding="async" width="1290" height="564" />
             <figcaption>{t('about.global')}</figcaption>
           </figure>
         )}

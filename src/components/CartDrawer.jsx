@@ -1,3 +1,4 @@
+import { asset } from '../lib/asset'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getItem, imageUrl } from '../data/menu'
@@ -32,7 +33,7 @@ export default function CartDrawer() {
 
       {cart.lines.length === 0 ? (
         <div className="cart-drawer__empty">
-          <img src="/img/float/streets-smoothie.webp" alt="" width="90" height="142" loading="lazy" />
+          <img src={asset('img/float/streets-smoothie.webp')} alt="" width="90" height="142" loading="lazy" />
           <h3>{t('cart.empty')}</h3>
           <p className="muted">{t('cart.emptyHint')}</p>
           <button type="button" className="btn btn--primary" onClick={() => { close(); navigate('/menu') }}>

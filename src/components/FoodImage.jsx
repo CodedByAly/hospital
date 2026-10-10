@@ -1,3 +1,4 @@
+import { asset } from '../lib/asset'
 import { useState } from 'react'
 import { useLanguage } from '../context/LanguageContext'
 import './FoodImage.css'
@@ -30,7 +31,7 @@ export default function FoodImage({ src, alt, ratio = '1 / 1', eager = false, cl
         />
       ) : (
         <div className="food-img__placeholder" role="img" aria-label={alt}>
-          <img src="/img/brand/logo-mark-ink.png" alt="" width="64" height="50" />
+          <img src={asset('img/brand/logo-mark-ink.png')} alt="" width="64" height="50" />
           <span>{t('common.noPhoto')}</span>
         </div>
       )}

@@ -22,7 +22,7 @@ export function injectMenuStructuredData() {
         '@type': 'MenuItem',
         name: item.name.en,
         ...(item.description && { description: item.description.en }),
-        ...(item.image && { image: base + imageUrl(item.image) }),
+        ...(item.image && { image: new URL(imageUrl(item.image), window.location.href).href }),
         offers: item.sizes ? item.sizes.map((s) => ({ ...offer(s.price), name: s.label.en })) : offer(item.price),
       })),
     })),

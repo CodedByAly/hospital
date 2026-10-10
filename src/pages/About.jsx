@@ -1,3 +1,4 @@
+import { asset } from '../lib/asset'
 import { Link } from 'react-router-dom'
 import { restaurant } from '../config/restaurant'
 import { useLanguage } from '../context/LanguageContext'
@@ -15,9 +16,9 @@ export default function About() {
   return (
     <>
       <section className="about-hero">
-        <img className="about-hero__bg" src="/img/brand/storefront.webp" alt="" width="1290" height="564" />
+        <img className="about-hero__bg" src={asset('img/brand/storefront.webp')} alt="" width="1290" height="564" />
         <div className="container about-hero__inner">
-          <img className="about-hero__logo" src="/img/brand/logo-mark-white.png" alt={restaurant.fullName} width="220" height="171" />
+          <img className="about-hero__logo" src={asset('img/brand/logo-mark-white.png')} alt={restaurant.fullName} width="220" height="171" />
           <p className="about-hero__tagline">{pick(restaurant.tagline)}</p>
         </div>
       </section>

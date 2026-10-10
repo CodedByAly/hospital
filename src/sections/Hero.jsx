@@ -1,3 +1,4 @@
+import { asset } from '../lib/asset'
 import { Link } from 'react-router-dom'
 import { useLanguage } from '../context/LanguageContext'
 import { useItemDialog } from '../context/ItemContext'
@@ -37,7 +38,7 @@ export default function Hero() {
             className="hero__stage"
             priority
             items={smoothieHero}
-            subject={{ src: '/img/float/streets-smoothie.webp', alt: t('hero.stageCaption'), width: 700, height: 1112 }}
+            subject={{ src: asset('img/float/streets-smoothie.webp'), alt: t('hero.stageCaption'), width: 700, height: 1112 }}
           >
             <span className="hero__arch" aria-hidden="true">
               <span className="hero__word" dir="ltr">Streets</span>

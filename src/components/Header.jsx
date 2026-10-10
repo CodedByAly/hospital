@@ -1,3 +1,4 @@
+import { asset } from '../lib/asset'
 import { NavLink, Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useLanguage } from '../context/LanguageContext'
@@ -31,7 +32,7 @@ export default function Header() {
       <a className="skip-link" href="#main">{t('nav.skip')}</a>
       <div className="site-header__inner container">
         <Link to="/" className="site-header__logo" aria-label={`${restaurant.fullName} — ${t('nav.home')}`}>
-          <img src="/img/brand/logo-mark-white.png" alt="" width="58" height="45" />
+          <img src={asset('img/brand/logo-mark-white.png')} alt="" width="58" height="45" />
         </Link>
 
         <nav className="site-header__nav" aria-label={t('nav.primary')}>

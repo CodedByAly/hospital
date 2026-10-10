@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect } from 'react'
-import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
+import { BrowserRouter, MemoryRouter, Route, Routes, useLocation } from 'react-router-dom'
 import { LanguageProvider } from './context/LanguageContext'
 import { CartProvider } from './context/CartContext'
 import { FlyProvider } from './context/FlyContext'
@@ -58,9 +58,12 @@ function Layout() {
   )
 }
 
+// Hosts without URL rewriting (e.g. a single-file preview) can build with VITE_ROUTER=memory.
+const Router = import.meta.env.VITE_ROUTER === 'memory' ? MemoryRouter : BrowserRouter
+
 export default function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <LanguageProvider>
         <CartProvider>
           <FlyProvider>
@@ -70,6 +73,6 @@ export default function App() {
           </FlyProvider>
         </CartProvider>
       </LanguageProvider>
-    </BrowserRouter>
+    </Router>
   )
 }

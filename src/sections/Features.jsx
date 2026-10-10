@@ -1,3 +1,4 @@
+import { asset } from '../lib/asset'
 import { getItem } from '../data/menu'
 import { formatPrice } from '../lib/format'
 import { useLanguage } from '../context/LanguageContext'
@@ -33,7 +34,7 @@ export function SignatureSmoothie() {
         <FloatStage
           className="feature__stage"
           items={smoothieFeature}
-          subject={{ src: '/img/float/streets-smoothie.webp', alt: pick(item.name), width: 700, height: 1112 }}
+          subject={{ src: asset('img/float/streets-smoothie.webp'), alt: pick(item.name), width: 700, height: 1112 }}
         />
         <div className="feature__copy reveal">
           <p className="eyebrow">{t('signature.eyebrow')}</p>
@@ -80,7 +81,7 @@ export function BubbleTea() {
         <FloatStage
           className="feature__stage feature__stage--bubble"
           items={bubbleFeature}
-          subject={{ src: '/img/float/bubble.webp', alt: pick(items[0].name), width: 659, height: 1314 }}
+          subject={{ src: asset('img/float/bubble.webp'), alt: pick(items[0].name), width: 659, height: 1314 }}
         />
       </div>
     </section>
@@ -96,7 +97,7 @@ export function RoyalWhite() {
       <div className="container feature__grid">
         <FloatStage
           className="feature__stage feature__stage--royal"
-          subject={{ src: '/img/float/royal.webp', alt: t('royal.eyebrow'), width: 720, height: 1226 }}
+          subject={{ src: asset('img/float/royal.webp'), alt: t('royal.eyebrow'), width: 720, height: 1226 }}
         />
         <div className="feature__copy reveal">
           <p className="eyebrow eyebrow--light">{t('royal.eyebrow')}</p>

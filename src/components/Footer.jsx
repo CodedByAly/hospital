@@ -1,3 +1,4 @@
+import { asset } from '../lib/asset'
 import { Link } from 'react-router-dom'
 import { restaurant, whatsappLink } from '../config/restaurant'
 import { useLanguage } from '../context/LanguageContext'
@@ -13,7 +14,7 @@ export default function Footer() {
     <footer className="site-footer">
       <div className="container site-footer__grid">
         <div className="site-footer__brand">
-          <img src="/img/brand/logo-mark-white.png" alt={restaurant.fullName} width="150" height="116" loading="lazy" />
+          <img src={asset('img/brand/logo-mark-white.png')} alt={restaurant.fullName} width="150" height="116" loading="lazy" />
           <p>{t('footer.blurb')}</p>
           <SocialLinks className="site-footer__social" />
         </div>

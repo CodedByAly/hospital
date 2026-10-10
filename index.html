@@ -7,15 +7,15 @@
     <meta name="description" content="Streets is the neighbourhood coffee shop on the Minieh highway in Bhannine. Coffee, smoothies, bubble tea, shakes, crepes and desserts — order for dine-in, pickup or delivery." />
     <meta name="theme-color" content="#141210" />
 
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" type="image/png" href="%BASE_URL%favicon.png" />
+    <link rel="apple-touch-icon" href="%BASE_URL%apple-touch-icon.png" />
+    <link rel="manifest" href="%BASE_URL%manifest.webmanifest" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Streets Coffee Shop" />
     <meta property="og:title" content="Streets Coffee Shop — Where Everyone Meets" />
     <meta property="og:description" content="The cosiest neighbourhood coffee shop in the city. Bhannine, Minieh highway — order for dine-in, pickup or delivery." />
-    <meta property="og:image" content="/og-image.jpg" />
+    <meta property="og:image" content="%BASE_URL%og-image.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="en_US" />
@@ -31,8 +31,8 @@
         "alternateName": "Streets cafe",
         "slogan": "Where Everyone Meets",
         "description": "The cosiest neighbourhood coffee shop in the city.",
-        "image": "/img/brand/logo-badge.png",
-        "logo": "/img/brand/logo-badge.png",
+        "image": "%BASE_URL%img/brand/logo-badge.png",
+        "logo": "%BASE_URL%img/brand/logo-badge.png",
         "telephone": "+96170365358",
         "address": {
           "@type": "PostalAddress",
@@ -60,8 +60,8 @@
         } catch (e) {}
         if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('no-splash')
         // the hero image is only on the homepage — preload it there and nowhere else
-        if (location.pathname === '/') {
-          var l = document.createElement('link'); l.rel = 'preload'; l.as = 'image'; l.href = '/img/float/streets-smoothie.webp'
+        if (location.pathname === '%BASE_URL%' || '%BASE_URL%' === './') {
+          var l = document.createElement('link'); l.rel = 'preload'; l.as = 'image'; l.href = '%BASE_URL%img/float/streets-smoothie.webp'
           document.head.appendChild(l)
         }
       })()
@@ -93,7 +93,7 @@
   </head>
   <body>
     <div id="splash" aria-hidden="true">
-      <img class="splash__logo" src="/img/brand/logo-mark-white.png" width="411" height="319" alt="" />
+      <img class="splash__logo" src="%BASE_URL%img/brand/logo-mark-white.png" width="411" height="319" alt="" />
       <span class="splash__line"></span>
     </div>
     <script>document.getElementById('splash') && (document.getElementById('splash').dataset.start = performance.now())</script>

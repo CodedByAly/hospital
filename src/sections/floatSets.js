@@ -1,5 +1,6 @@
 /** Ingredient layouts for the floating product stages (positions in % of the stage). */
-const f = (name) => `/img/float/${name}.webp`
+import { asset } from '../lib/asset'
+const f = (name) => asset(`img/float/${name}.webp`)
 
 export const smoothieHero = [
   { src: f('mint-1'), x: 8, y: 14, w: 15, rotate: -18, depth: 1.6 },

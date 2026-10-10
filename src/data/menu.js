@@ -16,6 +16,7 @@
  *   image            – file name in /public/img/menu (without .webp); null shows a placeholder
  *   featured         – shown in the homepage highlights
  */
+import { asset } from '../lib/asset'
 
 const L = (en, ar) => ({ en, ar })
 
@@ -323,8 +324,8 @@ const CUTOUTS = new Set([
   'special-streets-frappe-medium', 'streets-popping-pearls', 'streets-smoothie', 'waffle-sticks',
 ])
 
-export const imageUrl = (slug) => (slug ? `/img/menu/${slug}.webp` : null)
-export const cutoutUrl = (slug) => (slug && CUTOUTS.has(slug) ? `/img/cut/${slug}.webp` : null)
+export const imageUrl = (slug) => (slug ? asset(`img/menu/${slug}.webp`) : null)
+export const cutoutUrl = (slug) => (slug && CUTOUTS.has(slug) ? asset(`img/cut/${slug}.webp`) : null)
 
 export const getItem = (id) => menu.find((item) => item.id === id)
 export const itemsIn = (categoryId) => menu.filter((item) => item.category === categoryId)
