@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Birdy Fam | Crispy chicken in Achrafieh &amp; Jal el Dib</title>
+    <meta name="description" content="Birdy Fam: halal chip-crusted chicken strips, sliders, wraps and burgers with our Chico sauce, plus Creggs, éclairs and tartes. Open daily 12 PM to 12 AM in Achrafieh and Jal el Dib. Order for pickup or delivery." />
+    <meta name="theme-color" content="#B3121B" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48.png" />
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <!-- Open Graph / social previews. Replace relative URLs with the full domain once live. -->
+    <meta property="og:type" content="restaurant" />
+    <meta property="og:site_name" content="Birdy Fam" />
+    <meta property="og:title" content="Birdy Fam | Crispy chicken in Achrafieh &amp; Jal el Dib" />
+    <meta property="og:description" content="Chip-crusted chicken strips, sliders, wraps and our legendary Chico sauce. Halal, open every day 12 PM to 12 AM." />
+    <meta property="og:image" content="/images/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_LB" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+    <link rel="preload" as="image" href="/images/logo-240.webp" type="image/webp" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "#birdyfam",
+            "name": "Birdy Fam",
+            "logo": "/images/icon-512.png",
+            "sameAs": ["https://www.instagram.com/birdyfam.lb/"]
+          },
+          {
+            "@type": "Restaurant",
+            "name": "Birdy Fam Achrafieh",
+            "parentOrganization": { "@id": "#birdyfam" },
+            "servesCuisine": ["Fried chicken", "Burgers", "Desserts"],
+            "priceRange": "$",
+            "telephone": "+96176508617",
+            "address": { "@type": "PostalAddress", "addressLocality": "Achrafieh", "addressRegion": "Beirut", "addressCountry": "LB" },
+            "hasMap": "https://maps.app.goo.gl/E3UFE9GiLsyT8iEt9",
+            "openingHours": "Mo-Su 12:00-24:00",
+            "acceptsReservations": false,
+            "image": "/images/og-image.jpg"
+          },
+          {
+            "@type": "Restaurant",
+            "name": "Birdy Fam Jal el Dib",
+            "parentOrganization": { "@id": "#birdyfam" },
+            "servesCuisine": ["Fried chicken", "Burgers", "Desserts"],
+            "priceRange": "$",
+            "telephone": "+96176508617",
+            "address": { "@type": "PostalAddress", "addressLocality": "Jal el Dib", "addressRegion": "Mount Lebanon", "addressCountry": "LB" },
+            "hasMap": "https://maps.app.goo.gl/jEBZ3taYHYFFaXWGA",
+            "openingHours": "Mo-Su 12:00-24:00",
+            "acceptsReservations": false,
+            "image": "/images/og-image.jpg"
+          }
+        ]
+      }
+    </script>
+
+    <!-- Splash: inline so it paints before the app bundle loads. Shown once per visit. -->
+    <style>
+      #splash{position:fixed;inset:0;z-index:2000;display:grid;place-items:center;background:#B3121B;transition:opacity .45s ease,visibility .45s}
+      #splash.splash--out{opacity:0;visibility:hidden}
+      .splash__mark{display:grid;justify-items:center;gap:18px}
+      .splash__logo{width:132px;height:132px;border-radius:50%;box-shadow:0 0 0 6px rgba(248,240,230,.14);animation:splash-in .7s cubic-bezier(.2,.8,.2,1) both}
+      .splash__word{font:400 22px/1 "Bowlby One",system-ui,sans-serif;letter-spacing:.06em;color:#F8F0E6;text-transform:uppercase;animation:splash-word .6s .25s ease both}
+      .splash__bar{width:64px;height:3px;border-radius:3px;background:rgba(248,240,230,.22);overflow:hidden}
+      .splash__bar::after{content:"";display:block;height:100%;width:40%;background:#F29A1F;animation:splash-bar 1s .2s ease-in-out infinite}
+      @keyframes splash-in{from{opacity:0;transform:scale(.86)}to{opacity:1;transform:none}}
+      @keyframes splash-word{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+      @keyframes splash-bar{from{transform:translateX(-100%)}to{transform:translateX(250%)}}
+      html.no-splash #splash{display:none}
+      @media (prefers-reduced-motion:reduce){.splash__logo,.splash__word,.splash__bar::after{animation:none}}
+    </style>
+    <script>
+      try {
+        if (sessionStorage.getItem('birdyfam:splash')) document.documentElement.classList.add('no-splash')
+        else sessionStorage.setItem('birdyfam:splash', '1')
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="splash" aria-hidden="true">
+      <div class="splash__mark">
+        <img class="splash__logo" src="/images/logo-240.webp" alt="" width="132" height="132" />
+        <span class="splash__word">Birdy Fam</span>
+        <span class="splash__bar"></span>
+      </div>
+    </div>
+    <div id="root"></div>
+    <noscript>
+      <p style="padding:24px;font-family:sans-serif">Birdy Fam: open every day 12 PM to 12 AM in Achrafieh and Jal el Dib. Order on WhatsApp: +961 76 508 617.</p>
+    </noscript>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
