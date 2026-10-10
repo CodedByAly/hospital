@@ -1,0 +1,119 @@
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--ink);
+  color: var(--text-on-dark);
+  transition: box-shadow var(--t);
+}
+
+.site-header[data-scrolled] {
+  box-shadow: 0 1px 0 var(--line-dark), 0 10px 30px -18px rgba(0, 0, 0, 0.8);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  height: var(--header-h);
+}
+
+.site-header__logo img {
+  width: auto;
+  height: calc(var(--header-h) - 18px);
+  transition: transform var(--t) var(--ease-out);
+}
+
+.site-header__logo:hover img {
+  transform: rotate(-3deg) scale(1.03);
+}
+
+.site-header__nav {
+  display: none;
+  margin-inline: auto;
+}
+
+.site-header__nav ul {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.site-header__nav a {
+  position: relative;
+  display: block;
+  padding: 0.6rem 0.9rem;
+  font-size: var(--fs-sm);
+  font-weight: 550;
+  color: var(--text-on-dark-muted);
+  transition: color var(--t-fast);
+}
+
+.site-header__nav a::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0.9rem;
+  bottom: 0.2rem;
+  height: 2px;
+  background: var(--mango);
+  transform: scaleX(0);
+  transition: transform var(--t) var(--ease-out);
+}
+
+.site-header__nav a:hover,
+.site-header__nav a.active {
+  color: var(--paper);
+}
+
+.site-header__nav a.active::after {
+  transform: scaleX(1);
+}
+
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-inline-start: auto;
+}
+
+.site-header__social,
+.site-header__cart {
+  display: none;
+}
+
+.site-header__social a,
+.site-header__wa {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: var(--text-on-dark-muted);
+  transition: color var(--t-fast), background-color var(--t-fast);
+}
+
+.site-header__social a:hover,
+.site-header__wa:hover {
+  color: var(--paper);
+  background: var(--ink-3);
+}
+
+/* the WhatsApp quick link lives in the header on phones only (social list covers desktop) */
+@media (min-width: 900px) {
+  .site-header__nav,
+  .site-header__cart {
+    display: block;
+  }
+
+  .site-header__social {
+    display: flex;
+    gap: 0;
+  }
+
+  .site-header__actions {
+    margin-inline-start: 0;
+  }
+
+  .site-header__wa {
+    display: none;
+  }
+}

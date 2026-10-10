@@ -1,0 +1,87 @@
+/*
+ * Streets visual identity
+ * The logo is white script on a black disc — so the base is a warm ink black
+ * and a paper cream. The accent is the mango yellow from the shop's own
+ * campaign artwork (Streets Smoothie, Royal White), with a berry red used
+ * sparingly for bubble tea.
+ */
+:root {
+  /* brand */
+  --ink: #141210;
+  --ink-2: #1e1a17;
+  --ink-3: #2b2622;
+  --paper: #f4eee4;
+  --paper-2: #ebe3d6;
+  --bone: #fffbf4;
+  --mango: #f6b313;
+  --mango-deep: #e59a00;
+  --mango-soft: #fde7ad;
+  --espresso: #5a3a26;
+  --berry: #d8432f;
+  --leaf: #2f6b3a;
+  --whatsapp: #1f9d57;
+
+  /* text */
+  --text: var(--ink);
+  --text-muted: #6d6358;
+  --text-on-dark: #f4eee4;
+  --text-on-dark-muted: #b8ad9f;
+
+  /* lines & surfaces */
+  --line: rgba(20, 18, 16, 0.12);
+  --line-strong: rgba(20, 18, 16, 0.24);
+  --line-dark: rgba(244, 238, 228, 0.14);
+  --surface: var(--bone);
+  --danger: #b4321f;
+  --success: #2f7a45;
+
+  /* type */
+  --font-display: 'Bricolage Grotesque Variable', 'Arial Narrow', system-ui, sans-serif;
+  --font-body: 'Instrument Sans Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --display-stretch: 78%;
+
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.125rem;
+  --fs-xl: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+  --fs-2xl: clamp(1.6rem, 1.3rem + 1.4vw, 2.25rem);
+  --fs-3xl: clamp(2.1rem, 1.5rem + 2.8vw, 3.6rem);
+  --fs-hero: clamp(3rem, 1.6rem + 6.4vw, 7rem);
+
+  /* space & shape */
+  --gutter: clamp(1rem, 0.5rem + 2.4vw, 2.5rem);
+  --section: clamp(4rem, 3rem + 5vw, 8rem);
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 18px;
+  --container: 1240px;
+
+  /* chrome */
+  --header-h: 68px;
+  --tabbar-h: 0px;
+  --shadow-sm: 0 1px 2px rgba(20, 18, 16, 0.06), 0 2px 8px rgba(20, 18, 16, 0.05);
+  --shadow: 0 10px 30px -12px rgba(20, 18, 16, 0.28);
+  --shadow-lg: 0 30px 60px -20px rgba(20, 18, 16, 0.45);
+
+  /* motion */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --t-fast: 160ms;
+  --t: 260ms;
+  --t-slow: 600ms;
+}
+
+/* Arabic: one family that is designed for Arabic (and carries Latin) */
+:root[dir='rtl'] {
+  --font-display: 'Readex Pro Variable', 'Noto Kufi Arabic', system-ui, sans-serif;
+  --font-body: 'Readex Pro Variable', 'Noto Sans Arabic', system-ui, sans-serif;
+  --display-stretch: 100%;
+}
+
+@media (max-width: 899px) {
+  :root {
+    --header-h: 58px;
+    --tabbar-h: 64px;
+  }
+}

@@ -1,0 +1,217 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--text-on-dark);
+}
+
+/* faint grain so the black isn't flat */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(60% 60% at 75% 40%, rgba(246, 179, 19, 0.12), transparent 70%);
+  pointer-events: none;
+}
+
+.hero__inner {
+  position: relative;
+  display: grid;
+  gap: 2rem;
+  padding-block: clamp(2.25rem, 1.5rem + 3vw, 4rem) 0;
+}
+
+.hero__copy {
+  max-width: 640px;
+  animation: hero-copy 0.9s var(--ease-out) 0.15s both;
+}
+
+@keyframes hero-copy {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+.hero__title {
+  font-size: var(--fs-hero);
+  font-stretch: 75%;
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: var(--paper);
+}
+
+:root[dir='rtl'] .hero__title {
+  font-size: clamp(2.6rem, 1.6rem + 4.6vw, 5.2rem);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.hero__lead {
+  max-width: 42ch;
+  margin-top: 1.4rem;
+  font-size: var(--fs-lg);
+  color: var(--text-on-dark-muted);
+}
+
+.hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.hero__modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.4rem;
+  margin-top: 2.25rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--line-dark);
+  font-size: var(--fs-sm);
+  color: var(--text-on-dark-muted);
+}
+
+.hero__modes li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hero__modes .icon {
+  color: var(--mango);
+}
+
+.hero__stage-wrap {
+  position: relative;
+}
+
+.hero__stage {
+  height: clamp(400px, 105vw, 520px);
+}
+
+.hero__arch {
+  position: absolute;
+  inset-inline: 7%;
+  bottom: 0;
+  top: 4%;
+  overflow: hidden;
+  border-radius: 999px 999px 0 0;
+  background: var(--mango);
+  animation: arch-in 1s var(--ease-out) both;
+}
+
+@keyframes arch-in {
+  from {
+    transform: translateY(14%);
+    opacity: 0;
+  }
+}
+
+.hero__word {
+  position: absolute;
+  inset-inline: 0;
+  top: 14%;
+  font-family: 'Bricolage Grotesque Variable', sans-serif;
+  font-stretch: 75%;
+  font-weight: 800;
+  font-size: clamp(5rem, 24vw, 10rem);
+  line-height: 0.8;
+  text-align: center;
+  text-transform: uppercase;
+  color: #ffc93a;
+  letter-spacing: -0.03em;
+  transform: translateY(calc(var(--sy) * 30px));
+}
+
+.hero__ground {
+  position: absolute;
+  bottom: 2%;
+  left: 50%;
+  width: 46%;
+  height: 26px;
+  translate: -50% 0;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(20, 18, 16, 0.35), transparent);
+  z-index: 1;
+}
+
+.hero__stage .float-stage__subject {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 3%;
+  height: 84%;
+}
+
+.hero__tag {
+  position: absolute;
+  inset-inline-start: 0;
+  bottom: 9%;
+  z-index: 4;
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  column-gap: 0.85rem;
+  padding: 0.65rem 0.7rem 0.65rem 1rem;
+  padding-inline: 1rem 0.7rem;
+  border-radius: var(--radius);
+  background: var(--ink);
+  color: var(--paper);
+  text-align: start;
+  box-shadow: var(--shadow);
+  animation: hero-copy 0.8s var(--ease-out) 0.9s both;
+  transition: transform var(--t) var(--ease-out);
+}
+
+.hero__tag:hover {
+  transform: translateY(-2px);
+}
+
+.hero__tag-name {
+  font-weight: 650;
+  font-size: var(--fs-sm);
+}
+
+.hero__tag-note {
+  grid-row: 2;
+  font-size: var(--fs-xs);
+  color: var(--text-on-dark-muted);
+}
+
+.hero__tag-add {
+  grid-row: 1 / 3;
+  grid-column: 2;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--mango);
+  color: var(--ink);
+}
+
+@media (min-width: 900px) {
+  .hero__inner {
+    grid-template-columns: 1.05fr 1fr;
+    align-items: center;
+    min-height: min(calc(100svh - var(--header-h)), 860px);
+    padding-block: 3rem 0;
+  }
+
+  .hero__copy {
+    padding-bottom: 3rem;
+  }
+
+  .hero__stage-wrap {
+    align-self: end;
+  }
+
+  .hero__stage {
+    height: min(calc(100svh - var(--header-h) - 3rem), 740px);
+  }
+
+  .hero__word {
+    font-size: clamp(6rem, 11vw, 11rem);
+  }
+}

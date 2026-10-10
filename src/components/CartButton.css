@@ -1,0 +1,88 @@
+.cart-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.cart-btn__icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.cart-btn__icon[data-bump] {
+  animation: cart-receive 0.5s var(--ease-out);
+}
+
+@keyframes cart-receive {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.22) rotate(-6deg); }
+  60% { transform: scale(0.94); }
+  100% { transform: scale(1); }
+}
+
+.cart-btn__count {
+  position: absolute;
+  top: -8px;
+  inset-inline-end: -10px;
+  min-width: 19px;
+  height: 19px;
+  padding-inline: 5px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--mango);
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 19px;
+  text-align: center;
+  font-family: var(--font-body);
+  box-shadow: 0 0 0 2px var(--mango);
+}
+
+/* desktop header pill */
+.cart-btn--pill {
+  gap: 0.85rem;
+  min-height: 44px;
+  padding: 0.5rem 1.1rem 0.5rem 0.95rem;
+  border-radius: 999px;
+  background: var(--mango);
+  color: var(--ink);
+  font-weight: 650;
+  font-size: var(--fs-sm);
+  font-variant-numeric: tabular-nums;
+  transition: background-color var(--t-fast), transform var(--t-fast);
+}
+
+.cart-btn--pill:hover {
+  background: #ffc433;
+}
+
+.cart-btn--pill:active {
+  transform: scale(0.97);
+}
+
+/* mobile tab — raised, in the middle of the tab bar */
+.cart-btn--tab {
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  color: var(--ink);
+}
+
+.cart-btn--tab .cart-btn__icon {
+  width: 52px;
+  height: 52px;
+  margin-top: -22px;
+  border-radius: 50%;
+  background: var(--mango);
+  box-shadow: 0 8px 18px -6px rgba(246, 179, 19, 0.8), 0 0 0 4px var(--ink);
+}
+
+.cart-btn--tab .cart-btn__count {
+  top: -2px;
+  inset-inline-end: -4px;
+}
+
+.cart-btn--tab .tabbar__label {
+  color: var(--text-on-dark);
+}
