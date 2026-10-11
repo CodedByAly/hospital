@@ -1,50 +1,40 @@
-# MediTrack - Hospital Patient Management System
+# Sukun Coffee Shop — Website
 
-Course: CSCI390 Web Programming
+Official website for **Sukun Coffee Shop**, Azmi Street, Tripoli. Built with React + Vite, no UI libraries.
 
-## Project Description
+## Run it
 
-MediTrack is a responsive web application built to help hospital staff manage patient records. It allows users to admit new patients, track their ward and status, search for specific patients, and edit or discharge them. All patient data is saved directly in the browser using local storage.
-
-## Project Pages
-
-1. Home: Main dashboard showing overall hospital stats like total, admitted, critical, and discharged patients.
-2. Patients: The main management page where staff can search, filter, admit, edit, or remove patients.
-3. About: Information about the project, the tools used, and the development team.
-4. Contact: A simple page with a message form and contact details.
-
-## Technologies Used
-
-- ReactJS with functional components and hooks
-- React Router for page navigation
-- Vite for running and building the project
-- CSS for layout and responsive design on desktop and mobile screens
-- Browser LocalStorage to store patient records
-
-## How to Run the Project Locally
-
-1. Install dependencies:
+```bash
 npm install
+npm run dev       # http://localhost:5173
+npm run build     # production build in dist/
+npm run preview   # serve the build locally
+```
 
-2. Start the local server:
-npm run dev
+`dist/` is a static site — deploy it to Netlify, Vercel, Cloudflare Pages or any static host.
 
-3. Open your browser and go to http://localhost:5173
+## Where to change things
 
-4. Build for production:
-npm run build
+| What | File |
+| --- | --- |
+| Phone numbers, WhatsApp number, address, Google Maps link, Instagram, opening hours, student offer | `src/data/restaurant.js` |
+| Menu sections, drinks and prices | `src/data/menu.js` |
+| Photos | `public/images/` |
+| Page title, description, social preview, Google structured data | `index.html` |
 
-5. Preview build locally:
-npm run preview
+Notes:
 
-## Live Demo Link
+- **Opening hours** are empty until confirmed. Fill `hours` in `restaurant.js` and they appear on the Visit section and footer automatically.
+- **Food and Tobacco** sections of the menu were not in the screenshots. Add them to `menu.js` as new categories; empty categories are hidden.
+- **Feedback form**: with no backend configured it opens WhatsApp with the message pre-filled. To receive it by email instead, set `feedbackEndpoint` in `restaurant.js` to a form service URL that accepts a JSON POST (e.g. Formspree).
+- To remove the student offer band, set `offer: null`.
 
-- Deployed Website: https://cozy-paletas-3da171.netlify.app/
+## Structure
 
-## Group Contribution Statement
-
-- CodedByAly: Built project pages, components, local storage data handling, layout styling, and project report setup.
-
-## Academic Integrity
-
-This project was developed from scratch for CSCI390 Phase 2 without using pre-made template files.
+```
+src/
+  data/          restaurant info + menu (edit these)
+  components/    one file per section (Header, Hero, Story, MenuSection, Offer, Gallery, Visit, Feedback, Footer…)
+  hooks/         scroll reveal + scroll progress helpers
+  styles/        base.css (tokens, type, header, splash) and sections.css
+```

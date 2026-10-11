@@ -1,0 +1,150 @@
+// Transcribed from Sukun's digital menu (menu.omegasoftware.ca). Prices in USD.
+// Spelling has been tidied (e.g. "Cappoccino" -> "Cappuccino"); names, order and prices are unchanged.
+// The menu also lists "Food" and "Tobacco" sections. Add them as new categories below
+// once their items are confirmed — empty categories are not shown.
+
+export const menu = [
+  {
+    id: 'brewings',
+    name: 'Brewings',
+    items: [
+      { name: 'Lebanese Coffee', price: 2.5 },
+      { name: 'American Coffee', price: 2.75 },
+      { name: 'French Press', price: 3.5 },
+      { name: 'V60', price: 3.5 },
+    ],
+  },
+  {
+    id: 'classics',
+    name: 'Classics',
+    items: [
+      { name: 'Espresso Without Nestlé', price: 2.5 },
+      { name: 'Espresso', price: 2.0 },
+      { name: 'Doppio', price: 2.25 },
+      { name: 'Americano', price: 2.75 },
+      { name: 'Cortado', price: 3.25 },
+      { name: 'Instant Coffee', price: 2.5 },
+      { name: 'Macchiato', price: 3.0 },
+      { name: 'Nescafé Milk', price: 2.5 },
+      { name: 'Nescafé Gold Milk', price: 3.0 },
+      { name: 'Nescafé Coffee Mate', price: 2.5 },
+      { name: 'Nescafé Gold Coffee Mate', price: 3.0 },
+    ],
+  },
+  {
+    id: 'frappe',
+    name: 'Frappé',
+    items: [
+      { name: 'House Frappé', price: 4.0 },
+      { name: 'Coffee Frappé', price: 4.0 },
+      { name: 'Mocha Frappé', price: 4.0 },
+      { name: 'Caramel Frappé', price: 5.0 },
+      { name: 'Salted Caramel', price: 4.5 },
+      { name: 'Toffee Nut Frappé', price: 4.5 },
+      { name: 'White Mocha Frappé', price: 4.0 },
+    ],
+  },
+  {
+    id: 'latte',
+    name: 'Latte',
+    items: [
+      { name: 'Cappuccino', price: 3.25 },
+      { name: 'Flat White', price: 3.25 },
+      { name: 'Café Latte Caramel', price: 4.0 },
+      { name: 'Café Latte Vanilla', price: 4.0 },
+      { name: 'Café Latte Hazelnut', price: 4.0 },
+      { name: 'Café Mocha', price: 4.0 },
+      { name: 'White Mocha Latte', price: 3.75 },
+      { name: 'Spanish Latte', price: 3.35 },
+      { name: 'Caramel Macchiato Latte', price: 5.0 },
+      { name: 'Nutella Latte', price: 4.0 },
+      { name: 'Lotus Latte', price: 4.0 },
+      { name: 'Matcha Latte', price: 3.5 },
+      { name: 'Cinnamon Latte', price: 3.5 },
+    ],
+  },
+  {
+    id: 'hot-non-coffee',
+    name: 'Hot, Non-Coffee',
+    items: [
+      { name: 'Hot Chocolate', price: 3.5 },
+      { name: 'Oreo', price: 3.5 },
+      { name: 'Lotus', price: 4.0 },
+      { name: 'Nutella', price: 4.0 },
+      { name: 'Flavored Tea', price: 2.0 },
+      { name: 'Milk', price: 2.0 },
+      { name: 'Milk & Ginger', price: 2.35 },
+      { name: 'Tea & Milk', price: 2.5 },
+      { name: 'Ginger & Honey', price: 2.25 },
+    ],
+  },
+  {
+    id: 'iced-coffee',
+    name: 'Iced Coffee',
+    items: [
+      { name: 'Iced Tiramisu', price: 4.0 },
+      { name: 'Iced Americano', price: 4.0 },
+      { name: 'Iced Latte', note: 'Caramel', price: 4.0 },
+      { name: 'Iced Latte', note: 'Vanilla', price: 4.0 },
+      { name: 'Iced Latte', note: 'Hazelnut', price: 4.0 },
+      { name: 'Iced Mocha', price: 4.0 },
+      { name: 'Iced Spanish Latte', price: 4.0 },
+      { name: 'Iced Chocolate', price: 4.0 },
+    ],
+  },
+  {
+    id: 'matcha',
+    name: 'Matcha Selection',
+    items: [
+      { name: 'Organic Matcha', price: 4.0 },
+      { name: 'Vanilla Matcha', price: 4.0 },
+      { name: 'Strawberry Matcha', price: 4.0 },
+      { name: 'Matcha Frappé', price: 4.0 },
+    ],
+  },
+  {
+    id: 'milkshakes',
+    name: 'Milkshakes',
+    items: [
+      { name: 'Oreo Shake', price: 4.5 },
+      { name: 'Crunchy Lotus Shake', price: 5.0 },
+      { name: 'Strawberry Shake', price: 4.0 },
+      { name: 'Chocolate Shake', price: 4.5 },
+      { name: 'Blueberry Bloom Shake', price: 5.0 },
+      { name: 'Frozen Yogurt Shake', note: 'Raspberry', price: 5.0 },
+      { name: 'Frozen Yogurt Shake', note: 'Strawberry', price: 5.0 },
+      { name: 'Frozen Yogurt Shake', note: 'Mango', price: 5.0 },
+      { name: 'Protein Shake', price: 6.0 },
+      { name: 'Red Velvet Shake', price: 5.0 },
+      { name: 'Nutella Shake', price: 5.0 },
+      { name: 'Vanilla Shake', price: 4.0 },
+    ],
+  },
+  {
+    id: 'fresh-juices',
+    name: 'Fresh Juices',
+    items: [
+      { name: 'Lemonade Strawberry', price: 3.5 },
+      { name: 'Lemonade Berry', price: 4.0 },
+      { name: 'Lemonade Apple', price: 4.0 },
+      { name: 'Lemonade Kiwi', price: 4.0 },
+      { name: 'Orange Juice', price: 3.0 },
+      { name: 'Pomegranate', price: 4.0 },
+      { name: 'Lemon Mint', price: 3.5 },
+    ],
+  },
+  {
+    id: 'smoothies',
+    name: 'Smoothies',
+    items: [
+      { name: 'Mango Smoothie', price: 4.0 },
+      { name: 'Strawberry Smoothie', price: 4.0 },
+      { name: 'Mixed Berry Smoothie', price: 4.0 },
+      { name: 'Tropical Fruits Smoothie', price: 4.0 },
+      { name: 'Apple Kiwi Smoothie', price: 4.5 },
+      { name: 'Nutella Strawberry Smoothie', price: 5.0 },
+    ],
+  },
+];
+
+export const visibleMenu = menu.filter((c) => c.items.length > 0);
