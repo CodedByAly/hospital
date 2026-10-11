@@ -1,50 +1,57 @@
-# MediTrack - Hospital Patient Management System
+# O'snack — website
 
-Course: CSCI390 Web Programming
+Official website for **O'snack** ("Taste That Talks!"), Tarik El Jdideh, Beirut.
+Menu browsing, a cart and checkout that sends the finished order to the restaurant on WhatsApp, in English and Arabic (RTL).
 
-## Project Description
+Built with React 18, React Router and Vite. No UI or animation libraries.
 
-MediTrack is a responsive web application built to help hospital staff manage patient records. It allows users to admit new patients, track their ward and status, search for specific patients, and edit or discharge them. All patient data is saved directly in the browser using local storage.
+## Run it
 
-## Project Pages
-
-1. Home: Main dashboard showing overall hospital stats like total, admitted, critical, and discharged patients.
-2. Patients: The main management page where staff can search, filter, admit, edit, or remove patients.
-3. About: Information about the project, the tools used, and the development team.
-4. Contact: A simple page with a message form and contact details.
-
-## Technologies Used
-
-- ReactJS with functional components and hooks
-- React Router for page navigation
-- Vite for running and building the project
-- CSS for layout and responsive design on desktop and mobile screens
-- Browser LocalStorage to store patient records
-
-## How to Run the Project Locally
-
-1. Install dependencies:
+```bash
 npm install
+npm run dev       # http://localhost:5173
+npm run build     # production build in dist/
+npm run preview   # serve the production build
+```
 
-2. Start the local server:
-npm run dev
+`public/_redirects` makes client-side routes work on Netlify. On other hosts, send every unknown path to `index.html`.
 
-3. Open your browser and go to http://localhost:5173
+## Where to change things
 
-4. Build for production:
-npm run build
+| What | File |
+| --- | --- |
+| Phone, WhatsApp, address, Maps link, socials, delivery area/fee, opening hours, **Whish number**, feedback endpoint, site URL | `src/config/restaurant.js` |
+| Menu items, prices, categories, add-ons, removable ingredients, photos | `src/data/menu.js` |
+| All interface text (English / Arabic) | `src/i18n/en.js`, `src/i18n/ar.js` |
+| Food photos | `public/images/menu/` (466×314 JPG, referenced from `menu.js`) |
+| Logo | `public/images/brand/` |
+| Colours, type, spacing | tokens at the top of `src/styles/base.css` |
+| SEO tags and structured data | `index.html` |
 
-5. Preview build locally:
-npm run preview
+Leave a config value empty and the related UI hides itself or shows a neutral fallback:
 
-## Live Demo Link
+- `whish.number` empty → the Whish Money option shows "Coming soon" and can't be selected.
+- `openingHours` empty → hours blocks are hidden.
+- `deliveryFee: null` → delivery shows "Confirmed by phone" and the total reads "+ delivery".
+- `feedbackEndpoint` empty → feedback is sent through WhatsApp; set a URL (Formspree, a serverless function…) to receive it as JSON instead.
 
-- Deployed Website: https://cozy-paletas-3da171.netlify.app/
+## How ordering works
 
-## Group Contribution Statement
+There is no backend. On checkout the order is saved in the customer's browser and WhatsApp opens with the whole order written out (items, options, address, payment) addressed to the restaurant's number. The customer presses send. The confirmation page lets them reopen WhatsApp if it didn't open, and shows the order number.
 
-- CodedByAly: Built project pages, components, local storage data handling, layout styling, and project report setup.
+Payments are not verified by the website. Cash is paid on delivery or at pickup; Whish transfers are made by the customer to the configured number.
 
-## Academic Integrity
+## Project structure
 
-This project was developed from scratch for CSCI390 Phase 2 without using pre-made template files.
+```
+src/
+  config/      restaurant details
+  data/        menu
+  i18n/        translations + language context (persists choice, sets dir="rtl")
+  context/     cart (persisted to localStorage) and overlay state
+  lib/         price formatting, cart maths, WhatsApp message, fly-to-cart animation
+  hooks/       dialog focus trap, scroll spy, reveal-on-scroll, page meta
+  components/  header, mobile bar, footer, item sheet, cart drawer, cards…
+  pages/       Home, Menu, About, Contact, Checkout, Confirmation, 404
+  styles/      base, layout, components, pages
+```

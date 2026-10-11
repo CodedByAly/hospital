@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>O'snack — Sandwiches &amp; Burgers in Tarik El Jdideh, Beirut</title>
+    <meta
+      name="description"
+      content="O'snack in Tarik El Jdideh, Beirut. Sandwiches, burgers, boxes, salads and loaded fries. Dine in, pick up, or order delivery all over Beirut."
+    />
+    <meta name="theme-color" content="#0b0b0b" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <meta property="og:type" content="restaurant" />
+    <meta property="og:site_name" content="O'snack" />
+    <meta property="og:title" content="O'snack — Taste That Talks!" />
+    <meta
+      property="og:description"
+      content="Sandwiches, burgers, boxes and salads in Tarik El Jdideh, Beirut. Dine-in, pickup and delivery all over Beirut."
+    />
+    <meta property="og:image" content="/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="ar_LB" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Readex+Pro:wght@300..700&display=swap"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Restaurant",
+        "name": "O'snack",
+        "slogan": "Taste That Talks!",
+        "image": "/og-image.jpg",
+        "logo": "/images/brand/logo-mark.png",
+        "telephone": "+96181720200",
+        "servesCuisine": ["Sandwiches", "Burgers", "Salads"],
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Tarik El Jdideh",
+          "addressLocality": "Beirut",
+          "addressCountry": "LB"
+        },
+        "hasMap": "https://maps.app.goo.gl/u6ht8rkVvCSS4hgu6",
+        "hasMenu": "/menu",
+        "currenciesAccepted": "LBP",
+        "sameAs": ["https://www.instagram.com/osnack.lb/", "https://www.tiktok.com/@osnack.lb"]
+      }
+    </script>
+
+    <script>
+      // Restore language before first paint, and decide whether to show the splash.
+      (function () {
+        var d = document.documentElement;
+        try {
+          if (localStorage.getItem('osnack.lang') === 'ar') {
+            d.lang = 'ar';
+            d.dir = 'rtl';
+          }
+        } catch (e) {}
+        var seen = false;
+        try {
+          seen = sessionStorage.getItem('osnack.splash') === '1';
+          sessionStorage.setItem('osnack.splash', '1');
+        } catch (e) {}
+        if (seen) d.classList.add('no-splash');
+        var start = Date.now();
+        window.__hideSplash = function () {
+          var el = document.getElementById('splash');
+          if (!el) return;
+          var wait = seen ? 0 : Math.max(0, 1150 - (Date.now() - start));
+          setTimeout(function () {
+            el.classList.add('is-done');
+            setTimeout(function () {
+              el.remove();
+            }, 450);
+          }, wait);
+        };
+        // Never let the splash block the page if the app fails to load.
+        setTimeout(function () {
+          window.__hideSplash();
+        }, 4000);
+      })();
+    </script>
+    <style>
+      #splash {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        display: grid;
+        place-items: center;
+        background: #000;
+        transition: opacity 0.42s ease, visibility 0.42s;
+      }
+      .no-splash #splash { display: none; }
+      #splash.is-done { opacity: 0; visibility: hidden; }
+      .splash__mark {
+        width: min(46vw, 220px);
+        height: auto;
+        animation: splash-in 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+      }
+      .splash__line {
+        display: block;
+        width: 56px;
+        height: 2px;
+        margin: 18px auto 0;
+        background: #d62a2a;
+        transform-origin: center;
+        animation: splash-line 0.6s 0.35s cubic-bezier(0.6, 0, 0.2, 1) both;
+      }
+      @keyframes splash-in {
+        from { opacity: 0; transform: scale(0.94); }
+        to { opacity: 1; transform: none; }
+      }
+      @keyframes splash-line {
+        from { transform: scaleX(0); }
+        to { transform: scaleX(1); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .splash__mark, .splash__line { animation: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="splash" aria-hidden="true">
+      <div>
+        <img class="splash__mark" src="/images/brand/logo-mark.png" alt="" width="320" height="320" />
+        <span class="splash__line"></span>
+      </div>
+    </div>
+    <div id="root"></div>
+    <noscript>
+      <div style="padding: 24px; font-family: sans-serif">
+        <h1>O'snack — Taste That Talks!</h1>
+        <p>Sandwiches, burgers, boxes and salads in Tarik El Jdideh, Beirut. Dine-in, pickup and delivery all over Beirut.</p>
+        <p>Call or WhatsApp: <a href="tel:+96181720200">+961 81 720 200</a></p>
+        <p><a href="https://www.instagram.com/osnack.lb/">Instagram</a> · <a href="https://www.tiktok.com/@osnack.lb">TikTok</a></p>
+      </div>
+    </noscript>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
