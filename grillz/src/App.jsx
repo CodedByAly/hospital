@@ -1,0 +1,39 @@
+import { lazy } from 'react';
+import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom';
+import { CartProvider } from './context/CartContext';
+import { UIProvider } from './context/UIContext';
+import Layout from './components/Layout';
+import Home from './pages/Home';
+import Menu from './pages/Menu';
+
+// Less-visited pages load on demand to keep the first load small.
+const About = lazy(() => import('./pages/About'));
+const Contact = lazy(() => import('./pages/Contact'));
+const Checkout = lazy(() => import('./pages/Checkout'));
+const OrderConfirmation = lazy(() => import('./pages/OrderConfirmation'));
+const NotFound = lazy(() => import('./pages/NotFound'));
+
+// Hash routing lets a static preview (no server rewrites) handle /menu, /checkout…
+const Router = import.meta.env.VITE_HASH_ROUTER ? HashRouter : BrowserRouter;
+
+export default function App() {
+  return (
+    <CartProvider>
+      <UIProvider>
+        <Router>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route index element={<Home />} />
+              <Route path="menu" element={<Menu />} />
+              <Route path="about" element={<About />} />
+              <Route path="contact" element={<Contact />} />
+              <Route path="checkout" element={<Checkout />} />
+              <Route path="order/:orderId" element={<OrderConfirmation />} />
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Routes>
+        </Router>
+      </UIProvider>
+    </CartProvider>
+  );
+}
