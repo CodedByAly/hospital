@@ -359,3 +359,9 @@
   height: 44px;
   border-radius: 11px;
 }
+
+.whish-panel--hint {
+  padding: 14px 18px;
+  font-size: 0.9rem;
+  color: #fff;
+}

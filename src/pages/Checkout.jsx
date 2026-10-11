@@ -10,7 +10,8 @@ import CopyButton from '../components/CopyButton.jsx';
 import Icon from '../components/Icon.jsx';
 import './Checkout.css';
 
-const whishReady = payments.whish.enabled && Boolean(payments.whish.number);
+const whishFor = (branchId) => (payments.whish.enabled ? branches.find((b) => b.id === branchId)?.whish ?? null : null);
+const whishAnywhere = payments.whish.enabled && branches.some((b) => b.whish);
 
 const initial = {
   type: 'pickup',
@@ -42,7 +43,9 @@ function validate(form, subtotalCents) {
       errors.type = `Delivery starts from ${formatPrice(ordering.deliveryMinimum)}.`;
     }
   }
-  if (form.payment === 'whish' && !whishReady) errors.payment = 'Whish isn’t available yet. Please choose cash.';
+  if (form.payment === 'whish' && form.branchId && !whishFor(form.branchId)) {
+    errors.payment = 'This branch doesn’t take Whish yet. Please choose cash.';
+  }
   return errors;
 }
 
@@ -84,6 +87,10 @@ export default function Checkout() {
   const feeCents = form.type === 'delivery' && ordering.deliveryFee != null ? toCents(ordering.deliveryFee) : 0;
   const totalCents = subtotalCents + feeCents;
   const availableBranches = branches.filter((b) => (form.type === 'delivery' ? b.delivery : b.pickup));
+  const selectedBranch = branches.find((b) => b.id === form.branchId);
+  const whishNumber = whishFor(form.branchId);
+  // Whish is offered when the chosen branch has a number (or, before choosing, when any branch does).
+  const whishReady = form.branchId ? Boolean(whishNumber) : whishAnywhere;
 
   if (lines.length === 0 && !placing) {
     return (
@@ -287,27 +294,30 @@ export default function Checkout() {
                 <img className="pay-opt__logo" src={payments.whish.logo} alt="" width="40" height="40" />
                 <span>
                   <strong>Whish Money</strong>
-                  <small>{whishReady ? 'Transfer from your Whish app before we prepare your order.' : 'Not available yet. Please pay cash for now.'}</small>
+                  <small>{whishReady ? 'Transfer from your Whish app before we prepare your order.' : 'Not available at this branch yet. Please pay cash.'}</small>
                 </span>
               </label>
             </div>
             {errors.payment && <p className="field__error">{errors.payment}</p>}
 
-            {form.payment === 'whish' && whishReady && (
+            {form.payment === 'whish' && whishReady && !whishNumber && (
+              <p className="whish-panel whish-panel--hint">Choose your branch above to see its Whish number.</p>
+            )}
+            {form.payment === 'whish' && whishNumber && (
               <div className="whish-panel">
                 <div className="whish-panel__brand">
                   <img src={payments.whish.logo} alt="Whish Money" width="44" height="44" />
-                  <p className="whish-panel__label">Send {formatCents(totalCents)} to</p>
+                  <p className="whish-panel__label">Send {formatCents(totalCents)} to Zaher’s {selectedBranch?.name}</p>
                 </div>
                 <div className="whish-panel__number">
-                  <span>{formatPhone(payments.whish.number)}</span>
-                  <CopyButton text={payments.whish.number} label="Copy number" />
+                  <span>{formatPhone(whishNumber)}</span>
+                  <CopyButton text={whishNumber} label="Copy number" />
                 </div>
-                <p className="whish-panel__name">Account: {payments.whish.accountName}</p>
+                <p className="whish-panel__name">Same number as the branch’s WhatsApp</p>
                 <ol className="whish-panel__steps">
                   <li>Open Whish Money and send the total to the number above.</li>
                   <li>Place your order below. You’ll get an order number.</li>
-                  <li>Send us a screenshot of the transfer with your order number on WhatsApp.</li>
+                  <li>Send a screenshot of the transfer with your order number to this same number on WhatsApp.</li>
                 </ol>
                 <p className="whish-panel__note">
                   Payments are checked by the branch, not automatically. Your order is prepared once the transfer is confirmed.

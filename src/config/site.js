@@ -29,9 +29,10 @@ export const site = {
 /*
  * Branches, in the order they appear on Instagram.
  *
- * - whatsapp: set to the branch's WhatsApp number to let customers send orders
- *   to that branch on WhatsApp. When null, the confirmation page asks the
- *   customer to call the branch instead.
+ * - whatsapp: the branch's WhatsApp number. Orders are sent to the branch on
+ *   WhatsApp; when null, the confirmation page asks the customer to call instead.
+ * - whish: the branch's Whish Money number (same as its WhatsApp line).
+ *   When null, the Whish option is unavailable for that branch.
  * - address: only what has been confirmed. Hamra's street comes from the
  *   student-offer flyer; Tyre and Batroun still need a street address.
  * - hours: list of { days, open, close } e.g. { days: 'Mon – Sun', open: '11:00', close: '00:00' }.
@@ -46,7 +47,8 @@ export const branches = [
     area: 'Tyre',
     address: 'Tyre, South Lebanon',
     phone: '+96181783558',
-    whatsapp: null,
+    whatsapp: '+96181783558',
+    whish: '+96181783558',
     hours: [],
     mapsUrl: null,
     pickup: true,
@@ -59,6 +61,7 @@ export const branches = [
     address: 'Bliss Street, Hamra, Beirut',
     phone: '+96171510106',
     whatsapp: '+96171510106',
+    whish: '+96171510106',
     hours: [],
     mapsUrl: null,
     pickup: true,
@@ -70,7 +73,8 @@ export const branches = [
     area: 'Batroun',
     address: 'Batroun, North Lebanon',
     phone: '+96178900695',
-    whatsapp: null,
+    whatsapp: '+96178900695',
+    whish: '+96178900695',
     hours: [],
     mapsUrl: null,
     pickup: true,
@@ -92,12 +96,7 @@ export const payments = {
   cash: { enabled: true },
   whish: {
     enabled: true,
-    /*
-     * Restaurant's Whish Money number, e.g. '+96171000000'.
-     * While this is empty the Whish option is shown as unavailable at checkout.
-     */
-    number: '',
-    accountName: "Zaher's",
+    // Each branch's Whish number is set on the branch above (`whish`).
     logo: '/images/payments/whish.png',
   },
 };
