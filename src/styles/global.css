@@ -211,6 +211,7 @@ legend {
 
 .page {
   min-height: 60vh;
+  overflow-x: clip; /* tilted ticker and hero extras never cause sideways scroll */
   animation: page-in 0.35s var(--ease) both;
 }
 @keyframes page-in {
