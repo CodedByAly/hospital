@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { restaurant } from '../config/restaurant';
-import { itemsByCategory, menuItems } from '../data/menu';
+import { itemsByCategory, itemsById } from '../data/menu';
 import { useLanguage } from '../i18n/LanguageContext';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { localized } from '../lib/format';
@@ -10,18 +10,11 @@ import ContactList from '../components/ContactList';
 import SocialLinks from '../components/SocialLinks';
 import OpeningHours from '../components/OpeningHours';
 import Icon from '../components/Icon';
-
-const heroShots = [
-  { id: 'tawouk', className: 'hero__shot--a' },
-  { id: 'american-burger', className: 'hero__shot--b' },
-  { id: 'crispy-box', className: 'hero__shot--c' },
-];
-
-const tickerIds = ['tawouk', 'rosto', 'nkhaat', 'sawda', 'makanik', 'soujok', 'philadelphia', 'francisco', 'zinger-burger', 'loaded-fries'];
+import HeroShowcase from '../components/HeroShowcase';
+import Steam from '../components/Steam';
 
 function Hero() {
-  const { t, lang } = useLanguage();
-  const byId = Object.fromEntries(menuItems.map((i) => [i.id, i]));
+  const { t } = useLanguage();
 
   return (
     <section className="hero" aria-labelledby="hero-title">
@@ -55,35 +48,7 @@ function Hero() {
           </ul>
         </div>
 
-        <div className="hero__visual" aria-hidden="true">
-          {heroShots.map((shot, i) => (
-            <figure key={shot.id} className={`hero__shot ${shot.className}`} style={{ '--i': i }}>
-              <img
-                src={byId[shot.id].image}
-                alt=""
-                width="466"
-                height="314"
-                fetchpriority={i === 0 ? 'high' : undefined}
-                decoding="async"
-              />
-              <figcaption>{localized(byId[shot.id].name, lang)}</figcaption>
-            </figure>
-          ))}
-        </div>
-      </div>
-
-      <div className="ticker" aria-hidden="true">
-        <div className="ticker__track">
-          {[0, 1].map((copy) => (
-            <span key={copy} className="ticker__group">
-              {tickerIds.map((id) => (
-                <span key={id} className="ticker__item">
-                  {localized(byId[id].name, lang)}
-                </span>
-              ))}
-            </span>
-          ))}
-        </div>
+        <HeroShowcase />
       </div>
     </section>
   );
@@ -143,8 +108,16 @@ function Categories() {
         <ul className="cat-grid">
           {sections.map((c, i) => (
             <Reveal as="li" key={c.id} delay={i * 60}>
-              <Link to={`/menu#${c.id}`} className="cat-tile">
-                <img src={c.cover} alt="" width="466" height="314" loading="lazy" decoding="async" />
+              <Link to={`/menu#${c.id}`} className={`cat-tile ${i === 0 ? 'cat-tile--feature' : ''}`}>
+                {i === 0 ? <Steam className="cat-tile__steam" origin={{ x: 0.5, y: 0.5, spread: 0.4 }} intensity={0.7} /> : null}
+                <span className="cat-tile__shadow" aria-hidden="true" />
+                <img
+                  className="cat-tile__dish"
+                  src={itemsById[c.dish]?.cutout ?? c.cover}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                />
                 <span className="cat-tile__text">
                   <span className="cat-tile__name">{localized(c.name, lang)}</span>
                   <span className="cat-tile__count">{t.home.itemsCount(c.items.length)}</span>

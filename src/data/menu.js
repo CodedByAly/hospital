@@ -19,11 +19,11 @@ import { asset } from '../lib/asset';
 
 export const categories = [
   { id: 'offers', name: { en: 'Offers', ar: 'العروض' }, cover: asset('images/menu/mini-mix-box.jpg') },
-  { id: 'sandwiches', name: { en: 'Sandwiches', ar: 'سندويشات' }, cover: asset('images/menu/tawouk.jpg') },
-  { id: 'burgers', name: { en: 'Burgers', ar: 'برغر' }, cover: asset('images/menu/american-burger.jpg') },
-  { id: 'salads', name: { en: 'Salads', ar: 'سلطات' }, cover: asset('images/menu/caesar-salad.jpg') },
-  { id: 'starters', name: { en: 'Starters', ar: 'مقبلات' }, cover: asset('images/menu/loaded-fries.jpg') },
-  { id: 'sodas', name: { en: 'Sodas', ar: 'مشروبات' }, cover: asset('images/menu/pepsi.jpg') },
+  { id: 'sandwiches', name: { en: 'Sandwiches', ar: 'سندويشات' }, cover: asset('images/menu/tawouk.jpg'), dish: 'tawouk' },
+  { id: 'burgers', name: { en: 'Burgers', ar: 'برغر' }, cover: asset('images/menu/american-burger.jpg'), dish: 'american-burger' },
+  { id: 'salads', name: { en: 'Salads', ar: 'سلطات' }, cover: asset('images/menu/caesar-salad.jpg'), dish: 'caesar-salad' },
+  { id: 'starters', name: { en: 'Starters', ar: 'مقبلات' }, cover: asset('images/menu/loaded-fries.jpg'), dish: 'loaded-fries' },
+  { id: 'sodas', name: { en: 'Sodas', ar: 'مشروبات' }, cover: asset('images/menu/pepsi.jpg'), dish: 'pepsi' },
 ];
 
 const img = (file) => asset(`images/menu/${file}.jpg`);
@@ -217,6 +217,23 @@ export const menuItems = [
   { id: '7up-diet', category: 'sodas', name: { en: '7up Diet', ar: 'سفن أب دايت' }, price: 100000, image: img('7up-diet') },
   { id: 'laban-ayran', category: 'sodas', name: { en: 'Laban Ayran', ar: 'لبن عيران' }, price: 100000, image: null },
 ];
+
+/** Items with a transparent cut-out photo in /public/images/cutouts (used for motion). */
+const CUTOUTS = new Set([
+  '7up-diet', '7up', 'american-burger', 'caesar-salad', 'chicken-breast-burger', 'chicken-burger',
+  'crab-salad', 'crispy-sandwich', 'fajita', 'francisco', 'french-fries', 'fries-arabic-bread',
+  'fries-baguette-bread', 'lebanese-burger', 'loaded-crispy', 'loaded-fries', 'makanik', 'mexican',
+  'mirinda', 'mushroom-burger', 'nkhaat', 'pepsi-diet', 'pepsi', 'philadelphia', 'quinoa-salad',
+  'rocca-beetroot-salad', 'rosto-with-cheese', 'rosto', 'shrimp-sandwich', 'soujok', 'tawouk',
+  'tuna-pasta-salad', 'zinger-burger',
+]);
+
+menuItems.forEach((item) => {
+  item.cutout = CUTOUTS.has(item.id) ? asset(`images/cutouts/${item.id}.webp`) : null;
+});
+
+/** Dishes that rotate through the home page showcase, in order. */
+export const showcaseIds = ['american-burger', 'tawouk', 'zinger-burger', 'loaded-fries', 'makanik', 'crispy-sandwich'];
 
 export const itemsById = Object.fromEntries(menuItems.map((item) => [item.id, item]));
 

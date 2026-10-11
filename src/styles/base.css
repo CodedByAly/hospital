@@ -639,6 +639,13 @@ textarea.input {
   will-change: transform, opacity;
 }
 
+.fly-ghost--cutout {
+  background-color: transparent;
+  background-size: contain;
+  box-shadow: none;
+  filter: drop-shadow(0 12px 14px rgba(0, 0, 0, 0.35));
+}
+
 .fly-ghost--plain {
   background: var(--red);
 }

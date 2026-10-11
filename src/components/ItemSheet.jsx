@@ -43,7 +43,7 @@ function ItemForm({ item, line, onDone }) {
       replace(line.key, item.id, config, qty);
     } else {
       add(item.id, config, qty);
-      flyToCart(imgRef.current);
+      flyToCart(imgRef.current, item.cutout);
       notify(t.cart.added(name));
     }
     onDone();

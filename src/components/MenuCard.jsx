@@ -40,7 +40,7 @@ export default function MenuCard({ item, layout = 'auto' }) {
       return;
     }
     add(item.id, { extras: [], removed: [], choice: null, note: '' }, 1);
-    flyToCart(imgRef.current);
+    flyToCart(imgRef.current, item.cutout);
     notify(t.cart.added(name));
   };
 

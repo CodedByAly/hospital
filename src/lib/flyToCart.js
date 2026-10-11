@@ -17,9 +17,10 @@ function bump(target) {
 
 /**
  * Animates a copy of `sourceEl` (an <img> or any element) along a short arc
- * into the cart button. Resolves when the animation ends.
+ * into the cart button. When the dish has a transparent `cutout`, the food
+ * itself flies instead of its rectangular photo. Resolves when the animation ends.
  */
-export function flyToCart(sourceEl) {
+export function flyToCart(sourceEl, cutout = null) {
   const target = visibleCartTarget();
   if (!target) return Promise.resolve();
   if (!sourceEl || reducedMotion()) {
@@ -46,7 +47,10 @@ export function flyToCart(sourceEl) {
   const ghost = document.createElement('div');
   ghost.className = 'fly-ghost';
   ghost.style.cssText = `left:${startX}px;top:${startY}px;width:${size}px;height:${size}px;`;
-  if (sourceEl.tagName === 'IMG' && sourceEl.currentSrc) {
+  if (cutout) {
+    ghost.classList.add('fly-ghost--cutout');
+    ghost.style.backgroundImage = `url("${cutout}")`;
+  } else if (sourceEl.tagName === 'IMG' && sourceEl.currentSrc) {
     ghost.style.backgroundImage = `url("${sourceEl.currentSrc}")`;
   } else {
     ghost.classList.add('fly-ghost--plain');
@@ -57,14 +61,18 @@ export function flyToCart(sourceEl) {
   const lift = Math.min(120, Math.abs(dy) * 0.35 + 40);
   const anim = ghost.animate(
     [
-      { transform: 'translate(0,0) scale(1)', opacity: 1, borderRadius: '12px' },
+      { transform: 'translate(0,0) scale(1) rotate(0deg)', opacity: 1, borderRadius: cutout ? '0' : '12px' },
       {
-        transform: `translate(${dx * 0.45}px, ${dy * 0.25 - lift}px) scale(${0.55 + endScale * 0.2})`,
+        transform: `translate(${dx * 0.45}px, ${dy * 0.25 - lift}px) scale(${0.55 + endScale * 0.2}) rotate(${cutout ? (dx > 0 ? 14 : -14) : 0}deg)`,
         opacity: 1,
-        borderRadius: '30%',
+        borderRadius: cutout ? '0' : '30%',
         offset: 0.45,
       },
-      { transform: `translate(${dx}px, ${dy}px) scale(${endScale})`, opacity: 0.6, borderRadius: '50%' },
+      {
+        transform: `translate(${dx}px, ${dy}px) scale(${endScale}) rotate(${cutout ? (dx > 0 ? 24 : -24) : 0}deg)`,
+        opacity: 0.6,
+        borderRadius: cutout ? '0' : '50%',
+      },
     ],
     { duration: 720, easing: 'cubic-bezier(.45,.05,.35,1)', fill: 'forwards' },
   );
