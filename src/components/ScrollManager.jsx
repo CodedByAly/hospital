@@ -15,7 +15,11 @@ export default function ScrollManager() {
     let timer;
     const attempt = () => {
       const el = document.getElementById(id);
-      if (el) el.scrollIntoView({ block: 'start' });
+      if (el) {
+        el.scrollIntoView({ block: 'start' });
+        // Web fonts can shift the layout after the first jump; re-align once they're in.
+        document.fonts?.ready.then(() => requestAnimationFrame(() => el.scrollIntoView({ block: 'start' })));
+      }
       else if (tries++ < 20) timer = setTimeout(attempt, 50);
     };
     attempt();

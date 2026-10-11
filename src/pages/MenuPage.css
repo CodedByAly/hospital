@@ -117,7 +117,8 @@
 }
 .menu-section {
   padding-top: 36px;
-  scroll-margin-top: calc(var(--menu-offset) - 12px);
+  /* html already pads by the header height; add only the category bar */
+  scroll-margin-top: calc(var(--menu-offset) - var(--header-h) - 12px);
 }
 .menu-section__head {
   display: flex;
