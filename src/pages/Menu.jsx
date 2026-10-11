@@ -103,7 +103,7 @@ export default function Menu() {
 
   const select = (id) => {
     setQuery('');
-    window.history.replaceState(null, '', `#${id}`);
+    if (import.meta.env.VITE_ROUTER !== 'memory') window.history.replaceState(null, '', `#${id}`);
     requestAnimationFrame(() => scrollToSection(id));
   };
 

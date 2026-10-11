@@ -15,16 +15,18 @@
  *   choices      optional required single choice: { id, label, options: [{ id, name }] }
  */
 
+import { asset } from '../lib/asset';
+
 export const categories = [
-  { id: 'offers', name: { en: 'Offers', ar: 'العروض' }, cover: '/images/menu/mini-mix-box.jpg' },
-  { id: 'sandwiches', name: { en: 'Sandwiches', ar: 'سندويشات' }, cover: '/images/menu/tawouk.jpg' },
-  { id: 'burgers', name: { en: 'Burgers', ar: 'برغر' }, cover: '/images/menu/american-burger.jpg' },
-  { id: 'salads', name: { en: 'Salads', ar: 'سلطات' }, cover: '/images/menu/caesar-salad.jpg' },
-  { id: 'starters', name: { en: 'Starters', ar: 'مقبلات' }, cover: '/images/menu/loaded-fries.jpg' },
-  { id: 'sodas', name: { en: 'Sodas', ar: 'مشروبات' }, cover: '/images/menu/pepsi.jpg' },
+  { id: 'offers', name: { en: 'Offers', ar: 'العروض' }, cover: asset('images/menu/mini-mix-box.jpg') },
+  { id: 'sandwiches', name: { en: 'Sandwiches', ar: 'سندويشات' }, cover: asset('images/menu/tawouk.jpg') },
+  { id: 'burgers', name: { en: 'Burgers', ar: 'برغر' }, cover: asset('images/menu/american-burger.jpg') },
+  { id: 'salads', name: { en: 'Salads', ar: 'سلطات' }, cover: asset('images/menu/caesar-salad.jpg') },
+  { id: 'starters', name: { en: 'Starters', ar: 'مقبلات' }, cover: asset('images/menu/loaded-fries.jpg') },
+  { id: 'sodas', name: { en: 'Sodas', ar: 'مشروبات' }, cover: asset('images/menu/pepsi.jpg') },
 ];
 
-const img = (file) => `/images/menu/${file}.jpg`;
+const img = (file) => asset(`images/menu/${file}.jpg`);
 
 const ing = {
   coleslaw: { id: 'coleslaw', name: { en: 'Coleslaw', ar: 'كول سلو' } },

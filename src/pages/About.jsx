@@ -3,6 +3,7 @@ import { restaurant } from '../config/restaurant';
 import { useLanguage } from '../i18n/LanguageContext';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { localized } from '../lib/format';
+import { asset } from '../lib/asset';
 import Reveal from '../components/Reveal';
 import ContactList from '../components/ContactList';
 import OpeningHours from '../components/OpeningHours';
@@ -45,7 +46,7 @@ export default function About() {
           </Reveal>
           <Reveal className="about__gallery" delay={80} aria-hidden="true">
             {gallery.map((id) => (
-              <img key={id} src={`/images/menu/${id}.jpg`} alt="" width="466" height="314" loading="lazy" decoding="async" />
+              <img key={id} src={asset(`images/menu/${id}.jpg`)} alt="" width="466" height="314" loading="lazy" decoding="async" />
             ))}
           </Reveal>
         </div>
