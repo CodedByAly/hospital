@@ -2,6 +2,7 @@
   max-height: calc(100dvh - 12px) !important;
 }
 .item-form {
+  position: relative;
   display: flex;
   flex-direction: column;
   min-height: 0;
@@ -156,5 +157,35 @@
   }
   .item-form__footer {
     padding: 16px 32px;
+  }
+}
+
+.item-form__close--plain {
+  background: var(--cream-2);
+  box-shadow: none;
+  z-index: 2;
+}
+.item-form--noimg .item-form__scroll {
+  padding-top: 28px;
+  padding-right: 64px;
+}
+@media (min-width: 760px) {
+  .item-form--noimg .item-form__close {
+    left: auto;
+    right: 20px;
+    top: 20px;
+  }
+  .dialog--center .item-dialog:has(.item-form--noimg) {
+    max-width: 560px;
+  }
+}
+
+/* Photo settles into place as the sheet opens */
+.dialog[data-state='open'] .item-form__img img {
+  animation: photo-settle 0.9s var(--ease) both;
+}
+@keyframes photo-settle {
+  from {
+    transform: scale(1.12);
   }
 }

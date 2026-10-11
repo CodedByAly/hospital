@@ -151,3 +151,7 @@
   flex-wrap: wrap;
   gap: 8px;
 }
+
+.confirm__lines li.is-noimg {
+  grid-template-columns: 1fr auto;
+}

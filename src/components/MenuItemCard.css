@@ -126,3 +126,24 @@
     display: -webkit-box;
   }
 }
+
+/* Items without a photo: text-only card with an orange rule instead of an image */
+.menu-card--noimg {
+  grid-template-columns: 1fr !important;
+  border-left: 4px solid var(--orange);
+}
+.menu-card--row.menu-card--noimg .menu-card__body {
+  padding: 16px 18px;
+  min-height: 112px;
+}
+.menu-card__add.is-added {
+  background: var(--success);
+  border-color: var(--success);
+  color: #fff;
+  animation: add-pop 0.35s var(--ease);
+}
+@keyframes add-pop {
+  40% {
+    transform: scale(1.18);
+  }
+}

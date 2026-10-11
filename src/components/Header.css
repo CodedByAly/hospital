@@ -140,3 +140,45 @@
     display: none;
   }
 }
+
+.branch-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  margin-right: 4px;
+  padding: 0 12px 0 10px;
+  border: 1.5px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: border-color 0.15s, color 0.15s;
+}
+.branch-chip svg {
+  flex-shrink: 0;
+}
+.branch-chip svg:first-child {
+  color: var(--orange-strong);
+}
+.branch-chip__label::first-letter {
+  text-transform: uppercase;
+}
+@media (max-width: 420px) {
+  .branch-chip__long {
+    display: none;
+  }
+}
+.branch-chip:hover {
+  border-color: var(--orange-strong);
+}
+.branch-chip__caret {
+  color: var(--muted);
+}
+@media (max-width: 380px) {
+  .site-header__actions .icon-btn {
+    width: 38px;
+  }
+}

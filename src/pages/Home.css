@@ -95,7 +95,7 @@
   overflow: hidden;
   background: var(--orange);
   aspect-ratio: 739 / 506;
-  animation: hero-photo 0.9s var(--ease) 0.15s both;
+  animation: hero-photo 0.9s var(--ease) 0.15s backwards;
 }
 .hero__photo img {
   width: 100%;
@@ -126,7 +126,7 @@
   text-align: center;
   box-shadow: var(--shadow);
   transform: rotate(-9deg);
-  animation: sticker 0.6s var(--ease) 0.6s both;
+  animation: sticker 0.6s var(--ease) 0.6s backwards;
 }
 .hero__sticker span:last-child {
   color: var(--navy);
@@ -412,4 +412,149 @@
 }
 .follow .btn--on-orange {
   --btn-bd: #fff;
+}
+
+/* ---------------------------------------------------------------- hero motion */
+.hero__line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.04em;
+}
+.hero__line > span {
+  display: inline-block;
+  animation: line-up 0.8s cubic-bezier(.2,.8,.2,1) both;
+}
+.hero__line:nth-child(2) > span {
+  animation-delay: 0.08s;
+}
+.hero__line:nth-child(3) > span {
+  animation-delay: 0.16s;
+}
+@keyframes line-up {
+  from {
+    transform: translateY(105%);
+  }
+}
+.hero__eyebrow,
+.hero__lede,
+.hero__actions,
+.hero__modes {
+  animation: rise 0.7s var(--ease) both;
+}
+.hero__eyebrow {
+  animation-delay: 0s;
+}
+.hero__lede {
+  animation-delay: 0.28s;
+}
+.hero__actions {
+  animation-delay: 0.36s;
+}
+.hero__modes {
+  animation-delay: 0.44s;
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+.hero__photo {
+  transform: translate(calc(var(--px, 0) * -14px), calc(var(--py, 0) * -10px));
+  transition: transform 0.6s var(--ease);
+}
+.hero__photo img {
+  animation: ken-burns 1.6s cubic-bezier(.2,.7,.2,1) backwards;
+  transform: scale(1.04) translate(calc(var(--px, 0) * 10px), calc(var(--py, 0) * 8px));
+  transition: transform 0.8s var(--ease);
+}
+@keyframes ken-burns {
+  from {
+    transform: scale(1.18);
+  }
+}
+.hero__sticker {
+  translate: calc(var(--px, 0) * 22px) calc(var(--py, 0) * 16px);
+  transition: translate 0.5s var(--ease);
+}
+.hero__sticker:hover {
+  animation: wobble 0.6s var(--ease);
+}
+@keyframes wobble {
+  30% {
+    transform: rotate(-2deg) scale(1.05);
+  }
+  60% {
+    transform: rotate(-13deg);
+  }
+  100% {
+    transform: rotate(-9deg);
+  }
+}
+.hero__actions .btn--primary svg {
+  transition: transform 0.25s var(--ease);
+}
+.hero__actions .btn--primary:hover svg {
+  transform: translateX(4px);
+}
+
+/* ---------------------------------------------------------------- ticker */
+.ticker {
+  overflow: hidden;
+  background: var(--navy);
+  color: #fff;
+  padding-block: 14px;
+  margin-bottom: clamp(48px, 7vw, 88px);
+  transform: rotate(-1.2deg);
+  margin-inline: -12px;
+  box-shadow: 0 10px 30px -18px rgba(20, 37, 74, 0.7);
+}
+.ticker__track {
+  display: flex;
+  width: max-content;
+  animation: ticker 38s linear infinite;
+}
+.ticker:hover .ticker__track {
+  animation-play-state: paused;
+}
+.ticker__group {
+  display: flex;
+}
+.ticker__word {
+  display: inline-flex;
+  align-items: center;
+  gap: 22px;
+  padding-right: 22px;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: clamp(1.15rem, 2.6vw, 1.6rem);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.ticker__word svg {
+  color: var(--orange);
+}
+@keyframes ticker {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---------------------------------------------------------------- tiles */
+.cat-tile {
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+@media (hover: hover) {
+  .cat-tile:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 30px -16px rgba(20, 37, 74, 0.55);
+  }
+}
+.offer {
+  transition: transform 0.3s var(--ease);
+}
+@media (hover: hover) {
+  .offer:hover {
+    transform: translateY(-4px);
+  }
 }

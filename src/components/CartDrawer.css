@@ -160,3 +160,10 @@
   width: 56px;
   height: 56px;
 }
+
+.cart-line--noimg {
+  grid-template-columns: 1fr;
+}
+.cart-line {
+  animation-delay: calc(var(--i, 0) * 45ms);
+}

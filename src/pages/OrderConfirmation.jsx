@@ -64,8 +64,8 @@ export default function OrderConfirmation() {
           <h2 id="summary-title" className="confirm__card-title">Order summary</h2>
           <ul className="confirm__lines">
             {order.lines.map((line, i) => (
-              <li key={i}>
-                <FoodImage src={line.image} alt={line.name} className="confirm__thumb" />
+              <li key={i} className={line.image ? '' : 'is-noimg'}>
+                {line.image && <FoodImage src={line.image} alt={line.name} className="confirm__thumb" />}
                 <div>
                   <p className="confirm__line-name">
                     <span>{line.quantity} ×</span> {line.name}

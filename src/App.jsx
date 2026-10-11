@@ -5,6 +5,7 @@ import Footer from './components/Footer.jsx';
 import MobileTabBar from './components/MobileTabBar.jsx';
 import CartDrawer from './components/CartDrawer.jsx';
 import ItemDialog from './components/ItemDialog.jsx';
+import BranchPicker from './components/BranchPicker.jsx';
 import BackToTop from './components/BackToTop.jsx';
 import ScrollManager from './components/ScrollManager.jsx';
 import Home from './pages/Home.jsx';
@@ -55,6 +56,7 @@ export default function App() {
       <BackToTop />
       <CartDrawer />
       <ItemDialog />
+      <BranchPicker />
     </>
   );
 }

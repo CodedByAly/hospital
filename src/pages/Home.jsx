@@ -1,9 +1,11 @@
+import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { branches, featuredItemIds, site } from '../config/site.js';
 import { itemsByCategory, getItem } from '../data/menu.js';
 import { activeOffers } from '../data/offers.js';
 import { formatPrice, whatsappHref } from '../lib/format.js';
 import { useDocumentMeta } from '../lib/useDocumentMeta.js';
+import { prefersReducedMotion } from '../lib/motion.js';
 import BranchCard from '../components/BranchCard.jsx';
 import Icon, { InstagramIcon, WhatsAppIcon } from '../components/Icon.jsx';
 import MenuItemCard from '../components/MenuItemCard.jsx';
@@ -19,12 +21,41 @@ const categoryTiles = itemsByCategory.map((category) => ({
   from: Math.min(...category.items.map((item) => item.price)),
 }));
 
+const tickerWords = [...itemsByCategory.map((c) => c.name), 'Farooj al fahem', `Since ${site.since}`, site.tagline];
+
 export default function Home() {
   useDocumentMeta(null);
+  const heroRef = useRef(null);
+
+  // Gentle pointer parallax on the hero photo (mouse/trackpad only).
+  useEffect(() => {
+    const hero = heroRef.current;
+    if (!hero || prefersReducedMotion() || !window.matchMedia('(pointer: fine)').matches) return undefined;
+    let frame = 0;
+    const onMove = (event) => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const r = hero.getBoundingClientRect();
+        hero.style.setProperty('--px', ((event.clientX - r.left) / r.width - 0.5).toFixed(3));
+        hero.style.setProperty('--py', ((event.clientY - r.top) / r.height - 0.5).toFixed(3));
+      });
+    };
+    const onLeave = () => {
+      hero.style.setProperty('--px', 0);
+      hero.style.setProperty('--py', 0);
+    };
+    hero.addEventListener('pointermove', onMove);
+    hero.addEventListener('pointerleave', onLeave);
+    return () => {
+      cancelAnimationFrame(frame);
+      hero.removeEventListener('pointermove', onMove);
+      hero.removeEventListener('pointerleave', onLeave);
+    };
+  }, []);
 
   return (
     <>
-      <section className="hero">
+      <section className="hero" ref={heroRef}>
         <div className="container hero__grid">
           <div className="hero__copy">
             <p className="hero__eyebrow">
@@ -33,7 +64,9 @@ export default function Home() {
               <span>Tyre · Hamra · Batroun</span>
             </p>
             <h1 className="hero__title">
-              Burgers, crispy chicken <span className="hero__title-accent">&amp; charcoal grills.</span>
+              <span className="hero__line"><span>Burgers,</span></span>{' '}
+              <span className="hero__line"><span>crispy chicken</span></span>{' '}
+              <span className="hero__line hero__title-accent"><span>&amp; charcoal grills.</span></span>
             </h1>
             <p className="hero__lede">
               Stacked beef burgers, Zinger sandwiches, wings and farooj al fahem from Zaher’s. Order ahead and pick it up,
@@ -77,6 +110,21 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <div className="ticker" aria-hidden="true">
+        <div className="ticker__track">
+          {[0, 1].map((copy) => (
+            <span key={copy} className="ticker__group">
+              {tickerWords.map((word) => (
+                <span key={word} className="ticker__word">
+                  {word}
+                  <svg viewBox="0 0 24 24" width="18" height="18"><path d="m12 3 2.6 6.4L21 12l-6.4 2.6L12 21l-2.6-6.4L3 12l6.4-2.6L12 3Z" fill="currentColor" /></svg>
+                </span>
+              ))}
+            </span>
+          ))}
+        </div>
+      </div>
 
       <section className="section categories" aria-labelledby="categories-title">
         <div className="container">

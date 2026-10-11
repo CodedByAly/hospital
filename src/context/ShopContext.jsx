@@ -1,9 +1,11 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useReducer, useState } from 'react';
 import { getItem } from '../data/menu.js';
+import { branches } from '../config/site.js';
 import { toCents } from '../lib/format.js';
 import { readJSON, writeJSON } from '../lib/storage.js';
 
 const CART_KEY = 'zahers.cart.v1';
+const BRANCH_KEY = 'zahers.branch.v1';
 
 /*
  * A cart line stores the customer's choices, not prices. Prices are looked up
@@ -75,6 +77,16 @@ export function ShopProvider({ children }) {
   const [cartOpen, setCartOpen] = useState(false);
   const [itemDialog, setItemDialog] = useState(null); // { itemId, editKey? }
   const [announcement, setAnnouncement] = useState('');
+  // The branch the visitor orders from, chosen on the first visit and remembered.
+  const [branchId, setBranchIdState] = useState(() => {
+    const saved = readJSON(BRANCH_KEY, null);
+    return branches.some((b) => b.id === saved) ? saved : null;
+  });
+  const [branchPickerOpen, setBranchPickerOpen] = useState(false);
+  const setBranchId = useCallback((id) => {
+    setBranchIdState(id);
+    writeJSON(BRANCH_KEY, id);
+  }, []);
 
   useEffect(() => writeJSON(CART_KEY, lines), [lines]);
 
@@ -133,8 +145,14 @@ export function ShopProvider({ children }) {
       itemDialog,
       openItem: (itemId, editKey = null) => setItemDialog({ itemId, editKey }),
       closeItem: () => setItemDialog(null),
+      branchId,
+      branch: branches.find((b) => b.id === branchId) ?? null,
+      setBranchId,
+      branchPickerOpen,
+      openBranchPicker: () => setBranchPickerOpen(true),
+      closeBranchPicker: () => setBranchPickerOpen(false),
     }),
-    [detailed, count, subtotalCents, cartOpen, itemDialog, announce],
+    [detailed, count, subtotalCents, cartOpen, itemDialog, announce, branchId, branchPickerOpen, setBranchId],
   );
 
   return (

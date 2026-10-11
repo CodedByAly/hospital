@@ -3,6 +3,7 @@ import { itemsByCategory, menuItems, categories } from '../data/menu.js';
 import { useDocumentMeta } from '../lib/useDocumentMeta.js';
 import Icon from '../components/Icon.jsx';
 import MenuItemCard from '../components/MenuItemCard.jsx';
+import Reveal from '../components/Reveal.jsx';
 import './MenuPage.css';
 
 const normalize = (s) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
@@ -46,9 +47,22 @@ export default function MenuPage() {
     return () => window.removeEventListener('scroll', onScroll);
   }, [results]);
 
+  // Sliding highlight behind the active category.
+  const [pill, setPill] = useState(null);
+  useEffect(() => {
+    const place = () => {
+      const item = tabsRef.current?.querySelector(`[data-cat="${active}"]`)?.closest('li');
+      if (item) setPill({ left: item.offsetLeft, width: item.offsetWidth });
+    };
+    place();
+    window.addEventListener('resize', place);
+    document.fonts?.ready.then(place);
+    return () => window.removeEventListener('resize', place);
+  }, [active]);
+
   // Keep the active tab visible inside the horizontally scrolling bar.
   useEffect(() => {
-    const tab = tabsRef.current?.querySelector(`[data-cat="${active}"]`);
+    const tab = tabsRef.current?.querySelector(`[data-cat="${active}"]`)?.closest('li');
     const bar = tabsRef.current;
     if (!tab || !bar) return;
     const left = tab.offsetLeft - bar.clientWidth / 2 + tab.clientWidth / 2;
@@ -99,6 +113,9 @@ export default function MenuPage() {
       <nav className="cat-bar" aria-label="Menu categories">
         <div className="container">
           <ul className="cat-bar__list" ref={tabsRef}>
+            {pill && !results && (
+              <li aria-hidden="true" className="cat-bar__pill" style={{ width: pill.width, transform: `translateX(${pill.left}px)` }} />
+            )}
             {categories.map((c) => (
               <li key={c.id}>
                 <a
@@ -124,8 +141,10 @@ export default function MenuPage() {
             </h2>
             {results.length ? (
               <div className="menu-grid">
-                {results.map((item) => (
-                  <MenuItemCard key={item.id} item={item} />
+                {results.map((item, i) => (
+                  <div key={item.id} className="menu-grid__cell menu-grid__cell--result" style={{ '--i': Math.min(i, 8) }}>
+                    <MenuItemCard item={item} />
+                  </div>
                 ))}
               </div>
             ) : (
@@ -147,8 +166,10 @@ export default function MenuPage() {
                 <span className="menu-section__count">{category.items.length}</span>
               </div>
               <div className="menu-grid">
-                {category.items.map((item) => (
-                  <MenuItemCard key={item.id} item={item} />
+                {category.items.map((item, i) => (
+                  <Reveal key={item.id} className="menu-grid__cell" delay={(i % 6) * 45}>
+                    <MenuItemCard item={item} />
+                  </Reveal>
                 ))}
               </div>
             </section>

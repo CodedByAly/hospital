@@ -1,15 +1,16 @@
-import { useEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
+import { prefersReducedMotion } from '../lib/motion.js';
 
-// Fades content up the first time it scrolls into view. Content is visible without JS/IO support.
+// Fades content up the first time it scrolls into view (including on load). Visible without JS/IO support.
 export default function Reveal({ as: Tag = 'div', className = '', delay = 0, children, ...rest }) {
   const ref = useRef(null);
   const [state, setState] = useState('idle');
 
-  useEffect(() => {
+  // Layout effect: hide before first paint so there's no flash of content.
+  useLayoutEffect(() => {
     const el = ref.current;
     if (!el || !('IntersectionObserver' in window)) return undefined;
-    const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight * 0.9) return undefined; // already on screen: no animation
+    if (prefersReducedMotion()) return undefined;
     setState('hidden');
     const io = new IntersectionObserver(
       ([entry]) => {

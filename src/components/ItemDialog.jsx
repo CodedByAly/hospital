@@ -43,6 +43,7 @@ function ItemForm({ item, editKey }) {
       : defaultSelection(item),
   );
   const imageRef = useRef(null);
+  const addBtnRef = useRef(null);
   const category = categories.find((c) => c.id === item.category);
 
   const unit = useMemo(() => unitPriceCents(item, selection), [item, selection]);
@@ -75,20 +76,22 @@ function ItemForm({ item, editKey }) {
       closeItem();
       openCart();
     } else {
-      flyToCart(imageRef.current);
+      flyToCart(item.image ? imageRef.current : null, { from: addBtnRef.current, label: item.name, quantity: selection.quantity });
       addLine(line);
       closeItem();
     }
   };
 
   return (
-    <form className="item-form" onSubmit={submit}>
-      <div className="item-form__media">
-        <FoodImage ref={imageRef} src={item.image} alt={item.name} eager className="item-form__img" />
-        <button type="button" className="icon-btn item-form__close" onClick={closeItem} aria-label="Close">
-          <Icon name="close" />
-        </button>
-      </div>
+    <form className={`item-form ${item.image ? '' : 'item-form--noimg'}`} onSubmit={submit}>
+      {item.image && (
+        <div className="item-form__media">
+          <FoodImage ref={imageRef} src={item.image} alt={item.name} eager className="item-form__img" />
+        </div>
+      )}
+      <button type="button" className={`icon-btn item-form__close ${item.image ? '' : 'item-form__close--plain'}`} onClick={closeItem} aria-label="Close">
+        <Icon name="close" />
+      </button>
 
       <div className="item-form__body">
         <div className="item-form__scroll">
@@ -176,7 +179,7 @@ function ItemForm({ item, editKey }) {
 
         <div className="item-form__footer">
           <QuantityStepper value={selection.quantity} onChange={(quantity) => setSelection((s) => ({ ...s, quantity }))} />
-          <button type="submit" className="btn btn--primary btn--block" disabled={missingRequired.length > 0}>
+          <button ref={addBtnRef} type="submit" className="btn btn--primary btn--block" disabled={missingRequired.length > 0}>
             <span>{editing ? 'Update item' : 'Add to order'}</span>
             <span className="btn__price">{formatCents(total)}</span>
           </button>

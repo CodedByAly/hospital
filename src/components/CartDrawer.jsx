@@ -22,7 +22,7 @@ export function describeLine(line) {
   return parts;
 }
 
-export function CartLine({ line, compact = false }) {
+export function CartLine({ line, compact = false, index = 0 }) {
   const { setQuantity, removeLine, openItem, closeCart } = useShop();
   const [leaving, setLeaving] = useState(false);
   const details = describeLine(line);
@@ -39,8 +39,8 @@ export function CartLine({ line, compact = false }) {
   };
 
   return (
-    <li className={`cart-line ${leaving ? 'is-leaving' : ''} ${compact ? 'cart-line--compact' : ''}`}>
-      <FoodImage src={line.item.image} alt={line.item.name} className="cart-line__img" />
+    <li className={`cart-line ${leaving ? 'is-leaving' : ''} ${compact ? 'cart-line--compact' : ''} ${line.item.image ? '' : 'cart-line--noimg'}`} style={{ '--i': index }}>
+      {line.item.image && <FoodImage src={line.item.image} alt={line.item.name} className="cart-line__img" />}
       <div className="cart-line__info">
         <div className="cart-line__top">
           <p className="cart-line__name">{line.item.name}</p>
@@ -128,8 +128,8 @@ export default function CartDrawer() {
       ) : (
         <>
           <ul className="cart__lines">
-            {lines.map((line) => (
-              <CartLine key={line.key} line={line} />
+            {lines.map((line, i) => (
+              <CartLine key={line.key} line={line} index={i} />
             ))}
           </ul>
           <div className="cart__foot">

@@ -65,9 +65,9 @@ function Field({ id, label, error, optional, hint, children }) {
 
 export default function Checkout() {
   useDocumentMeta('Checkout');
-  const { lines, subtotalCents, clearCart, openCart } = useShop();
+  const { lines, subtotalCents, clearCart, openCart, branchId, setBranchId } = useShop();
   const navigate = useNavigate();
-  const [form, setForm] = useState(initial);
+  const [form, setForm] = useState(() => ({ ...initial, branchId: branchId ?? '' }));
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [summaryOpen, setSummaryOpen] = useState(false);
@@ -77,6 +77,7 @@ export default function Checkout() {
   const set = (key) => (event) => {
     const next = { ...form, [key]: event.target.value };
     setForm(next);
+    if (key === 'branchId') setBranchId(event.target.value);
     if (submitted) setErrors(validate(next, subtotalCents));
   };
 

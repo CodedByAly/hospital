@@ -15,7 +15,7 @@ export const navLinks = [
 ];
 
 export default function Header() {
-  const { count, subtotalCents, openCart } = useShop();
+  const { count, subtotalCents, openCart, branch, openBranchPicker } = useShop();
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -41,6 +41,17 @@ export default function Header() {
         </nav>
 
         <div className="site-header__actions">
+          <button type="button" className="branch-chip" onClick={openBranchPicker} aria-label={branch ? `Ordering from ${branch.name}. Change branch` : 'Choose your branch'}>
+            <Icon name="pin" size={16} />
+            <span className="branch-chip__label">
+              {branch ? branch.name : (
+                <>
+                  <span className="branch-chip__long">Choose </span>branch
+                </>
+              )}
+            </span>
+            <svg className="branch-chip__caret" width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5 5 6.5 8 3.5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+          </button>
           <a className="icon-btn icon-btn--ghost" href={site.social.instagram.url} target="_blank" rel="noopener noreferrer" aria-label="Zaher's on Instagram">
             <InstagramIcon />
           </a>
