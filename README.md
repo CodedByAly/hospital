@@ -1,50 +1,55 @@
-# MediTrack - Hospital Patient Management System
+# Zaher's Diner: website
 
-Course: CSCI390 Web Programming
+Official website and online ordering for Zaher's (Tyre · Hamra · Batroun).
+Built with React 19, React Router and Vite. No UI or animation libraries: styling is plain CSS with design tokens, animations use CSS and the Web Animations API.
 
-## Project Description
+## Run it
 
-MediTrack is a responsive web application built to help hospital staff manage patient records. It allows users to admit new patients, track their ward and status, search for specific patients, and edit or discharge them. All patient data is saved directly in the browser using local storage.
-
-## Project Pages
-
-1. Home: Main dashboard showing overall hospital stats like total, admitted, critical, and discharged patients.
-2. Patients: The main management page where staff can search, filter, admit, edit, or remove patients.
-3. About: Information about the project, the tools used, and the development team.
-4. Contact: A simple page with a message form and contact details.
-
-## Technologies Used
-
-- ReactJS with functional components and hooks
-- React Router for page navigation
-- Vite for running and building the project
-- CSS for layout and responsive design on desktop and mobile screens
-- Browser LocalStorage to store patient records
-
-## How to Run the Project Locally
-
-1. Install dependencies:
+```bash
 npm install
+npm run dev       # http://localhost:5173
+npm run build     # production build in dist/
+npm run preview   # serve the production build
+```
 
-2. Start the local server:
-npm run dev
+It's a single-page app: the host must serve `index.html` for every route. `public/_redirects` (Netlify) and `vercel.json` (Vercel) already do this.
 
-3. Open your browser and go to http://localhost:5173
+## Updating content (no React knowledge needed)
 
-4. Build for production:
-npm run build
+| What | File |
+| --- | --- |
+| Phone numbers, WhatsApp, email, Instagram, branches, hours, map links | `src/config/site.js` |
+| **Whish Money number** | `src/config/site.js` → `payments.whish.number` |
+| Delivery fee / minimum order | `src/config/site.js` → `ordering` |
+| Feedback form destination (Formspree etc.) | `src/config/site.js` → `feedback.endpoint` |
+| Items shown on the home page | `src/config/site.js` → `featuredItemIds` |
+| Menu: items, prices, descriptions, photos, removable ingredients, options, add-ons | `src/data/menu.js` |
+| Offers | `src/data/offers.js` |
+| Food photos | `public/images/menu/` (square images, any size) |
 
-5. Preview build locally:
-npm run preview
+Search engine data (schema.org structured data) and the splash logo are generated from `src/config/site.js` at build time.
 
-## Live Demo Link
+## How ordering works
 
-- Deployed Website: https://cozy-paletas-3da171.netlify.app/
+There is no ordering backend yet. When a customer places an order:
 
-## Group Contribution Statement
+1. The order is saved in their browser and gets a number (e.g. `ZH-1011-4821`).
+2. The confirmation page sends the full order to the branch on **WhatsApp** (pre-written message), or asks the customer to **call** the branch if that branch has no WhatsApp number set.
+3. The branch confirms by reply. For Whish payments, the customer sends the transfer screenshot with the order number. Payments are checked by staff, not automatically.
 
-- CodedByAly: Built project pages, components, local storage data handling, layout styling, and project report setup.
+To connect a POS or backend later, change `placeOrder()` in `src/services/orders.js`.
 
-## Academic Integrity
+## Still needed from the restaurant
 
-This project was developed from scratch for CSCI390 Phase 2 without using pre-made template files.
+- **Whish Money number.** Until it's set, Whish shows as "not available yet" at checkout.
+- **Opening hours** for each branch (the site says "call the branch for today's hours" until then).
+- **WhatsApp numbers for Tyre and Batroun**, if those branches take orders on WhatsApp.
+- **Street addresses / Google Maps links** for Tyre and Batroun (map buttons use a Maps search for now).
+- **Delivery fee and areas** (currently "confirmed by the branch").
+- **Facebook / TikTok links**, if any.
+- **Original high-resolution food photos.** Current photos were cropped from screenshots of the existing site and Instagram. Items without photos show a branded placeholder.
+- Menu items to confirm (marked with `review:` in `src/data/menu.js`):
+  - *Crunchy Zinger Spicy*: description was cut off in the screenshot.
+  - *Twister*: description was cut off in the screenshot.
+  - *Zinger Spicy Sandwich*: price shows as "L8 $" on the current site, entered as $8.
+- Which offers in `src/data/offers.js` are still running.

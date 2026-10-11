@@ -1,0 +1,142 @@
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: var(--header-h);
+  background: rgba(253, 246, 241, 0.92);
+  backdrop-filter: saturate(1.4) blur(12px);
+  -webkit-backdrop-filter: saturate(1.4) blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.site-header.is-scrolled {
+  background: var(--cream);
+  border-bottom-color: var(--line);
+}
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  height: 100%;
+}
+.site-header__logo {
+  color: var(--orange);
+  width: 104px;
+  flex-shrink: 0;
+  padding-block: 6px;
+}
+@media (min-width: 900px) {
+  .site-header__logo {
+    width: 124px;
+  }
+}
+
+.site-nav {
+  display: none;
+}
+@media (min-width: 900px) {
+  .site-nav {
+    display: flex;
+    gap: 4px;
+    margin-left: 12px;
+  }
+}
+.site-nav__link {
+  position: relative;
+  padding: 10px 14px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-decoration: none;
+  color: var(--ink-2);
+  transition: color 0.15s;
+}
+.site-nav__link::after {
+  content: '';
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 4px;
+  height: 2px;
+  background: var(--orange);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s var(--ease);
+}
+.site-nav__link:hover {
+  color: var(--ink);
+}
+.site-nav__link.active {
+  color: var(--ink);
+}
+.site-nav__link.active::after,
+.site-nav__link:hover::after {
+  transform: scaleX(1);
+}
+
+.site-header__actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.site-header__actions .icon-btn {
+  color: var(--ink-2);
+}
+.site-header__actions .icon-btn:hover {
+  color: var(--orange-strong);
+  background: transparent;
+}
+
+.cart-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  margin-left: 8px;
+  padding: 0 16px 0 12px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--navy);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+  transition: background-color 0.18s;
+}
+.cart-btn:hover {
+  background: var(--navy-2);
+}
+.cart-btn__icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+.cart-btn__badge,
+.tabbar__badge {
+  position: absolute;
+  top: -7px;
+  right: -9px;
+  min-width: 19px;
+  height: 19px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--orange);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 19px;
+  text-align: center;
+  animation: badge-pop 0.35s var(--ease);
+}
+@keyframes badge-pop {
+  from {
+    transform: scale(0.4);
+  }
+}
+
+/* On phones the order button lives in the bottom tab bar instead. */
+@media (max-width: 899px) {
+  .cart-btn {
+    display: none;
+  }
+}

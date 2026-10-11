@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Zaher's Diner | Burgers, Crispy Chicken &amp; Mashawi in Lebanon</title>
+    <meta name="description" content="Zaher's has been delivering happiness since 2014. Burgers, Zinger sandwiches, wings, subs and charcoal chicken in Tyre, Hamra and Batroun. Order online for pickup or delivery." />
+    <meta name="theme-color" content="#F26522" />
+    <link rel="canonical" href="https://zahersdiner.com/" />
+    <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/icons/icon-180.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <meta property="og:type" content="restaurant.restaurant" />
+    <meta property="og:site_name" content="Zaher's Diner" />
+    <meta property="og:title" content="Zaher's Diner | Delivering Happiness since 2014" />
+    <meta property="og:description" content="Burgers, crispy chicken, subs and charcoal grills in Tyre, Hamra and Batroun. Order for pickup or delivery." />
+    <meta property="og:url" content="https://zahersdiner.com/" />
+    <meta property="og:image" content="https://zahersdiner.com/images/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" as="image" href="/images/hero-honey.webp" type="image/webp" />
+    <!--structured-data-->
+
+    <style>
+      /* Splash: painted from HTML so it shows instantly; removed once its animation ends. */
+      #splash { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; background: #F26522; color: #fff; animation: splash-out .45s cubic-bezier(.7,0,.3,1) 1.15s forwards; }
+      #splash svg { width: min(58vw, 300px); height: auto; clip-path: inset(0 100% 0 0); animation: splash-write .75s cubic-bezier(.65,0,.35,1) .1s forwards; }
+      @keyframes splash-write { to { clip-path: inset(0 0 0 0); } }
+      @keyframes splash-out { to { transform: translateY(-100%); visibility: hidden; } }
+      .no-splash #splash { display: none; }
+      @media (prefers-reduced-motion: reduce) {
+        #splash { animation: splash-fade .3s linear .6s forwards; }
+        #splash svg { clip-path: none; animation: none; }
+        @keyframes splash-fade { to { opacity: 0; visibility: hidden; } }
+      }
+    </style>
+    <script>
+      // Show the splash once per visit, not on every page load.
+      try {
+        if (sessionStorage.getItem('zahers.splash')) document.documentElement.classList.add('no-splash');
+        else sessionStorage.setItem('zahers.splash', '1');
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="splash" aria-hidden="true"><!--splash-logo--></div>
+    <script>
+      (function () {
+        var s = document.getElementById('splash');
+        if (!s) return;
+        if (document.documentElement.classList.contains('no-splash')) { s.remove(); return; }
+        s.addEventListener('animationend', function (e) { if (e.target === s) s.remove(); });
+        setTimeout(function () { if (s.isConnected) s.remove(); }, 2500);
+      })();
+    </script>
+    <div id="root"></div>
+    <noscript>
+      <p style="padding:24px;font-family:sans-serif">Zaher's: Tyre +961 81 783 558 · Hamra +961 71 510 106 · Batroun +961 78 900 695. Please enable JavaScript to order online.</p>
+    </noscript>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

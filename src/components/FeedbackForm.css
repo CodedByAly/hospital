@@ -1,0 +1,68 @@
+.feedback {
+  padding: clamp(20px, 3vw, 32px);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.stars {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-height: 50px;
+}
+.star {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 44px;
+  cursor: pointer;
+  color: var(--line-strong);
+  transition: color 0.12s, transform 0.12s;
+}
+.star input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  cursor: pointer;
+}
+.star.is-on {
+  color: var(--orange);
+}
+.star:has(input:focus-visible) {
+  outline: 2.5px solid var(--blue);
+  border-radius: 6px;
+}
+.star:active {
+  transform: scale(0.9);
+}
+.stars__word {
+  margin-left: 8px;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+.feedback__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+.feedback__status {
+  font-size: 0.875rem;
+  color: var(--ink-2);
+}
+.feedback-done {
+  display: grid;
+  justify-items: start;
+  gap: 8px;
+  padding: 32px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--success);
+}
+.feedback-done__title {
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
