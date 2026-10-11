@@ -98,6 +98,7 @@ export const payments = {
      */
     number: '',
     accountName: "Zaher's",
+    logo: '/images/payments/whish.png',
   },
 };
 

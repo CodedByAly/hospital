@@ -333,3 +333,29 @@
   margin-bottom: 14px;
   border-bottom: 1px solid var(--line);
 }
+
+.pay-opt__logo {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px -4px rgba(237, 28, 76, 0.5);
+  transition: transform 0.25s var(--ease);
+}
+.pay-opt.is-selected .pay-opt__logo {
+  transform: rotate(-6deg) scale(1.06);
+}
+.pay-opt.is-disabled .pay-opt__logo {
+  filter: grayscale(0.6);
+}
+.whish-panel__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+.whish-panel__brand img {
+  width: 44px;
+  height: 44px;
+  border-radius: 11px;
+}

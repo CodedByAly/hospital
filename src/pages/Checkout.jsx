@@ -284,7 +284,7 @@ export default function Checkout() {
               </label>
               <label className={`pay-opt ${form.payment === 'whish' ? 'is-selected' : ''} ${whishReady ? '' : 'is-disabled'}`}>
                 <input type="radio" name="payment" value="whish" checked={form.payment === 'whish'} onChange={set('payment')} disabled={!whishReady} />
-                <Icon name="wallet" size={24} />
+                <img className="pay-opt__logo" src={payments.whish.logo} alt="" width="40" height="40" />
                 <span>
                   <strong>Whish Money</strong>
                   <small>{whishReady ? 'Transfer from your Whish app before we prepare your order.' : 'Not available yet. Please pay cash for now.'}</small>
@@ -295,7 +295,10 @@ export default function Checkout() {
 
             {form.payment === 'whish' && whishReady && (
               <div className="whish-panel">
-                <p className="whish-panel__label">Send {formatCents(totalCents)} to</p>
+                <div className="whish-panel__brand">
+                  <img src={payments.whish.logo} alt="Whish Money" width="44" height="44" />
+                  <p className="whish-panel__label">Send {formatCents(totalCents)} to</p>
+                </div>
                 <div className="whish-panel__number">
                   <span>{formatPhone(payments.whish.number)}</span>
                   <CopyButton text={payments.whish.number} label="Copy number" />

@@ -141,11 +141,15 @@ export default function OrderConfirmation() {
               )}
               <div>
                 <dt>Payment</dt>
-                <dd>{paymentLabel(order)}</dd>
+                <dd className="confirm__pay">
+                  {order.payment === 'whish' && <img src={payments.whish.logo} alt="" width="22" height="22" />}
+                  {paymentLabel(order)}
+                </dd>
               </div>
             </dl>
             {order.payment === 'whish' && payments.whish.number && (
               <div className="confirm__whish">
+                <img src={payments.whish.logo} alt="Whish Money" width="40" height="40" />
                 <p>
                   Send <strong>{formatCents(order.totalCents)}</strong> to <strong>{formatPhone(payments.whish.number)}</strong> on Whish, then share the
                   screenshot with your order number on WhatsApp.

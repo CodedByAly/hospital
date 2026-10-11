@@ -155,3 +155,19 @@
 .confirm__lines li.is-noimg {
   grid-template-columns: 1fr auto;
 }
+
+.confirm__pay {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.confirm__pay img {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+}
+.confirm__whish > img {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+}
