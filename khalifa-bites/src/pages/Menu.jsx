@@ -202,7 +202,7 @@ function CategoryTabs({ sections, active }) {
     if (!el) return;
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
-    window.history.replaceState(null, '', `#${id}`);
+    if (!import.meta.env.VITE_HASH_ROUTER) window.history.replaceState(null, '', `#${id}`);
   };
 
   return (

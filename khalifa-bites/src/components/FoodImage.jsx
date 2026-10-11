@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { asset } from '../lib/asset';
 
-export const menuSrc = (name) => `/images/menu/${name}.webp`;
+export const menuSrc = (name) => asset(`images/menu/${name}.webp`);
 
 /**
  * Cut-out food photo (transparent WebP from the printed menu), lazy-loaded
@@ -13,7 +14,7 @@ export default function FoodImage({ name, alt, className = '', eager = false, si
   if (!name || failed) {
     return (
       <div className={`food food--placeholder ${className}`} role="img" aria-label={alt} {...rest}>
-        <img src="/images/logo-white.svg" alt="" className="food__mark" />
+        <img src={asset('images/logo-white.svg')} alt="" className="food__mark" />
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import restaurant from '../config/restaurant';
 import Reveal from './Reveal';
 import Icon from './Icon';
+import { asset } from '../lib/asset';
 
 /** Posts from @khalifa.bites (images in /public/images/posts, captions from the posts). */
 export const POSTS = [
@@ -20,7 +21,7 @@ export default function InstagramGrid({ limit = POSTS.length }) {
       {POSTS.slice(0, limit).map((p, i) => (
         <Reveal as="li" key={p.file} delay={(i % 4) * 60}>
           <a href={restaurant.social.instagram} target="_blank" rel="noopener noreferrer" className="insta-post">
-            <img src={`/images/posts/${p.file}.webp`} alt={p.alt} loading="lazy" decoding="async" />
+            <img src={asset(`images/posts/${p.file}.webp`)} alt={p.alt} loading="lazy" decoding="async" />
             <span className="insta-post__caption">
               <Icon name="instagram" size={18} />
               {p.caption}
