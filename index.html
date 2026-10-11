@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Qambri | Seafood Restaurant in Barja</title>
+    <meta
+      name="description"
+      content="Qambri seafood restaurant on Dimass St, Barja. Shrimp sandwiches, wraps, grilled and crispy shrimp meals, salads and pasta. Order for pickup or delivery."
+    />
+    <meta name="theme-color" content="#0659DB" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <!-- Open Graph / social previews -->
+    <meta property="og:type" content="restaurant.restaurant" />
+    <meta property="og:site_name" content="Qambri" />
+    <meta property="og:title" content="Qambri | Seafood Restaurant in Barja" />
+    <meta
+      property="og:description"
+      content="Shrimp sandwiches, wraps, grilled and crispy shrimp meals, salads and pasta on Dimass St, Barja. Pickup or delivery."
+    />
+    <meta property="og:image" content="/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="ar_LB" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Fonts: Latin first; Arabic loads on demand (see LanguageContext). -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@400;500;600;700&display=swap"
+    />
+    <!-- Only the glyphs used in the Arabic stickers, so they render in English mode too. -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap&text=%20%D8%8C%D8%A3%D8%A7%D8%A8%D8%A9%D8%AA%D8%AC%D8%AD%D8%AF%D8%B1%D8%B2%D8%B3%D8%B5%D8%B7%D8%B9%D9%81%D9%82%D9%83%D9%84%D9%85%D9%86%D9%87%D9%88%D9%8A%D9%91%E2%80%A6"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Restaurant",
+        "name": "Qambri",
+        "alternateName": ["Qambri Seafood", "كامبري"],
+        "description": "Seafood restaurant in Barja, Lebanon. Shrimp sandwiches, wraps, meals, salads and pasta. Pickup and delivery.",
+        "servesCuisine": ["Seafood", "Lebanese"],
+        "telephone": "+96179074149",
+        "email": "qambri.lb@gmail.com",
+        "image": "/og-image.jpg",
+        "logo": "/images/logo.svg",
+        "priceRange": "L.L",
+        "currenciesAccepted": "LBP",
+        "acceptsReservations": false,
+        "hasMenu": "/menu",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Dimass St",
+          "addressLocality": "Barja",
+          "addressCountry": "LB"
+        },
+        "sameAs": ["https://www.instagram.com/qambriseafood/", "https://linktr.ee/qambriseafood"]
+      }
+    </script>
+
+    <style>
+      /* Splash — inlined so it paints before the app's CSS and JS arrive. */
+      #splash {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        display: grid;
+        place-items: center;
+        background: #0659db;
+        transition: transform 0.78s cubic-bezier(0.76, 0, 0.24, 1);
+        will-change: transform;
+      }
+      #splash .splash__logo {
+        position: relative;
+        width: min(62vw, 330px);
+        aspect-ratio: 310 / 234;
+        transition: transform 0.78s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.5s ease;
+      }
+      #splash img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+      #splash .splash__shrimp {
+        clip-path: circle(0% at 32% 62%);
+        animation: splash-draw 0.95s cubic-bezier(0.33, 0.9, 0.3, 1) 0.05s forwards;
+      }
+      #splash .splash__word {
+        opacity: 0;
+        transform: translateY(10px);
+        animation: splash-rise 0.7s cubic-bezier(0.2, 0.75, 0.25, 1) 0.28s forwards;
+      }
+      #splash.is-leaving {
+        transform: translateY(-100%);
+      }
+      #splash.is-leaving .splash__logo {
+        transform: translateY(40vh);
+        opacity: 0;
+      }
+      @keyframes splash-draw {
+        to {
+          clip-path: circle(75% at 32% 62%);
+        }
+      }
+      @keyframes splash-rise {
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #splash .splash__shrimp,
+        #splash .splash__word {
+          animation: none;
+          clip-path: none;
+          opacity: 1;
+          transform: none;
+        }
+        #splash,
+        #splash .splash__logo {
+          transition: opacity 0.3s ease;
+        }
+        #splash.is-leaving {
+          transform: none;
+          opacity: 0;
+        }
+      }
+      html.has-splash body {
+        overflow: hidden;
+      }
+    </style>
+    <script>
+      (function () {
+        var root = document.documentElement;
+        try {
+          var lang = localStorage.getItem('qambri.lang');
+          if (lang === 'ar') {
+            root.lang = 'ar';
+            root.dir = 'rtl';
+            var l = document.createElement('link');
+            l.id = 'font-ar';
+            l.rel = 'stylesheet';
+            l.href = 'https://fonts.googleapis.com/css2?family=Lalezar&family=Readex+Pro:wght@300..700&display=swap';
+            document.head.appendChild(l);
+          }
+        } catch (e) {}
+        var seen = false;
+        try {
+          seen = sessionStorage.getItem('qambri.splash') === '1';
+          sessionStorage.setItem('qambri.splash', '1');
+        } catch (e) {}
+        root.setAttribute('data-splash', seen ? 'off' : 'on');
+        if (!seen) root.classList.add('has-splash');
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="splash" aria-hidden="true">
+      <div class="splash__logo">
+        <img class="splash__shrimp" src="/images/logo-shrimp.svg" alt="" />
+        <img class="splash__word" src="/images/logo-word.svg" alt="" />
+      </div>
+    </div>
+    <script>
+      (function () {
+        var s = document.getElementById('splash');
+        if (document.documentElement.getAttribute('data-splash') === 'off') s.remove();
+        else s.dataset.start = String(performance.now());
+      })();
+    </script>
+    <div id="root"></div>
+    <noscript>
+      <p style="padding: 2rem; font-family: sans-serif">
+        Qambri — Seafood Restaurant, Dimass St, Barja, Lebanon. Order: 79 074 149. Instagram: @qambriseafood
+      </p>
+    </noscript>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
