@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
 import { branches, site } from '../config/site.js';
-import { categories, menuItems } from '../data/menu.js';
+import { menuItems } from '../data/menu.js';
 import { useDocumentMeta } from '../lib/useDocumentMeta.js';
 import Icon from '../components/Icon.jsx';
 import Logo from '../components/Logo.jsx';
 import Reveal from '../components/Reveal.jsx';
+import SectionTitle from '../components/SectionTitle.jsx';
+import CountUp from '../components/CountUp.jsx';
 import './About.css';
 
 const gallery = ['double-burger', 'zinger-supreme', 'philadelphia', 'curly-fries'].map((id) => menuItems.find((i) => i.id === id));
@@ -24,16 +26,10 @@ export default function About() {
       <section className="section">
         <div className="container about__story">
           <div className="about__text">
-            <p className="eyebrow">About Zaher’s</p>
-            <h2 className="section-title">A diner menu with a Lebanese grill</h2>
-            <p>
-              Zaher’s started in {site.since} and today serves from three branches: Tyre, Hamra on Bliss Street, and Batroun.
-            </p>
-            <p>
-              The menu runs from beef burgers and Zinger sandwiches to subs, twisters, wings and strips, and alongside them
-              the things you’d expect from a Lebanese kitchen: farooj al fahem with toom and kabis, fattoush and tabbouleh.
-            </p>
-            <p>Order here for pickup or delivery, and pay cash or by Whish Money.</p>
+            <SectionTitle>About Zaher’s</SectionTitle>
+            <p>Opened in {site.since}. Today in Tyre, Hamra (Bliss Street) and Batroun.</p>
+            <p>Burgers, Zingers, subs, twisters, wings and strips. Plus farooj al fahem with toom and kabis, fattoush and tabbouleh.</p>
+            <p>Pickup or delivery. Cash or Whish.</p>
             <Link to="/menu" className="btn btn--primary">
               Browse the menu <Icon name="arrowRight" size={18} />
             </Link>
@@ -51,16 +47,16 @@ export default function About() {
       <section className="about__numbers" aria-label="Zaher’s in numbers">
         <div className="container about__numbers-grid">
           <div>
-            <strong>{site.since}</strong>
-            <span>The year we opened</span>
+            <strong><CountUp from={1990} to={site.since} /></strong>
+            <span>Opened</span>
           </div>
           <div>
-            <strong>{branches.length}</strong>
-            <span>Branches: {branches.map((b) => b.name).join(', ')}</span>
+            <strong><CountUp to={branches.length} duration={700} /></strong>
+            <span>{branches.map((b) => b.name).join(' · ')}</span>
           </div>
           <div>
-            <strong>{menuItems.length}</strong>
-            <span>Items across {categories.length} sections of the menu</span>
+            <strong><CountUp to={menuItems.length} /></strong>
+            <span>Menu items</span>
           </div>
         </div>
       </section>
@@ -69,16 +65,16 @@ export default function About() {
         <div className="container about__info">
           <div>
             <h2 className="section-title section-title--sm">Pickup</h2>
-            <p>Order here, pick a time, and collect it from the branch you chose. Pay cash at the counter or by Whish.</p>
+            <p>Order online and collect it from your branch.</p>
           </div>
           <div>
             <h2 className="section-title section-title--sm">Delivery</h2>
-            <p>Add your area and address at checkout. The branch confirms the delivery fee and time when it confirms your order.</p>
+            <p>Add your address at checkout. The branch confirms the fee and time.</p>
           </div>
           <div>
             <h2 className="section-title section-title--sm">Questions</h2>
             <p>
-              Call any branch, message us on WhatsApp, or email <a href={`mailto:${site.email}`}>{site.email}</a>.
+              Call, WhatsApp or email <a href={`mailto:${site.email}`}>{site.email}</a>.
             </p>
             <Link to="/contact" className="link-arrow">
               Contact & branches <Icon name="arrowRight" size={16} />

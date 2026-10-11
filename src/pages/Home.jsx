@@ -10,9 +10,14 @@ import BranchCard from '../components/BranchCard.jsx';
 import Icon, { InstagramIcon, WhatsAppIcon } from '../components/Icon.jsx';
 import MenuItemCard from '../components/MenuItemCard.jsx';
 import Reveal from '../components/Reveal.jsx';
+import SectionTitle from '../components/SectionTitle.jsx';
+import Ticker from '../components/Ticker.jsx';
+import HeroPicks from '../components/HeroPicks.jsx';
+import OfferRail from '../components/OfferRail.jsx';
 import './Home.css';
 
 const featured = featuredItemIds.map(getItem).filter(Boolean);
+const heroPicks = featured.filter((item) => item.image).slice(0, 5);
 
 // Category tiles use a photo from inside the category, when there is one.
 const categoryTiles = itemsByCategory.map((category) => ({
@@ -44,10 +49,13 @@ export default function Home() {
       hero.style.setProperty('--px', 0);
       hero.style.setProperty('--py', 0);
     };
+    const onScroll = () => hero.style.setProperty('--sy', Math.min(window.scrollY, 800).toFixed(0));
+    window.addEventListener('scroll', onScroll, { passive: true });
     hero.addEventListener('pointermove', onMove);
     hero.addEventListener('pointerleave', onLeave);
     return () => {
       cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', onScroll);
       hero.removeEventListener('pointermove', onMove);
       hero.removeEventListener('pointerleave', onLeave);
     };
@@ -69,15 +77,14 @@ export default function Home() {
               <span className="hero__line hero__title-accent"><span>&amp; charcoal grills.</span></span>
             </h1>
             <p className="hero__lede">
-              Stacked beef burgers, Zinger sandwiches, wings and farooj al fahem from Zaher’s. Order ahead and pick it up,
-              or have it delivered from your nearest branch.
+              Burgers, Zingers, wings and farooj al fahem. Pick it up or get it delivered.
             </p>
             <div className="hero__actions">
               <Link to="/menu" className="btn btn--primary btn--lg">
-                Start your order <Icon name="arrowRight" size={18} />
+                Order now <Icon name="arrowRight" size={18} />
               </Link>
               <Link to="/menu" className="btn btn--outline btn--lg">
-                See the menu
+                Menu
               </Link>
             </div>
             <ul className="hero__modes" aria-label="Ways to order">
@@ -107,29 +114,17 @@ export default function Home() {
               <span>Delivering</span>
               <span>Happiness</span>
             </div>
+            <HeroPicks items={heroPicks} />
           </div>
         </div>
       </section>
 
-      <div className="ticker" aria-hidden="true">
-        <div className="ticker__track">
-          {[0, 1].map((copy) => (
-            <span key={copy} className="ticker__group">
-              {tickerWords.map((word) => (
-                <span key={word} className="ticker__word">
-                  {word}
-                  <svg viewBox="0 0 24 24" width="18" height="18"><path d="m12 3 2.6 6.4L21 12l-6.4 2.6L12 21l-2.6-6.4L3 12l6.4-2.6L12 3Z" fill="currentColor" /></svg>
-                </span>
-              ))}
-            </span>
-          ))}
-        </div>
-      </div>
+      <Ticker words={tickerWords} />
 
       <section className="section categories" aria-labelledby="categories-title">
         <div className="container">
           <div className="section-head">
-            <h2 id="categories-title" className="section-title">What’s cooking</h2>
+            <SectionTitle id="categories-title">The menu</SectionTitle>
             <Link to="/menu" className="link-arrow">
               Full menu <Icon name="arrowRight" size={16} />
             </Link>
@@ -154,11 +149,10 @@ export default function Home() {
         <div className="container">
           <div className="section-head">
             <div>
-              <p className="eyebrow">Straight from the menu</p>
-              <h2 id="featured-title" className="section-title">Order in two taps</h2>
+              <SectionTitle id="featured-title">Quick picks</SectionTitle>
             </div>
             <Link to="/menu" className="link-arrow hide-sm">
-              Everything else <Icon name="arrowRight" size={16} />
+              Full menu <Icon name="arrowRight" size={16} />
             </Link>
           </div>
           <div className="featured__grid">
@@ -176,15 +170,14 @@ export default function Home() {
           <div className="container">
             <div className="section-head section-head--light">
               <div>
-                <p className="eyebrow eyebrow--light">From our Instagram</p>
-                <h2 id="offers-title" className="section-title">Offers running now</h2>
+                <SectionTitle id="offers-title">Offers</SectionTitle>
               </div>
               <a href={site.social.instagram.url} className="link-arrow link-arrow--light" target="_blank" rel="noopener noreferrer">
                 <InstagramIcon size={18} /> @{site.social.instagram.handle}
               </a>
             </div>
           </div>
-          <ul className="offers__rail" aria-label="Offers">
+          <OfferRail className="offers__rail" label="Offers">
             {activeOffers.map((offer) => (
               <li key={offer.id} className="offer">
                 <img src={offer.image} alt={offer.imageAlt} loading="lazy" decoding="async" />
@@ -198,55 +191,24 @@ export default function Home() {
                 </div>
               </li>
             ))}
-          </ul>
+          </OfferRail>
           <div className="container">
             <p className="offers__note">
-              Offers can change. Message us on{' '}
-              <a href={whatsappHref(site.whatsapp, 'Hi Zaher’s, is this offer still available?')} target="_blank" rel="noopener noreferrer">
+              To order an offer,{' '}
+              <a href={whatsappHref(site.whatsapp, 'Hi Zaher’s, I’d like to order an offer.')} target="_blank" rel="noopener noreferrer">
                 WhatsApp
               </a>{' '}
-              or call your branch to order one.
+              or call your branch.
             </p>
           </div>
         </section>
       )}
 
-      <section className="section how" aria-labelledby="how-title">
-        <div className="container how__grid">
-          <div>
-            <p className="eyebrow">Ordering online</p>
-            <h2 id="how-title" className="section-title">Your order, your way</h2>
-            <p className="how__lede">
-              Build your order here, tell us what to leave out, and choose how you want it. Your branch confirms
-              every order before it goes on the grill.
-            </p>
-          </div>
-          <ol className="how__steps">
-            <Reveal as="li">
-              <span className="how__num">01</span>
-              <h3>Pick your food</h3>
-              <p>Every item on the menu, with no pickles, no onions or whatever suits you.</p>
-            </Reveal>
-            <Reveal as="li" delay={60}>
-              <span className="how__num">02</span>
-              <h3>Pickup or delivery</h3>
-              <p>Choose your branch, then collect it yourself or give us your address.</p>
-            </Reveal>
-            <Reveal as="li" delay={120}>
-              <span className="how__num">03</span>
-              <h3>Pay how you like</h3>
-              <p>Cash when it reaches you or when you pick it up, or transfer with Whish Money.</p>
-            </Reveal>
-          </ol>
-        </div>
-      </section>
-
       <section className="section branches-band" aria-labelledby="branches-title">
         <div className="container">
           <div className="section-head">
             <div>
-              <p className="eyebrow">Find us</p>
-              <h2 id="branches-title" className="section-title">Three branches</h2>
+              <SectionTitle id="branches-title">Our branches</SectionTitle>
             </div>
             <Link to="/contact" className="link-arrow hide-sm">
               Contact <Icon name="arrowRight" size={16} />
@@ -265,7 +227,7 @@ export default function Home() {
       <section className="follow" aria-labelledby="follow-title">
         <div className="container follow__inner">
           <h2 id="follow-title" className="follow__title">
-            New items and weekly offers land on Instagram first.
+            New items and offers go up on Instagram first.
           </h2>
           <div className="follow__actions">
             <a href={site.social.instagram.url} className="btn btn--light btn--lg" target="_blank" rel="noopener noreferrer">

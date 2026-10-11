@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { branches, site } from '../config/site.js';
 import { formatPhone, telHref } from '../lib/format.js';
 import Logo from './Logo.jsx';
+import Reveal from './Reveal.jsx';
 import SocialLinks from './SocialLinks.jsx';
 import { navLinks } from './Header.jsx';
 import './Footer.css';
@@ -11,10 +12,10 @@ export default function Footer() {
     <footer className="site-footer">
       <div className="container site-footer__grid">
         <div className="site-footer__brand">
-          <Logo variant="full" className="site-footer__logo" />
-          <p>
-            Burgers, crispy chicken, subs and charcoal grills. Serving Tyre, Hamra and Batroun since {site.since}.
-          </p>
+          <Reveal className="logo-write-in">
+            <Logo variant="full" className="site-footer__logo" />
+          </Reveal>
+          <p>Tyre · Hamra · Batroun. Since {site.since}.</p>
           <SocialLinks className="site-footer__social" withLabels />
         </div>
 
@@ -45,15 +46,15 @@ export default function Footer() {
         </div>
 
         <div>
-          <h2 className="site-footer__title">Get in touch</h2>
+          <h2 className="site-footer__title">Contact</h2>
           <ul className="site-footer__list">
             <li>
               <a href={`mailto:${site.email}`}>{site.email}</a>
             </li>
             <li>
-              <Link to="/contact#feedback">Send us feedback</Link>
+              <Link to="/contact#feedback">Feedback</Link>
             </li>
-            {branches.every((b) => !b.hours.length) && <li className="site-footer__muted">Opening hours: call your branch</li>}
+            {branches.every((b) => !b.hours.length) && <li className="site-footer__muted">Hours: call your branch</li>}
           </ul>
         </div>
       </div>

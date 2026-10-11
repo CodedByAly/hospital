@@ -28,7 +28,7 @@ export default function MenuItemCard({ item, layout = 'row' }) {
   };
 
   return (
-    <article className={`menu-card menu-card--${layout} ${item.image ? '' : 'menu-card--noimg'}`}>
+    <article className={`menu-card menu-card--${layout} ${item.image ? '' : 'menu-card--noimg'} ${added ? 'is-flash' : ''}`}>
       <button type="button" className="menu-card__open" onClick={() => openItem(item.id)} aria-label={`${item.name}, ${formatPrice(item.price)}. View details`} />
       {item.image && <FoodImage ref={imgRef} src={item.image} alt={item.name} className="menu-card__img" />}
       <div className="menu-card__body">

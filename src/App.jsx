@@ -8,6 +8,7 @@ import ItemDialog from './components/ItemDialog.jsx';
 import BranchPicker from './components/BranchPicker.jsx';
 import BackToTop from './components/BackToTop.jsx';
 import ScrollManager from './components/ScrollManager.jsx';
+import RouteProgress from './components/RouteProgress.jsx';
 import Home from './pages/Home.jsx';
 import MenuPage from './pages/MenuPage.jsx';
 
@@ -37,6 +38,7 @@ export default function App() {
         Skip to content
       </a>
       <ScrollManager />
+      <RouteProgress />
       <Header />
       <main id="main" className={`page ${inCheckout ? 'page--checkout' : ''}`} key={pathname}>
         <Suspense fallback={<PageFallback />}>

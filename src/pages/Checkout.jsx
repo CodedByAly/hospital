@@ -8,6 +8,7 @@ import { placeOrder } from '../services/orders.js';
 import { CartLine, TotalsBlock, describeLine } from '../components/CartDrawer.jsx';
 import CopyButton from '../components/CopyButton.jsx';
 import Icon from '../components/Icon.jsx';
+import AnimatedPrice from '../components/AnimatedPrice.jsx';
 import './Checkout.css';
 
 const whishFor = (branchId) => (payments.whish.enabled ? branches.find((b) => b.id === branchId)?.whish ?? null : null);
@@ -29,22 +30,22 @@ const initial = {
 
 function validate(form, subtotalCents) {
   const errors = {};
-  if (!form.branchId) errors.branchId = 'Choose the branch you’re ordering from.';
-  if (form.name.trim().length < 2) errors.name = 'Please enter your name.';
-  if (!form.phone.trim()) errors.phone = 'We need a number to confirm your order.';
-  else if (!normalizeLebanesePhone(form.phone)) errors.phone = 'Enter a Lebanese number, e.g. 71 123 456.';
+  if (!form.branchId) errors.branchId = 'Choose a branch.';
+  if (form.name.trim().length < 2) errors.name = 'Enter your name.';
+  if (!form.phone.trim()) errors.phone = 'Enter your mobile number.';
+  else if (!normalizeLebanesePhone(form.phone)) errors.phone = 'Use a Lebanese number, e.g. 71 123 456.';
   if (form.type === 'pickup' && form.pickupMode === 'later' && !/^\d{2}:\d{2}$/.test(form.pickupTime)) {
-    errors.pickupTime = 'Pick a time, or choose “As soon as possible”.';
+    errors.pickupTime = 'Pick a time.';
   }
   if (form.type === 'delivery') {
-    if (!form.area.trim()) errors.area = 'Which area should we deliver to?';
-    if (form.address.trim().length < 5) errors.address = 'Add the street and a landmark so the driver can find you.';
+    if (!form.area.trim()) errors.area = 'Enter your area.';
+    if (form.address.trim().length < 5) errors.address = 'Enter your street and a landmark.';
     if (ordering.deliveryMinimum != null && subtotalCents < toCents(ordering.deliveryMinimum)) {
       errors.type = `Delivery starts from ${formatPrice(ordering.deliveryMinimum)}.`;
     }
   }
   if (form.payment === 'whish' && form.branchId && !whishFor(form.branchId)) {
-    errors.payment = 'This branch doesn’t take Whish yet. Please choose cash.';
+    errors.payment = 'Whish isn’t available at this branch. Choose cash.';
   }
   return errors;
 }
@@ -96,9 +97,9 @@ export default function Checkout() {
     return (
       <div className="container checkout-empty">
         <h1 className="page-title">Checkout</h1>
-        <p>Your order is empty. Add something from the menu first.</p>
+        <p>Your order is empty.</p>
         <Link to="/menu" className="btn btn--primary">
-          Browse the menu
+          Go to menu
         </Link>
       </div>
     );
@@ -164,12 +165,12 @@ export default function Checkout() {
         <form ref={formRef} className="checkout__form" onSubmit={submit} noValidate>
           <section className="checkout__block" aria-labelledby="type-title">
             <h2 id="type-title" className="checkout__step">
-              <span>1</span> How do you want it?
+              <span>1</span> Pickup or delivery
             </h2>
             <div className="segmented" role="radiogroup" aria-label="Order type">
               {[
-                { id: 'pickup', label: 'Pickup', sub: 'Collect from the branch', icon: 'store' },
-                { id: 'delivery', label: 'Delivery', sub: 'We bring it to you', icon: 'scooter' },
+                { id: 'pickup', label: 'Pickup', sub: 'From the branch', icon: 'store' },
+                { id: 'delivery', label: 'Delivery', sub: 'To your door', icon: 'scooter' },
               ].map((opt) => (
                 <label key={opt.id} className={`segmented__opt ${form.type === opt.id ? 'is-selected' : ''}`}>
                   <input type="radio" name="type" value={opt.id} checked={form.type === opt.id} onChange={set('type')} />
@@ -213,7 +214,7 @@ export default function Checkout() {
               <Field id="name" label="Full name" error={errors.name}>
                 <input id="name" type="text" autoComplete="name" value={form.name} onChange={set('name')} {...err('name')} />
               </Field>
-              <Field id="phone" label="Mobile number" error={errors.phone} hint="The branch calls or messages this number to confirm.">
+              <Field id="phone" label="Mobile number" error={errors.phone}>
                 <input id="phone" type="tel" inputMode="tel" autoComplete="tel" placeholder="71 123 456" value={form.phone} onChange={set('phone')} {...err('phone')} />
               </Field>
             </div>
@@ -269,7 +270,7 @@ export default function Checkout() {
                 id="notes"
                 rows={2}
                 maxLength={300}
-                placeholder={form.type === 'delivery' ? 'e.g. call when you arrive, no doorbell' : 'Anything the branch should know'}
+                placeholder={form.type === 'delivery' ? 'e.g. call when you arrive, no doorbell' : 'Anything we should know'}
                 value={form.notes}
                 onChange={set('notes')}
               />
@@ -286,7 +287,7 @@ export default function Checkout() {
                 <Icon name="cash" size={24} />
                 <span>
                   <strong>{form.type === 'delivery' ? 'Cash on delivery' : 'Cash at pickup'}</strong>
-                  <small>{form.type === 'delivery' ? 'Pay the driver when your order arrives.' : 'Pay at the counter when you collect.'}</small>
+                  <small>{form.type === 'delivery' ? 'Pay the driver.' : 'Pay at the counter.'}</small>
                 </span>
               </label>
               <label className={`pay-opt ${form.payment === 'whish' ? 'is-selected' : ''} ${whishReady ? '' : 'is-disabled'}`}>
@@ -294,14 +295,14 @@ export default function Checkout() {
                 <img className="pay-opt__logo" src={payments.whish.logo} alt="" width="40" height="40" />
                 <span>
                   <strong>Whish Money</strong>
-                  <small>{whishReady ? 'Transfer from your Whish app before we prepare your order.' : 'Not available at this branch yet. Please pay cash.'}</small>
+                  <small>{whishReady ? 'Transfer from the Whish app.' : 'Not available at this branch.'}</small>
                 </span>
               </label>
             </div>
             {errors.payment && <p className="field__error">{errors.payment}</p>}
 
             {form.payment === 'whish' && whishReady && !whishNumber && (
-              <p className="whish-panel whish-panel--hint">Choose your branch above to see its Whish number.</p>
+              <p className="whish-panel whish-panel--hint">Choose a branch to see its Whish number.</p>
             )}
             {form.payment === 'whish' && whishNumber && (
               <div className="whish-panel">
@@ -313,11 +314,10 @@ export default function Checkout() {
                   <span>{formatPhone(whishNumber)}</span>
                   <CopyButton text={whishNumber} label="Copy number" />
                 </div>
-                <p className="whish-panel__name">Same number as the branch’s WhatsApp</p>
                 <ol className="whish-panel__steps">
-                  <li>Open Whish Money and send the total to the number above.</li>
-                  <li>Place your order below. You’ll get an order number.</li>
-                  <li>Send a screenshot of the transfer with your order number to this same number on WhatsApp.</li>
+                  <li>Send the total on Whish.</li>
+                  <li>Place your order.</li>
+                  <li>WhatsApp the screenshot to the same number.</li>
                 </ol>
                 <p className="whish-panel__note">
                   Payments are checked by the branch, not automatically. Your order is prepared once the transfer is confirmed.
@@ -330,7 +330,9 @@ export default function Checkout() {
           <div className="checkout__submit">
             <div className="checkout__submit-total">
               <span>Total{form.type === 'delivery' && ordering.deliveryFee == null ? ' before delivery' : ''}</span>
-              <strong>{formatCents(totalCents)}</strong>
+              <strong>
+                <AnimatedPrice cents={totalCents} />
+              </strong>
             </div>
             <button type="submit" className="btn btn--primary btn--lg">
               Place order
@@ -338,7 +340,7 @@ export default function Checkout() {
           </div>
           {submitted && Object.keys(errors).length > 0 && (
             <p className="checkout__error-summary" role="alert">
-              Please check the highlighted fields.
+              Check the highlighted fields.
             </p>
           )}
         </form>

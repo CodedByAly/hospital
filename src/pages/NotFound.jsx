@@ -6,11 +6,10 @@ export default function NotFound() {
   return (
     <div className="container not-found">
       <p className="eyebrow">404</p>
-      <h1 className="page-title">This page isn’t on the menu</h1>
-      <p>The link may be old or mistyped.</p>
+      <h1 className="page-title">Page not found</h1>
       <div className="not-found__actions">
         <Link to="/" className="btn btn--outline">Home</Link>
-        <Link to="/menu" className="btn btn--primary">See the menu</Link>
+        <Link to="/menu" className="btn btn--primary">Menu</Link>
       </div>
     </div>
   );

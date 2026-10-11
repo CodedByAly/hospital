@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { getItem, categories } from '../data/menu.js';
 import { useShop, unitPriceCents } from '../context/ShopContext.jsx';
-import { formatCents, formatPrice } from '../lib/format.js';
+import { formatPrice } from '../lib/format.js';
 import { flyToCart } from '../lib/flyToCart.js';
 import Dialog from './Dialog.jsx';
 import FoodImage from './FoodImage.jsx';
 import Icon from './Icon.jsx';
 import QuantityStepper from './QuantityStepper.jsx';
+import AnimatedPrice from './AnimatedPrice.jsx';
 import './ItemDialog.css';
 
 function defaultSelection(item) {
@@ -140,8 +141,7 @@ function ItemForm({ item, editKey }) {
           {item.removable.length > 0 && (
             <fieldset className="choice-group">
               <legend>
-                Leave anything out?
-                <span className="choice-group__hint">Tap to remove</span>
+                Remove ingredients
               </legend>
               <div className="chips">
                 {item.removable.map((ingredient) => {
@@ -165,13 +165,13 @@ function ItemForm({ item, editKey }) {
 
           <label className="field item-form__note">
             <span className="field__label">
-              Note for the kitchen <span className="field__optional">optional</span>
+              Notes <span className="field__optional">optional</span>
             </span>
             <textarea
               rows={2}
               maxLength={140}
               value={selection.note}
-              placeholder={item.category === 'drinks' ? 'e.g. which soft drink you’d like' : 'e.g. extra crispy, sauce on the side'}
+              placeholder={item.category === 'drinks' ? 'e.g. Pepsi' : 'e.g. well done'}
               onChange={(e) => setSelection((s) => ({ ...s, note: e.target.value }))}
             />
           </label>
@@ -181,7 +181,7 @@ function ItemForm({ item, editKey }) {
           <QuantityStepper value={selection.quantity} onChange={(quantity) => setSelection((s) => ({ ...s, quantity }))} />
           <button ref={addBtnRef} type="submit" className="btn btn--primary btn--block" disabled={missingRequired.length > 0}>
             <span>{editing ? 'Update item' : 'Add to order'}</span>
-            <span className="btn__price">{formatCents(total)}</span>
+            <AnimatedPrice className="btn__price" cents={total} />
           </button>
         </div>
       </div>

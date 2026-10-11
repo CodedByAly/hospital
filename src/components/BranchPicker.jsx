@@ -39,8 +39,7 @@ export default function BranchPicker() {
       <div className="bp">
         <div className="bp__head">
           <Logo className="bp__logo" />
-          <h2 id="branch-picker-title" className="bp__title" ref={titleRef} tabIndex={-1}>Which branch are you ordering from?</h2>
-          <p className="bp__sub">Same menu at every branch. We’ll send your order to the one you pick.</p>
+          <h2 id="branch-picker-title" className="bp__title" ref={titleRef} tabIndex={-1}>Choose your branch</h2>
         </div>
         <ul className="bp__list">
           {branches.map((b, i) => (
@@ -61,7 +60,7 @@ export default function BranchPicker() {
           ))}
         </ul>
         <button type="button" className="text-btn bp__later" onClick={closeBranchPicker}>
-          Just looking, I’ll choose later
+          Later
         </button>
       </div>
     </Dialog>

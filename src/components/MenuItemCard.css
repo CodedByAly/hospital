@@ -147,3 +147,17 @@
     transform: scale(1.18);
   }
 }
+
+/* Card lights up briefly when added */
+.menu-card.is-flash {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px rgba(242, 101, 34, 0.18);
+}
+.menu-card__add svg {
+  transition: transform 0.3s var(--ease);
+}
+@media (hover: hover) {
+  .menu-card__add:hover svg {
+    transform: rotate(90deg);
+  }
+}

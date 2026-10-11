@@ -4,6 +4,7 @@ import { useDocumentMeta } from '../lib/useDocumentMeta.js';
 import Icon from '../components/Icon.jsx';
 import MenuItemCard from '../components/MenuItemCard.jsx';
 import Reveal from '../components/Reveal.jsx';
+import SectionTitle from '../components/SectionTitle.jsx';
 import './MenuPage.css';
 
 const normalize = (s) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
@@ -88,7 +89,7 @@ export default function MenuPage() {
         <div className="container menu-hero__inner">
           <div>
             <p className="eyebrow">Prices in USD</p>
-            <h1 className="page-title">The menu</h1>
+            <h1 className="page-title">Menu</h1>
           </div>
           <label className="search">
             <Icon name="search" size={20} />
@@ -97,7 +98,7 @@ export default function MenuPage() {
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search burgers, wings, avocado…"
+              placeholder="Search the menu"
               autoComplete="off"
               enterKeyHint="search"
             />
@@ -149,7 +150,6 @@ export default function MenuPage() {
               </div>
             ) : (
               <div className="menu-empty">
-                <p>Try a different word, like “chicken”, “cheese” or “spicy”.</p>
                 <button type="button" className="btn btn--outline" onClick={() => setQuery('')}>
                   Show the full menu
                 </button>
@@ -160,9 +160,9 @@ export default function MenuPage() {
           itemsByCategory.map((category) => (
             <section key={category.id} id={category.id} className="menu-section" aria-labelledby={`${category.id}-title`}>
               <div className="menu-section__head">
-                <h2 id={`${category.id}-title`} className="menu-section__title">
+                <SectionTitle id={`${category.id}-title`} className="menu-section__title">
                   {category.name}
-                </h2>
+                </SectionTitle>
                 <span className="menu-section__count">{category.items.length}</span>
               </div>
               <div className="menu-grid">

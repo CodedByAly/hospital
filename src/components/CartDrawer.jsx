@@ -8,6 +8,7 @@ import Dialog from './Dialog.jsx';
 import FoodImage from './FoodImage.jsx';
 import Icon from './Icon.jsx';
 import QuantityStepper from './QuantityStepper.jsx';
+import AnimatedPrice from './AnimatedPrice.jsx';
 import './CartDrawer.css';
 
 export function describeLine(line) {
@@ -44,7 +45,9 @@ export function CartLine({ line, compact = false, index = 0 }) {
       <div className="cart-line__info">
         <div className="cart-line__top">
           <p className="cart-line__name">{line.item.name}</p>
-          <p className="cart-line__total">{formatCents(line.totalCents)}</p>
+          <p className="cart-line__total">
+          <AnimatedPrice cents={line.totalCents} />
+        </p>
         </div>
         <p className="cart-line__unit">{formatCents(line.unitCents)} each</p>
         {details.length > 0 && <p className="cart-line__mods">{details.join(' · ')}</p>}
@@ -87,7 +90,9 @@ export function TotalsBlock({ subtotalCents, orderType = null }) {
       )}
       <div className="totals__grand">
         <dt>Total{showDelivery && fee == null ? <span> before delivery</span> : null}</dt>
-        <dd>{formatCents(subtotalCents + feeCents)}</dd>
+        <dd>
+          <AnimatedPrice cents={subtotalCents + feeCents} />
+        </dd>
       </div>
     </dl>
   );
@@ -119,10 +124,9 @@ export default function CartDrawer() {
           <div className="cart__empty-icon">
             <Icon name="bag" size={30} strokeWidth={1.5} />
           </div>
-          <p className="cart__empty-title">Nothing here yet</p>
-          <p>Pick something from the menu and it will show up here.</p>
+          <p className="cart__empty-title">Your order is empty</p>
           <Link to="/menu" className="btn btn--primary" onClick={close}>
-            Browse the menu
+            Go to menu
           </Link>
         </div>
       ) : (
@@ -142,12 +146,12 @@ export default function CartDrawer() {
                 navigate('/checkout');
               }}
             >
-              Checkout <span className="btn__price">{formatCents(subtotalCents)}</span>
+              Checkout <AnimatedPrice className="btn__price" cents={subtotalCents} />
             </button>
             <div className="cart__clear">
               {confirmClear ? (
                 <>
-                  <span>Remove everything?</span>
+                  <span>Clear everything?</span>
                   <button type="button" className="text-btn text-btn--danger" onClick={() => { clearCart(); setConfirmClear(false); }}>
                     Yes, clear
                   </button>

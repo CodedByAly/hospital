@@ -942,3 +942,152 @@ legend {
   gap: 12px;
   flex-wrap: wrap;
 }
+
+/* ------------------------------------------------------------------ motion extras */
+.price-roll {
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+}
+.price-roll.is-bumped {
+  animation: price-bump 0.38s var(--ease);
+}
+@keyframes price-bump {
+  35% {
+    transform: translateY(-3px) scale(1.08);
+  }
+}
+
+/* Section titles rise from behind a mask */
+.title-mask {
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+.title-mask > span {
+  display: inline-block;
+}
+.title-mask.reveal--hidden {
+  opacity: 1;
+  transform: none;
+}
+.title-mask.reveal--hidden > span {
+  transform: translateY(110%);
+}
+.title-mask.reveal--shown {
+  animation: none;
+}
+.title-mask.reveal--shown > span {
+  animation: line-up 0.75s cubic-bezier(0.2, 0.8, 0.2, 1) var(--reveal-delay, 0ms) both;
+}
+@keyframes line-up {
+  from {
+    transform: translateY(110%);
+  }
+}
+
+/* Page change progress bar */
+.route-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 120;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--orange), #ffb48f);
+  transform-origin: left;
+  pointer-events: none;
+  animation: route-progress 0.7s var(--ease) forwards;
+}
+@keyframes route-progress {
+  0% {
+    transform: scaleX(0);
+    opacity: 1;
+  }
+  70% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 0;
+  }
+}
+
+/* Shine sweep across primary buttons on hover */
+.btn--primary {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn--primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.28) 50%, transparent 70%);
+  transform: translateX(-120%);
+}
+@media (hover: hover) {
+  .btn--primary:hover:not(:disabled)::after {
+    transition: transform 0.7s var(--ease);
+    transform: translateX(120%);
+  }
+}
+
+/* Footer logo writes itself in when it scrolls into view */
+.logo-write-in.reveal--shown {
+  animation: logo-write-in 1s var(--ease-in-out) both;
+}
+@keyframes logo-write-in {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* Rails with arrows */
+.rail {
+  position: relative;
+}
+.rail > ul.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  user-select: none;
+}
+.rail > ul {
+  cursor: grab;
+}
+.rail__arrow {
+  display: none;
+}
+@media (hover: hover) and (min-width: 900px) {
+  .rail__arrow {
+    position: absolute;
+    top: 38%;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 0;
+    background: #fff;
+    color: var(--navy);
+    box-shadow: var(--shadow);
+    transition: opacity 0.2s, transform 0.2s var(--ease);
+  }
+  .rail__arrow:hover:not(:disabled) {
+    transform: scale(1.08);
+  }
+  .rail__arrow:disabled {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .rail__arrow--prev {
+    left: max(12px, calc((100vw - 1240px) / 2 - 8px));
+  }
+  .rail__arrow--next {
+    right: max(12px, calc((100vw - 1240px) / 2 - 8px));
+  }
+}

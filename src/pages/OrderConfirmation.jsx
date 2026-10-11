@@ -17,7 +17,7 @@ export default function OrderConfirmation() {
     return (
       <div className="container confirm-missing">
         <h1 className="page-title">We couldn’t find that order</h1>
-        <p>Orders are saved on the device they were placed from. If you placed it on another phone, check there, or call your branch.</p>
+        <p>Orders are saved on the phone they were placed from. Otherwise, call your branch.</p>
         <Link to="/contact" className="btn btn--primary">
           Contact a branch
         </Link>
@@ -38,11 +38,11 @@ export default function OrderConfirmation() {
             <Icon name="check" size={30} strokeWidth={2.4} />
           </div>
           <p className="confirm__number">Order {order.number}</p>
-          <h1 className="confirm__title">Thanks, {order.customer.name.split(' ')[0]}. One last step.</h1>
+          <h1 className="confirm__title">Almost done, {order.customer.name.split(' ')[0]}.</h1>
           <p className="confirm__lede">
             {sendTo
-              ? `Send your order to Zaher’s ${branch.name} on WhatsApp. The branch replies to confirm it and starts preparing.`
-              : `Call Zaher’s ${branch?.name} to confirm your order. Give them your order number and they’ll take it from there.`}
+              ? `Send it to Zaher’s ${branch.name} on WhatsApp to confirm.`
+              : `Call Zaher’s ${branch?.name} to confirm. Mention your order number.`}
           </p>
           <div className="confirm__cta">
             {sendTo ? (
@@ -151,8 +151,7 @@ export default function OrderConfirmation() {
               <div className="confirm__whish">
                 <img src={payments.whish.logo} alt="Whish Money" width="40" height="40" />
                 <p>
-                  Send <strong>{formatCents(order.totalCents)}</strong> to <strong>{formatPhone(branch.whish)}</strong> on Whish, then share the
-                  screenshot with your order number on WhatsApp.
+                  Send <strong>{formatCents(order.totalCents)}</strong> to <strong>{formatPhone(branch.whish)}</strong> on Whish and WhatsApp the screenshot.
                 </p>
                 <CopyButton text={branch.whish} label="Copy Whish number" />
               </div>
@@ -165,7 +164,7 @@ export default function OrderConfirmation() {
                 {pickup ? 'Pick up from' : 'Delivering from'} Zaher’s {branch.name}
               </h2>
               <p className="confirm__address">{branch.address}</p>
-              <p className="confirm__help">Something wrong with your order? Get in touch with the branch directly.</p>
+              <p className="confirm__help">Problem with your order? Contact the branch.</p>
               <div className="confirm__help-actions">
                 <a className="btn btn--outline btn--sm" href={telHref(branch.phone)}>
                   <Icon name="phone" size={16} /> {formatPhone(branch.phone)}

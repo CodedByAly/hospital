@@ -18,8 +18,8 @@ export default function FeedbackForm() {
   const submit = async (event) => {
     event.preventDefault();
     const found = {};
-    if (form.name.trim().length < 2) found.name = 'Please tell us your name.';
-    if (form.message.trim().length < 5) found.message = 'Write a few words so we know what happened.';
+    if (form.name.trim().length < 2) found.name = 'Enter your name.';
+    if (form.message.trim().length < 5) found.message = 'Write a message.';
     if (form.contact && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.contact) && form.contact.replace(/\D/g, '').length < 7) {
       found.contact = 'Enter a phone number or an email address.';
     }
@@ -42,7 +42,7 @@ export default function FeedbackForm() {
     return (
       <div className="feedback-done" role="status">
         <Icon name="check" size={28} strokeWidth={2.2} />
-        <p className="feedback-done__title">Thanks, your feedback has been sent.</p>
+        <p className="feedback-done__title">Sent. Thank you.</p>
         <button type="button" className="text-btn" onClick={() => setStatus('idle')}>
           Send another
         </button>
@@ -62,7 +62,7 @@ export default function FeedbackForm() {
         </div>
         <div className={`field ${errors.contact ? 'has-error' : ''}`}>
           <label className="field__label" htmlFor="fb-contact">
-            Phone or email <span className="field__optional">optional, if you’d like a reply</span>
+            Phone or email <span className="field__optional">optional</span>
           </label>
           <input id="fb-contact" type="text" autoComplete="email" value={form.contact} onChange={set('contact')} {...invalid('contact')} />
           {errors.contact && <p className="field__error" id="fb-contact-error">{errors.contact}</p>}
@@ -75,7 +75,7 @@ export default function FeedbackForm() {
             Branch <span className="field__optional">optional</span>
           </label>
           <select id="fb-branch" value={form.branch} onChange={set('branch')}>
-            <option value="">Not branch-specific</option>
+            <option value="">Any branch</option>
             {branches.map((b) => (
               <option key={b.id} value={b.name}>
                 {b.name}
@@ -108,8 +108,8 @@ export default function FeedbackForm() {
       </div>
 
       <div className={`field ${errors.message ? 'has-error' : ''}`}>
-        <label className="field__label" htmlFor="fb-message">Your feedback</label>
-        <textarea id="fb-message" rows={4} maxLength={1500} value={form.message} onChange={set('message')} placeholder="What did you order, and how was it?" {...invalid('message')} />
+        <label className="field__label" htmlFor="fb-message">Message</label>
+        <textarea id="fb-message" rows={4} maxLength={1500} value={form.message} onChange={set('message')} {...invalid('message')} />
         {errors.message && <p className="field__error" id="fb-message-error">{errors.message}</p>}
       </div>
 
@@ -118,8 +118,8 @@ export default function FeedbackForm() {
           {status === 'sending' ? 'Sending…' : 'Send feedback'}
         </button>
         <p className="feedback__status" role="status">
-          {status === 'mailto' && 'Your email app should open with the message ready. Just press send.'}
-          {status === 'error' && 'That didn’t go through. Please try again, or message us on WhatsApp.'}
+          {status === 'mailto' && 'Your email app will open with the message ready.'}
+          {status === 'error' && 'Didn’t go through. Try again or WhatsApp us.'}
         </p>
       </div>
     </form>

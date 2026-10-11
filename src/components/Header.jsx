@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { site } from '../config/site.js';
 import { useShop } from '../context/ShopContext.jsx';
-import { formatCents, whatsappHref } from '../lib/format.js';
+import { whatsappHref } from '../lib/format.js';
 import Icon, { InstagramIcon, WhatsAppIcon } from './Icon.jsx';
 import Logo from './Logo.jsx';
+import AnimatedPrice from './AnimatedPrice.jsx';
 import './Header.css';
 
 export const navLinks = [
@@ -63,7 +64,7 @@ export default function Header() {
               <Icon name="bag" size={20} />
               {count > 0 && <span className="cart-btn__badge" key={count}>{count}</span>}
             </span>
-            <span className="cart-btn__label hide-sm">{count > 0 ? formatCents(subtotalCents) : 'Your order'}</span>
+            <span className="cart-btn__label hide-sm">{count > 0 ? <AnimatedPrice cents={subtotalCents} /> : 'Your order'}</span>
           </button>
         </div>
       </div>
