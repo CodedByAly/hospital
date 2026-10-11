@@ -17,7 +17,7 @@ import InstagramGrid from '../components/InstagramGrid';
 export default function Home() {
   useDocumentMeta(
     'Khalifa Bites | Burgers, Subs & Shawarma in Saida',
-    'Khalifa Bites on the Saida Highway: charcoal-grilled burgers, crispy chicken, subs, hot dogs and shawarma. Order for pickup or delivery on 76 086 068.',
+    'Khalifa Bites in Saida: charcoal-grilled burgers, crispy chicken, subs, hot dogs and shawarma. Order for pickup or delivery on 76 086 068.',
   );
   return (
     <>
@@ -56,7 +56,7 @@ function Hero() {
             Locked, loaded and ready to be devoured.
           </h1>
           <p className="hero__lead hero__in" style={{ '--d': 2 }}>
-            Charcoal-grilled burgers, crispy chicken, loaded subs and shawarma by the kilo — on the Saida Highway. Pick it up or we’ll bring it to you.
+            Charcoal-grilled burgers, crispy chicken, loaded subs and shawarma by the kilo — in Saida. Pick it up or we’ll bring it to you.
           </p>
           <div className="hero__ctas hero__in" style={{ '--d': 3 }}>
             <Link to="/menu" className="btn btn--white btn--lg">
@@ -79,7 +79,7 @@ function Hero() {
             </div>
             <div>
               <dt>Find us</dt>
-              <dd>Saida Highway</dd>
+              <dd>Saida</dd>
             </div>
           </dl>
         </div>
@@ -283,7 +283,7 @@ function Visit() {
         <Reveal>
           <p className="eyebrow eyebrow--light">Fast delivery</p>
           <h2 id="visit-title" className="section-title section-title--light">On the road to you.</h2>
-          <p className="visit__lead">Order on the site or on WhatsApp — pick it up from the Saida Highway or have it delivered.</p>
+          <p className="visit__lead">Order on the site or on WhatsApp — pick it up in Saida or have it delivered.</p>
           <div className="visit__ctas">
             <a href={whatsappLink()} className="btn btn--white btn--lg" target="_blank" rel="noopener noreferrer">
               <Icon name="whatsapp" size={20} /> Order on WhatsApp

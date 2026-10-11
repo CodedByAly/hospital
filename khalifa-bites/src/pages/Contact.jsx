@@ -8,7 +8,7 @@ import Reveal from '../components/Reveal';
 import Icon from '../components/Icon';
 
 export default function Contact() {
-  useDocumentMeta('Contact', 'Call or WhatsApp Khalifa Bites on 76 086 068, or find us on the Saida Highway. Send us your feedback.');
+  useDocumentMeta('Contact', 'Call or WhatsApp Khalifa Bites on 76 086 068, or find us in Saida. Send us your feedback.');
   return (
     <div className="contact">
       <section className="contact__top">

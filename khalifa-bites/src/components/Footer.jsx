@@ -13,7 +13,7 @@ export default function Footer() {
       <div className="container site-footer__grid">
         <div className="site-footer__brand">
           <Logo variant="white" label={restaurant.name} className="site-footer__logo" />
-          <p>Burgers off the charcoal grill, crispy chicken, subs and shawarma on the Saida Highway. Pickup or delivery.</p>
+          <p>Burgers off the charcoal grill, crispy chicken, subs and shawarma in Saida. Pickup or delivery.</p>
           <SocialLinks />
         </div>
 

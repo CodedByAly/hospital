@@ -8,7 +8,7 @@ import InstagramGrid from '../components/InstagramGrid';
 import Icon from '../components/Icon';
 
 export default function About() {
-  useDocumentMeta('About', 'Khalifa Bites — The Original Lebanese Flavor. Burgers, crispy chicken, subs and shawarma on the Saida Highway.');
+  useDocumentMeta('About', 'Khalifa Bites — The Original Lebanese Flavor. Burgers, crispy chicken, subs and shawarma in Saida.');
   const sections = itemsByCategory.filter((c) => c.id !== 'drinks');
 
   return (
@@ -19,7 +19,7 @@ export default function About() {
             <p className="eyebrow">{restaurant.tagline}</p>
             <h1 className="page-title page-title--xl">More than a snack.</h1>
             <p className="about__lead">
-              Khalifa Bites is a burger, sub and shawarma kitchen on the Saida Highway. Beef patties go on the charcoal grill, chicken comes grilled or
+              Khalifa Bites is a burger, sub and shawarma kitchen in Saida. Beef patties go on the charcoal grill, chicken comes grilled or
               homemade-crispy, and the shawarma is rolled in arabic bread or markook — or packed by the kilo for the whole table.
             </p>
             <Link to="/menu" className="btn btn--primary btn--lg">
@@ -63,7 +63,7 @@ export default function About() {
             <Reveal className="service">
               <Icon name="store" size={30} />
               <h3>Pickup</h3>
-              <p>Order here or on WhatsApp and collect it from the Saida Highway.</p>
+              <p>Order here or on WhatsApp and collect it from us in Saida.</p>
             </Reveal>
             <Reveal className="service" delay={70}>
               <Icon name="truck" size={30} />

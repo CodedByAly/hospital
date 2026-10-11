@@ -1,6 +1,6 @@
 # Khalifa Bites — website
 
-Official website for **Khalifa Bites** — *The Original Lebanese Flavor* — on the Saida Highway, Lebanon.
+Official website for **Khalifa Bites** — *The Original Lebanese Flavor* — in Saida, Lebanon.
 Burgers, crispy chicken, subs, hot dogs and shawarma, with online ordering that hands the finished order to the restaurant on WhatsApp.
 
 ## Run it
@@ -40,11 +40,10 @@ To change a price, edit the `price` of that item (or variant). To add a photo, d
 
 These are empty on purpose; the site handles them honestly until they're filled in `src/config/restaurant.js`:
 
-- **Whish Money number** (`payments.whish`) — Whish shows as "not available online yet". Set `{ display: '76 000 000', raw: '76000000' }` to enable it (the number then shows with a copy button).
 - **Opening hours** (`hours`) — customers are asked to call or WhatsApp.
 - **Delivery fee** (`ordering.deliveryFee`) — shown as "Confirmed on WhatsApp".
 - **Facebook / TikTok** — hidden until added. Instagram (@khalifa.bites) and WhatsApp are linked.
-- **Exact address / Google Maps place link** — currently "Saida Highway, Saida" with a Maps search.
+- **Exact street address / Google Maps place link** — currently "Saida, Lebanon" with a Maps search.
 
 ## How ordering works
 

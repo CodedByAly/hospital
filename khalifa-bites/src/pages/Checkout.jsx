@@ -115,7 +115,7 @@ export default function Checkout() {
             <fieldset className="checkout__step">
               <legend className="checkout__step-title"><span className="checkout__num">1</span>Pickup or delivery?</legend>
               <div className="segmented">
-                <ChoiceCard name="type" value="pickup" checked={form.type === 'pickup'} onChange={set('type')} icon="store" title="Pickup" hint="Collect from the Saida Highway" />
+                <ChoiceCard name="type" value="pickup" checked={form.type === 'pickup'} onChange={set('type')} icon="store" title="Pickup" hint="Collect from us in Saida" />
                 <ChoiceCard name="type" value="delivery" checked={form.type === 'delivery'} onChange={set('type')} icon="truck" title="Delivery" hint="We bring it to your door" />
               </div>
             </fieldset>

@@ -21,10 +21,10 @@ const restaurant = {
   email: null,
 
   address: {
-    line: 'Saida Highway',
+    line: 'Saida',
     city: 'Saida',
     country: 'Lebanon',
-    full: 'Saida Highway, Saida, Lebanon',
+    full: 'Saida, Lebanon',
   },
 
   // Google Maps search for the restaurant. Replace with the exact place link
@@ -54,11 +54,10 @@ const restaurant = {
   payments: {
     cash: true,
     /**
-     * Whish Money number that receives payments — not provided yet.
-     * While null, Whish shows at checkout as unavailable.
-     * Example: { display: '76 000 000', raw: '76000000' }
+     * Whish Money number that receives payments (same as the WhatsApp line).
+     * Set to null to hide Whish at checkout.
      */
-    whish: null,
+    whish: { display: '76 086 068', raw: '76086068' },
   },
 
   /**
