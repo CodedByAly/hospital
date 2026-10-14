@@ -1,50 +1,52 @@
-# MediTrack - Hospital Patient Management System
+# Kuku Chix Joint — website
 
-Course: CSCI390 Web Programming
+The official ordering website for **Kuku Chix Joint**, a fried chicken spot in Khaldeh, Lebanon.
 
-## Project Description
+Built with React + TypeScript + Vite. It's bilingual (English / Arabic with full RTL), works mobile-first, and orders go to the restaurant on WhatsApp.
 
-MediTrack is a responsive web application built to help hospital staff manage patient records. It allows users to admit new patients, track their ward and status, search for specific patients, and edit or discharge them. All patient data is saved directly in the browser using local storage.
+## Features
 
-## Project Pages
+- Full menu with all 11 sections, prices, struck-through bundle prices and descriptions, copied from the restaurant's ordering page
+- Item dialog with the required choices (flavour, free dip, "pick 2/4 sauces"), paid extras, ingredients to leave out, notes and quantity
+- Cart that stays saved between visits: edit items, change quantities, remove them, clear the cart, and see the LBP total next to the dollar total
+- Fly-to-cart animation, and a 3D hero (three.js) that loads separately so it never slows down the first paint
+- Checkout for pickup (time slots generated from opening hours) or delivery (area, address, building), with form validation
+- Payment by cash or Whish Money (shows the Whish number with a copy button once it's configured)
+- Order confirmation page with an order number, a summary, expected time, and buttons to call or WhatsApp the restaurant
+- Feedback form: posts to an endpoint if one is configured, otherwise sends the feedback through WhatsApp
+- SEO: per-page titles, Open Graph tags, `Restaurant` JSON-LD, sitemap, robots.txt
+- Accessibility: keyboard focus trapping in dialogs, a skip link, visible focus states, and respect for reduced-motion settings
 
-1. Home: Main dashboard showing overall hospital stats like total, admitted, critical, and discharged patients.
-2. Patients: The main management page where staff can search, filter, admit, edit, or remove patients.
-3. About: Information about the project, the tools used, and the development team.
-4. Contact: A simple page with a message form and contact details.
+## Run it
 
-## Technologies Used
-
-- ReactJS with functional components and hooks
-- React Router for page navigation
-- Vite for running and building the project
-- CSS for layout and responsive design on desktop and mobile screens
-- Browser LocalStorage to store patient records
-
-## How to Run the Project Locally
-
-1. Install dependencies:
+```bash
 npm install
+npm run dev       # http://localhost:5173
+npm run build     # production build in dist/
+npm run preview   # serve the build
+```
 
-2. Start the local server:
-npm run dev
+The site is a single-page app, so the host must rewrite every route to `index.html`. `public/_redirects` handles this on Netlify and `vercel.json` handles it on Vercel.
 
-3. Open your browser and go to http://localhost:5173
+## Editing content
 
-4. Build for production:
-npm run build
+| What | Where |
+| --- | --- |
+| Phone, WhatsApp, email, address, hours, socials, Whish number, delivery fee, LBP rate | `src/config/restaurant.ts` |
+| Menu items, prices, descriptions, options, removable ingredients | `src/data/menu.ts` |
+| Food photos | `public/images/menu/<item>.webp` (+ `<item>-sm.webp` thumbnail) |
+| Interface text (EN / AR) | `src/i18n/strings.ts` |
+| Order delivery (WhatsApp today) | `src/services/orders.ts` |
+| Feedback delivery | `src/services/feedback.ts`, or set `VITE_FEEDBACK_ENDPOINT` in `.env` |
 
-5. Preview build locally:
-npm run preview
+## Values still to confirm with the restaurant
 
-## Live Demo Link
+These are flagged in the code and the UI adapts until they're filled in:
 
-- Deployed Website: https://cozy-paletas-3da171.netlify.app/
-
-## Group Contribution Statement
-
-- CodedByAly: Built project pages, components, local storage data handling, layout styling, and project report setup.
-
-## Academic Integrity
-
-This project was developed from scratch for CSCI390 Phase 2 without using pre-made template files.
+- **Whish Money number.** `payments.whishNumber` is `null`, so for now customers are asked to request it on WhatsApp.
+- **Opening hours.** The ordering page says 3:00 PM–12:00 AM, but the Instagram bio says 12:00 PM–1:00 AM.
+- **Google Maps link.** The short link was cut off in the screenshot, so a Maps search is used for now.
+- **Delivery fee.** Not provided; shown as "confirmed on WhatsApp".
+- **Spice levels.** Items say "choose your spice level", but the levels weren't listed. Mild / Medium / Hot are placeholders.
+- **RANCH burger price.** Hidden in every screenshot. The item shows "Ask us" until `price` is set.
+- Items marked `verify:` in `menu.ts` had part of their text hidden in the screenshots.

@@ -1,0 +1,222 @@
+.cart {
+  position: fixed;
+  inset: 0;
+  z-index: 110;
+}
+.cart__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 12, 19, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.cart__panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  inset-inline-end: 0;
+  width: min(440px, 100%);
+  display: flex;
+  flex-direction: column;
+  background: var(--cream);
+  box-shadow: -30px 0 60px -30px rgba(0, 0, 0, 0.5);
+  perspective: 1000px;
+}
+.cart__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 16px 14px 22px;
+  border-bottom: 1px solid var(--line);
+}
+:root[dir='rtl'] .cart__head {
+  padding: 18px 22px 14px 16px;
+}
+.cart__head h2 {
+  font-size: 1.6rem;
+}
+.cart__head p {
+  color: var(--muted);
+  font-size: 0.86rem;
+  margin-top: 2px;
+}
+.cart__empty {
+  flex: 1;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 10px;
+  padding: 32px;
+  text-align: center;
+}
+.cart__empty-art {
+  display: grid;
+  place-items: center;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: var(--paper);
+  margin-bottom: 8px;
+}
+.cart__empty-art svg {
+  width: 42px;
+  height: 42px;
+  stroke-width: 1.4;
+}
+.cart__empty h3 {
+  font-size: 1.4rem;
+}
+.cart__empty p {
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.cart__lines {
+  list-style: none;
+  margin: 0;
+  padding: 14px 16px;
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.cart-line {
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  gap: 14px;
+  padding: 12px;
+  margin-bottom: 10px;
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-1);
+  overflow: hidden;
+}
+.cart-line__img {
+  width: 76px;
+  height: 76px;
+  border-radius: 10px;
+}
+.cart-line__info {
+  min-width: 0;
+}
+.cart-line__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+}
+.cart-line__top h3 {
+  font-family: 'Bricolage Grotesque Variable', sans-serif;
+  font-size: 0.98rem;
+  letter-spacing: 0;
+  font-weight: 800;
+  line-height: 1.2;
+}
+.cart-line__meta {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 3px;
+  line-height: 1.35;
+}
+.cart-line__meta--removed {
+  color: var(--red-deep);
+}
+.cart-line__meta--note {
+  font-style: italic;
+}
+.cart-line__actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 10px;
+}
+.cart-line__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 36px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+.cart-line__link:hover {
+  background: var(--paper);
+  color: var(--text);
+}
+.cart-line__link svg {
+  width: 16px;
+  height: 16px;
+}
+.cart-line__link--danger {
+  margin-inline-start: auto;
+}
+.cart-line__link--danger:hover {
+  color: var(--red);
+  background: #fff1f0;
+}
+.cart__foot {
+  padding: 16px 20px calc(16px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--line);
+  background: var(--cream);
+}
+.totals {
+  margin: 0 0 14px;
+  display: grid;
+  gap: 6px;
+}
+.totals div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+.totals dt {
+  color: var(--muted);
+}
+.totals dd {
+  margin: 0;
+  font-weight: 700;
+}
+.totals__muted dd {
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+.totals__grand {
+  padding-top: 8px;
+  margin-top: 4px;
+  border-top: 1px dashed var(--line);
+  font-size: 1.2rem;
+}
+.totals__grand dt {
+  color: var(--text);
+  font-weight: 800;
+}
+.totals__lbp {
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-align: end;
+}
+.cart__checkout {
+  min-height: 56px;
+  font-size: 1.05rem;
+}
+.cart__clear {
+  display: block;
+  margin: 10px auto 0;
+  padding: 8px 12px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.cart__confirm {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 0.86rem;
+  font-weight: 600;
+}

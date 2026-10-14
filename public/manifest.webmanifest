@@ -1,0 +1,9 @@
+{
+  "name": "Kuku Chix Joint",
+  "short_name": "Kuku",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b1622",
+  "theme_color": "#0b1622",
+  "icons": [{ "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }]
+}

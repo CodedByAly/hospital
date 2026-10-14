@@ -1,0 +1,46 @@
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 36px;
+  background:
+    radial-gradient(60% 50% at 50% 45%, rgba(27, 166, 234, 0.22), transparent 70%),
+    var(--ink);
+  cursor: pointer;
+}
+.splash__stage {
+  position: relative;
+  perspective: 900px;
+  display: grid;
+  justify-items: center;
+}
+.splash__logo {
+  width: min(300px, 62vw);
+  height: auto;
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.45));
+}
+.splash__shadow {
+  width: 70%;
+  height: 18px;
+  margin-top: 18px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.6), transparent);
+}
+.splash__bars {
+  display: grid;
+  gap: 5px;
+  width: min(160px, 40vw);
+}
+.splash__bars span {
+  display: block;
+  height: 4px;
+  border-radius: 4px;
+  transform-origin: left center;
+}
+:root[dir='rtl'] .splash__bars span {
+  transform-origin: right center;
+}

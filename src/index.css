@@ -1,0 +1,455 @@
+/* ------------------------------------------------------------------
+   Kuku Chix Joint — design tokens & base
+   Palette pulled from the logo: rooster red, K yellow, UKU blue,
+   plus the studio-blue backdrop used in all of the food photography.
+------------------------------------------------------------------- */
+:root {
+  --red: #e1262c;
+  --red-deep: #b51b20;
+  --yellow: #ffc81e;
+  --yellow-soft: #ffe08a;
+  --blue: #2e86c1;
+  --sky: #1ba6ea;
+  --ink: #0b1622;
+  --ink-2: #13222f;
+  --ink-3: #1d3142;
+  --cream: #fbf6ec;
+  --paper: #f3eada;
+  --sand: #e7dcc6;
+  --text: #14202b;
+  --muted: #5d6873;
+  --line: rgba(11, 22, 34, 0.12);
+  --line-light: rgba(251, 246, 236, 0.14);
+  --success: #1f8a4c;
+
+  --font-display: 'Bricolage Grotesque Variable', 'Arial Black', system-ui, sans-serif;
+  --font-body: 'DM Sans Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --radius-s: 8px;
+  --radius: 14px;
+  --radius-l: 22px;
+  --shadow-1: 0 1px 2px rgba(11, 22, 34, 0.06), 0 4px 14px rgba(11, 22, 34, 0.06);
+  --shadow-2: 0 10px 30px -10px rgba(11, 22, 34, 0.35);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --header-h: 68px;
+  --dock-h: 0px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --maxw: 1240px;
+
+  color-scheme: light;
+}
+
+:root[lang='ar'] {
+  --font-display: 'Lalezar', 'Cairo', system-ui, sans-serif;
+  --font-body: 'Cairo', system-ui, sans-serif;
+}
+
+@media (max-width: 859px) {
+  :root {
+    --header-h: 60px;
+    --dock-h: 68px;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + 64px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  line-height: 1.02;
+  margin: 0;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+}
+
+:root[lang='ar'] h1,
+:root[lang='ar'] h2,
+:root[lang='ar'] h3,
+:root[lang='ar'] h4 {
+  letter-spacing: 0;
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+p {
+  margin: 0;
+}
+
+:focus-visible {
+  outline: 3px solid var(--sky);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+::selection {
+  background: var(--yellow);
+  color: var(--ink);
+}
+
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  inset-inline-start: 12px;
+  top: -60px;
+  z-index: 200;
+  background: var(--yellow);
+  color: var(--ink);
+  padding: 10px 16px;
+  border-radius: var(--radius-s);
+  font-weight: 700;
+  transition: top 0.2s;
+}
+.skip-link:focus {
+  top: 12px;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+main {
+  min-height: 70vh;
+  padding-bottom: var(--dock-h);
+}
+
+/* ---------- type helpers ---------- */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+:root[lang='ar'] .eyebrow {
+  letter-spacing: 0;
+  font-size: 0.9rem;
+}
+.eyebrow::before {
+  content: '';
+  width: 22px;
+  height: 2px;
+  background: currentColor;
+}
+
+.section {
+  padding-block: clamp(64px, 9vw, 120px);
+}
+
+.section-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: clamp(28px, 4vw, 48px);
+  flex-wrap: wrap;
+}
+.section-head h2 {
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  max-width: 14ch;
+}
+.section-head p {
+  color: var(--muted);
+  max-width: 42ch;
+}
+
+/* ---------- buttons ---------- */
+.btn {
+  --bg: var(--ink);
+  --fg: var(--cream);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 50px;
+  padding: 0 22px;
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--fg);
+  font-weight: 700;
+  font-size: 0.98rem;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  transition:
+    transform 0.25s var(--ease-out),
+    box-shadow 0.25s var(--ease-out),
+    background-color 0.2s;
+  will-change: transform;
+}
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px -10px rgba(11, 22, 34, 0.55);
+}
+.btn:active {
+  transform: translateY(0) scale(0.98);
+}
+.btn[disabled] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+.btn svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+.btn--yellow {
+  --bg: var(--yellow);
+  --fg: var(--ink);
+  box-shadow: inset 0 -3px 0 rgba(11, 22, 34, 0.18);
+}
+.btn--red {
+  --bg: var(--red);
+  --fg: #fff;
+}
+.btn--ghost {
+  --bg: transparent;
+  --fg: currentColor;
+  box-shadow: inset 0 0 0 1.5px currentColor;
+}
+.btn--ghost:hover {
+  box-shadow: inset 0 0 0 1.5px currentColor;
+  background: rgba(127, 127, 127, 0.08);
+}
+.btn--wa {
+  --bg: #1f9d55;
+  --fg: #fff;
+}
+.btn--block {
+  width: 100%;
+}
+.btn--sm {
+  min-height: 40px;
+  padding: 0 16px;
+  font-size: 0.9rem;
+}
+
+.icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  transition:
+    background-color 0.2s,
+    transform 0.2s var(--ease-out);
+}
+.icon-btn:hover {
+  background: rgba(127, 127, 127, 0.14);
+}
+.icon-btn:active {
+  transform: scale(0.94);
+}
+.icon-btn svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* flip directional icons in RTL */
+:root[dir='rtl'] .flip-rtl {
+  transform: scaleX(-1);
+}
+
+/* ---------- forms ---------- */
+.field {
+  display: grid;
+  gap: 6px;
+}
+.field label,
+.field .label {
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+.field .req {
+  color: var(--red);
+  margin-inline-start: 2px;
+}
+.input,
+.select,
+.textarea {
+  width: 100%;
+  min-height: 50px;
+  padding: 12px 14px;
+  border-radius: var(--radius-s);
+  border: 1.5px solid var(--line);
+  background: #fff;
+  font-size: 1rem;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+.textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+.input:focus,
+.select:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--ink);
+  box-shadow: 0 0 0 4px rgba(27, 166, 234, 0.22);
+}
+.field[data-invalid='true'] .input,
+.field[data-invalid='true'] .select,
+.field[data-invalid='true'] .textarea {
+  border-color: var(--red);
+  background: #fff8f7;
+}
+.field-error {
+  color: var(--red-deep);
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+.input[type='tel'] {
+  direction: ltr;
+}
+:root[dir='rtl'] .input[type='tel'] {
+  text-align: right;
+}
+
+/* ---------- misc ---------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  background: var(--paper);
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  flex: none;
+}
+.dot--live {
+  box-shadow: 0 0 0 0 currentColor;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, currentColor 55%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 8px transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+.price {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+:root[lang='ar'] .price {
+  font-family: 'Bricolage Grotesque Variable', sans-serif;
+}
+
+/* The ghost image used by the fly-to-cart animation. */
+.fly-ghost {
+  position: fixed;
+  z-index: 300;
+  pointer-events: none;
+  background: var(--sky) center / cover no-repeat;
+  border-radius: 18%;
+  will-change: transform, opacity;
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.page-loading {
+  min-height: 70vh;
+}
