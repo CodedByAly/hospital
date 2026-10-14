@@ -1,4 +1,4 @@
-import { useLang } from '../i18n/LanguageProvider'
+import { copy as t } from '../content/copy'
 import { Icon } from './Icon'
 import './QtyStepper.css'
 
@@ -12,7 +12,6 @@ interface Props {
 }
 
 export function QtyStepper({ value, onChange, min = 1, max = 99, label, small }: Props) {
-  const { t } = useLang()
   return (
     <div className={`qty ${small ? 'qty--sm' : ''}`} role="group" aria-label={label}>
       <button type="button" onClick={() => onChange(Math.max(min, value - 1))} disabled={value <= min} aria-label={`${t.item.decrease} ${label}`}>

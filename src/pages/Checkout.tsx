@@ -1,7 +1,8 @@
 import { useMemo, useState, type FormEvent, type ReactNode } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useLang, fmt } from '../i18n/LanguageProvider'
+import { copy as t } from '../content/copy'
+import { fmt } from '../utils/format'
 import { useCart, describeLine, lineTotal } from '../store/cart'
 import { findItem } from '../data/menu'
 import { restaurant, whatsappLink } from '../config/restaurant'
@@ -19,7 +20,6 @@ export const ORDER_TYPE = 'kuku.orderType'
 type Errors = Partial<Record<'name' | 'phone' | 'area' | 'address' | 'pickupTime', string>>
 
 export default function Checkout() {
-  const { t, l, lang } = useLang()
   usePageMeta(t.checkout.title)
   const navigate = useNavigate()
   const { lines, subtotal, clear } = useCart()
@@ -121,7 +121,7 @@ export default function Checkout() {
     <div className="checkout">
       <div className="container">
         <Link to="/menu" className="checkout__back">
-          <Icon name="back" className="flip-rtl" /> {t.checkout.back}
+          <Icon name="back" /> {t.checkout.back}
         </Link>
         <h1 className="checkout__title">{t.checkout.title}</h1>
 
@@ -155,7 +155,7 @@ export default function Checkout() {
                         <select id="f-pickupTime" className="select" value={form.pickupTime} onChange={(e) => set('pickupTime', e.target.value)}>
                           {openNow && <option value="asap">{t.checkout.asap}</option>}
                           {slots.map((s) => (
-                            <option key={s} value={s}>{clock(s, lang)}</option>
+                            <option key={s} value={s}>{clock(s)}</option>
                           ))}
                         </select>
                       </Field>
@@ -196,7 +196,7 @@ export default function Checkout() {
                           <div className="whish__card">
                             <div>
                               <span className="whish__label">{t.checkout.whishNumber}</span>
-                              <strong dir="ltr">{restaurant.payments.whishNumber}</strong>
+                              <strong>{restaurant.payments.whishNumber}</strong>
                               <span className="whish__label">{t.checkout.whishName}: {restaurant.payments.whishAccountName}</span>
                             </div>
                             <button type="button" className="btn btn--sm" onClick={copyWhish}>
@@ -225,15 +225,15 @@ export default function Checkout() {
             <ul className="summary-lines">
               {lines.map((line) => {
                 const item = findItem(line.itemId)!
-                const opts = describeLine(line, lang)
+                const opts = describeLine(line)
                 return (
                   <li key={line.key}>
                     <FoodImage image={item.image} alt="" className="summary-lines__img" sizes="56px" />
                     <div>
-                      <p className="summary-lines__name"><span>{num(line.qty, lang)}×</span> {item.name}</p>
+                      <p className="summary-lines__name"><span>{num(line.qty)}×</span> {item.name}</p>
                       {opts.length > 0 && <p className="summary-lines__meta">{opts.join(' · ')}</p>}
                       {line.removed.length > 0 && (
-                        <p className="summary-lines__meta">{t.cart.without}: {line.removed.map((en) => item.removable?.find((r) => r.en === en)?.[lang] ?? en).join(', ')}</p>
+                        <p className="summary-lines__meta">{t.cart.without}: {line.removed.join(', ')}</p>
                       )}
                     </div>
                     <span className="price">{money(lineTotal(line))}</span>
@@ -256,7 +256,7 @@ export default function Checkout() {
                 <dt>{t.cart.total}</dt>
                 <dd className="price">{money(total)}</dd>
               </div>
-              {approx && <p className="totals__lbp">{fmt(t.cart.approxLbp, { v: approx, r: num(restaurant.payments.lbpRate!, lang) })}</p>}
+              {approx && <p className="totals__lbp">{fmt(t.cart.approxLbp, { v: approx, r: num(restaurant.payments.lbpRate!) })}</p>}
             </dl>
             {Object.values(errors).some(Boolean) && <p className="field-error" role="alert">{t.checkout.errors.fix}</p>}
             <button type="submit" className="btn btn--wa btn--block checkout__submit" disabled={submitting}>
@@ -264,7 +264,7 @@ export default function Checkout() {
             </button>
             <p className="checkout__hint">{t.checkout.placeHint}</p>
             <p className="checkout__where">
-              <Icon name="pin" /> {restaurant.name} · {l(restaurant.address)}
+              <Icon name="pin" /> {restaurant.name} · {restaurant.address}
             </p>
           </aside>
         </form>
@@ -274,11 +274,10 @@ export default function Checkout() {
 }
 
 function Panel({ step, title, children }: { step: number; title: string; children: ReactNode }) {
-  const { lang } = useLang()
   return (
     <section className="panel">
       <h2 className="panel__title">
-        <span aria-hidden="true">{num(step, lang)}</span>
+        <span aria-hidden="true">{num(step)}</span>
         {title}
       </h2>
       {children}

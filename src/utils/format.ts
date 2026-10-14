@@ -1,8 +1,4 @@
-import type { Lang } from '../data/types'
 import { restaurant } from '../config/restaurant'
-
-/** Latin digits in both languages — standard on Lebanese menus. */
-const locale = (lang: Lang) => (lang === 'ar' ? 'ar-LB-u-nu-latn' : 'en-US')
 
 /** Prices are always shown as $12.50, the way the restaurant lists them. */
 export const money = (v: number) =>
@@ -16,13 +12,13 @@ export const lbp = (usd: number) => {
   return new Intl.NumberFormat('en-US').format(v)
 }
 
-export const num = (v: number, lang: Lang = 'en') => new Intl.NumberFormat(locale(lang)).format(v)
+export const num = (v: number) => new Intl.NumberFormat('en-US').format(v)
 
-/** "15:00" -> "3:00 PM" / "٣:٠٠ م" */
-export const clock = (hhmm: string, lang: Lang = 'en') => {
+/** "15:00" -> "3:00 PM" */
+export const clock = (hhmm: string) => {
   const [h, m] = hhmm.split(':').map(Number)
   const d = new Date(2000, 0, 1, h % 24, m)
-  return new Intl.DateTimeFormat(locale(lang), { hour: 'numeric', minute: '2-digit' }).format(d)
+  return new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit' }).format(d)
 }
 
 /** Minutes since midnight in the restaurant's timezone. */
@@ -76,3 +72,7 @@ export const normalizeLbPhone = (raw: string) => {
   if (d.length === 7 && /^[13-9]/.test(d)) d = '0' + d // 3xxxxxx -> 03xxxxxx
   return /^\d{8}$/.test(d) ? d : null
 }
+
+/** Replace {key} placeholders in copy strings. */
+export const fmt = (s: string, vars: Record<string, string | number>) =>
+  s.replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? ''))

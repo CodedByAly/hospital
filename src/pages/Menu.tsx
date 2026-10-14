@@ -1,7 +1,8 @@
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useLang, fmt } from '../i18n/LanguageProvider'
+import { copy as t } from '../content/copy'
+import { fmt } from '../utils/format'
 import { categories, menu } from '../data/menu'
 import type { MenuItem } from '../data/types'
 import { num } from '../utils/format'
@@ -19,7 +20,6 @@ const normalize = (s: string) =>
     .replace(/['’]/g, '')
 
 export default function Menu() {
-  const { t, l, lang } = useLang()
   usePageMeta(t.menu.title, 'Kuku Chix Joint menu: bundles, Nashville chix, strips, wings, mac n cheese, loaded fries, burgers, sauces and drinks — with prices.')
   const [query, setQuery] = useState('')
   const deferred = useDeferredValue(query)
@@ -33,7 +33,7 @@ export default function Menu() {
     if (!q) return null
     return menu.filter((m) => {
       const cat = categories.find((c) => c.id === m.category)
-      const hay = normalize([m.name, m.description.en, m.description.ar, cat?.name.en, cat?.name.ar].join(' '))
+      const hay = normalize([m.name, m.description, cat?.name].join(' '))
       return q.split(/\s+/).every((w) => hay.includes(w))
     })
   }, [deferred])
@@ -100,7 +100,7 @@ export default function Menu() {
       <header className="menu-hero">
         <div className="container menu-hero__inner">
           <div>
-            <h1>{t.menu.title}</h1>
+            <h1 className="display">{t.menu.title}</h1>
             <p>{t.menu.sub}</p>
           </div>
           <label className="menu-search">
@@ -131,7 +131,7 @@ export default function Menu() {
               return (
                 <button key={c.id} type="button" data-cat={c.id} className={`cat-chip ${on ? 'is-active' : ''}`} onClick={() => jump(c.id)} aria-current={on ? 'true' : undefined}>
                   {on && <motion.span layoutId="cat-pill" className="cat-chip__pill" transition={{ type: 'spring', stiffness: 450, damping: 36 }} />}
-                  <span>{l(c.name)}</span>
+                  <span>{c.name}</span>
                 </button>
               )
             })}
@@ -145,7 +145,7 @@ export default function Menu() {
             <motion.section key="results" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="menu-results" aria-live="polite">
               {results.length ? (
                 <>
-                  <p className="menu-results__count">{results.length === 1 ? t.menu.item : fmt(t.menu.items, { n: num(results.length, lang) })}</p>
+                  <p className="menu-results__count">{results.length === 1 ? t.menu.item : fmt(t.menu.items, { n: num(results.length) })}</p>
                   <Grid items={results} />
                 </>
               ) : (
@@ -164,10 +164,10 @@ export default function Menu() {
                 return (
                   <section key={c.id} id={c.id} className="menu-section" aria-labelledby={`h-${c.id}`}>
                     <div className="menu-section__head">
-                      <h2 id={`h-${c.id}`}>{l(c.name)}</h2>
-                      <span>{items.length === 1 ? t.menu.item : fmt(t.menu.items, { n: num(items.length, lang) })}</span>
+                      <h2 id={`h-${c.id}`}>{c.name}</h2>
+                      <span>{items.length === 1 ? t.menu.item : fmt(t.menu.items, { n: num(items.length) })}</span>
                     </div>
-                    {c.blurb && <p className="menu-section__blurb">{l(c.blurb)}</p>}
+                    {c.blurb && <p className="menu-section__blurb">{c.blurb}</p>}
                     <Grid items={items} />
                   </section>
                 )

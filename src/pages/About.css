@@ -13,8 +13,7 @@
   justify-items: start;
 }
 .about__copy h1 {
-  font-size: clamp(2.8rem, 7vw, 5rem);
-  letter-spacing: -0.04em;
+  font-size: clamp(3.6rem, 10vw, 7.4rem);
 }
 .about__copy p {
   color: var(--muted);
@@ -30,6 +29,8 @@
   margin-top: 10px;
 }
 .about__collage {
+  align-items: start;
+  align-self: center;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
@@ -39,7 +40,8 @@
   aspect-ratio: 1;
   object-fit: cover;
   border-radius: var(--radius-l);
-  box-shadow: var(--shadow-2);
+  border: var(--stroke);
+  box-shadow: 6px 6px 0 var(--ink);
 }
 .about__tile--1,
 .about__tile--3 {
@@ -67,10 +69,6 @@
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.1em;
-}
-:root[lang='ar'] .fact dt {
-  letter-spacing: 0;
-  font-size: 0.9rem;
 }
 .fact dd {
   margin: 6px 0 0;

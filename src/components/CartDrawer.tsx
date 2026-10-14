@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { Link, useNavigate } from 'react-router-dom'
-import { useLang, fmt } from '../i18n/LanguageProvider'
+import { copy as t } from '../content/copy'
+import { fmt } from '../utils/format'
 import { useCart, describeLine, lineTotal } from '../store/cart'
 import { useUI } from '../store/ui'
 import { useDialog } from '../hooks/useDialog'
@@ -19,14 +20,13 @@ export function CartDrawer() {
 }
 
 function Drawer({ onClose }: { onClose: () => void }) {
-  const { t, lang, dir } = useLang()
   const { lines, subtotal, count, setQty, remove, clear } = useCart()
   const { openItem } = useUI()
   const navigate = useNavigate()
   const reduce = useReducedMotion()
   const ref = useDialog<HTMLDivElement>(true, onClose)
   const [confirmClear, setConfirmClear] = useState(false)
-  const offscreen = dir === 'rtl' ? '-100%' : '100%'
+  const offscreen = '100%'
   const approx = lbp(subtotal)
 
   return (
@@ -46,7 +46,7 @@ function Drawer({ onClose }: { onClose: () => void }) {
         <header className="cart__head">
           <div>
             <h2 id="cart-title">{t.cart.title}</h2>
-            {count > 0 && <p>{fmt(t.cart.itemsCount, { n: num(count, lang) })}</p>}
+            {count > 0 && <p>{fmt(t.cart.itemsCount, { n: num(count) })}</p>}
           </div>
           <button type="button" className="icon-btn" onClick={onClose} aria-label={t.cart.close}>
             <Icon name="close" />
@@ -71,15 +71,15 @@ function Drawer({ onClose }: { onClose: () => void }) {
                 {lines.map((line) => {
                   const item = findItem(line.itemId)
                   if (!item) return null
-                  const opts = describeLine(line, lang)
-                  const removedLabels = line.removed.map((en) => item.removable?.find((r) => r.en === en)?.[lang] ?? en)
+                  const opts = describeLine(line)
+                  const removedLabels = line.removed
                   return (
                     <motion.li
                       key={line.key}
                       layout={!reduce}
-                      initial={reduce ? false : { opacity: 0, x: dir === 'rtl' ? -40 : 40, rotateY: dir === 'rtl' ? 25 : -25 }}
+                      initial={reduce ? false : { opacity: 0, x: 40, rotateY: -25 }}
                       animate={{ opacity: 1, x: 0, rotateY: 0 }}
-                      exit={reduce ? { opacity: 0 } : { opacity: 0, x: dir === 'rtl' ? 60 : -60, height: 0, marginBottom: 0, paddingBlock: 0 }}
+                      exit={reduce ? { opacity: 0 } : { opacity: 0, x: -60, height: 0, marginBottom: 0, paddingBlock: 0 }}
                       transition={{ type: 'spring', damping: 28, stiffness: 300 }}
                       className="cart-line"
                     >
@@ -94,7 +94,7 @@ function Drawer({ onClose }: { onClose: () => void }) {
                         ))}
                         {removedLabels.length > 0 && (
                           <p className="cart-line__meta cart-line__meta--removed">
-                            {t.cart.without}: {removedLabels.join(lang === 'ar' ? '، ' : ', ')}
+                            {t.cart.without}: {removedLabels.join(', ')}
                           </p>
                         )}
                         {line.notes && <p className="cart-line__meta cart-line__meta--note">“{line.notes}”</p>}
@@ -131,7 +131,7 @@ function Drawer({ onClose }: { onClose: () => void }) {
                   <dd className="price">{money(subtotal)}</dd>
                 </div>
                 {approx && (
-                  <p className="totals__lbp">{fmt(t.cart.approxLbp, { v: approx, r: num(restaurant.payments.lbpRate!, lang) })}</p>
+                  <p className="totals__lbp">{fmt(t.cart.approxLbp, { v: approx, r: num(restaurant.payments.lbpRate!) })}</p>
                 )}
               </dl>
               <button
@@ -143,7 +143,7 @@ function Drawer({ onClose }: { onClose: () => void }) {
                 }}
               >
                 {t.cart.checkout}
-                <Icon name="arrow" className="flip-rtl" />
+                <Icon name="arrow" />
               </button>
               {confirmClear ? (
                 <div className="cart__confirm" role="alert">

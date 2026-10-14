@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom'
-import { useLang } from '../i18n/LanguageProvider'
+import { copy as t } from '../content/copy'
 import { usePageMeta } from '../hooks/usePageMeta'
 
 export default function NotFound() {
-  const { t } = useLang()
   usePageMeta('404')
   return (
     <div className="container" style={{ display: 'grid', justifyItems: 'center', gap: 20, padding: '120px 16px', textAlign: 'center' }}>

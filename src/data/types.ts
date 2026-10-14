@@ -1,17 +1,14 @@
-export type Lang = 'en' | 'ar'
-export type Localized = { en: string; ar: string }
-
 export interface Choice {
   id: string
-  label: Localized
+  label: string
   /** Extra cost in USD added per unit selected. */
   price?: number
 }
 
 export interface OptionGroup {
   id: string
-  label: Localized
-  hint?: Localized
+  label: string
+  hint?: string
   /**
    * single — pick exactly one (radio)
    * multi  — pick any number (checkbox), bounded by max
@@ -28,7 +25,7 @@ export interface MenuItem {
   id: string
   category: CategoryId
   name: string
-  description: Localized
+  description: string
   price: number
   /** Original price shown struck-through on bundles. */
   compareAt?: number
@@ -36,9 +33,9 @@ export interface MenuItem {
   image?: string
   options?: OptionGroup[]
   /** Ingredients the customer may ask to leave out. */
-  removable?: Localized[]
+  removable?: string[]
   /** Hint shown in the notes field (e.g. which drink). */
-  notesHint?: Localized
+  notesHint?: string
   /** Internal note for whoever maintains the menu — never shown. */
   verify?: string
 }
@@ -58,6 +55,6 @@ export type CategoryId =
 
 export interface Category {
   id: CategoryId
-  name: Localized
-  blurb?: Localized
+  name: string
+  blurb?: string
 }

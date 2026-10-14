@@ -1,13 +1,12 @@
 import { Link } from 'react-router-dom'
 import { restaurant, whatsappLink, phoneLink, mapsLink } from '../config/restaurant'
-import { useLang } from '../i18n/LanguageProvider'
+import { copy as t } from '../content/copy'
 import { clock } from '../utils/format'
 import { SocialLinks } from './SocialLinks'
 import { Icon } from './Icon'
 import './Footer.css'
 
 export function Footer() {
-  const { t, l, lang } = useLang()
   const year = new Date().getFullYear()
   return (
     <footer className="site-footer">
@@ -32,10 +31,10 @@ export function Footer() {
         <div>
           <h2>{t.footer.reach}</h2>
           <ul className="site-footer__contact">
-            <li><Icon name="phone" /><a href={phoneLink} dir="ltr">{restaurant.phoneDisplay}</a></li>
+            <li><Icon name="phone" /><a href={phoneLink}>{restaurant.phoneDisplay}</a></li>
             <li><Icon name="whatsapp" /><a href={whatsappLink()} target="_blank" rel="noreferrer">{t.social.whatsapp}</a></li>
             <li><Icon name="mail" /><a href={`mailto:${restaurant.email}`}>{restaurant.email}</a></li>
-            <li><Icon name="pin" /><a href={mapsLink} target="_blank" rel="noreferrer">{l(restaurant.address)}</a></li>
+            <li><Icon name="pin" /><a href={mapsLink} target="_blank" rel="noreferrer">{restaurant.address}</a></li>
           </ul>
         </div>
 
@@ -44,7 +43,7 @@ export function Footer() {
           <p className="site-footer__hours">
             {t.contact.everyday}
             <br />
-            <strong dir="ltr">{clock(restaurant.hours.open, lang)} – {clock(restaurant.hours.close, lang)}</strong>
+            <strong>{clock(restaurant.hours.open)} – {clock(restaurant.hours.close)}</strong>
           </p>
         </div>
       </div>

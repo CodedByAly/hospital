@@ -77,7 +77,7 @@ export function buildOrderMessage(o: Omit<PlacedOrder, 'whatsappUrl'>) {
   L.push(`Name: ${o.name}`)
   L.push(`Phone: ${o.phone}`)
   if (o.type === 'pickup') {
-    L.push(`Pickup: ${o.pickupTime === 'asap' ? 'As soon as possible' : clock(o.pickupTime, 'en')}`)
+    L.push(`Pickup: ${o.pickupTime === 'asap' ? 'As soon as possible' : clock(o.pickupTime)}`)
   } else {
     L.push(`Area: ${o.area}`)
     L.push(`Address: ${o.address}`)
@@ -94,7 +94,7 @@ export function submitOrder(details: OrderDetails, cart: CartLine[]): PlacedOrde
     return {
       name: item?.name ?? l.itemId,
       qty: l.qty,
-      options: describeLine(l, 'en'),
+      options: describeLine(l),
       removed: l.removed,
       notes: l.notes.trim(),
       total: Math.round(lineTotal(l) * 100) / 100,

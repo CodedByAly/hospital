@@ -2,16 +2,17 @@
 
 The official ordering website for **Kuku Chix Joint**, a fried chicken spot in Khaldeh, Lebanon.
 
-Built with React + TypeScript + Vite. It's bilingual (English / Arabic with full RTL), works mobile-first, and orders go to the restaurant on WhatsApp.
+Built with React + TypeScript + Vite. It's English-only, works mobile-first, and orders go to the restaurant on WhatsApp.
 
 ## Features
 
 - Full menu with all 11 sections, prices, struck-through bundle prices and descriptions, copied from the restaurant's ordering page
 - Item dialog with the required choices (flavour, free dip, "pick 2/4 sauces"), paid extras, ingredients to leave out, notes and quantity
 - Cart that stays saved between visits: edit items, change quantities, remove them, clear the cart, and see the LBP total next to the dollar total
-- Fly-to-cart animation, and a 3D hero (three.js) that loads separately so it never slows down the first paint
+- Scroll-driven 3D hero (three.js): the real food photos are chroma-keyed off their blue studio backdrop and float in one continuous blue space as the camera flies through on scroll. It loads separately so it never slows the first paint
+- Fly-to-cart animation, 3D bundle cards, a 3D sauce carousel and a menu board with a floating photo preview
 - Checkout for pickup (time slots generated from opening hours) or delivery (area, address, building), with form validation
-- Payment by cash or Whish Money (shows the Whish number with a copy button once it's configured)
+- Payment by cash or Whish Money (shows the Whish number, +961 81 777 384, with a copy button)
 - Order confirmation page with an order number, a summary, expected time, and buttons to call or WhatsApp the restaurant
 - Feedback form: posts to an endpoint if one is configured, otherwise sends the feedback through WhatsApp
 - SEO: per-page titles, Open Graph tags, `Restaurant` JSON-LD, sitemap, robots.txt
@@ -35,7 +36,7 @@ The site is a single-page app, so the host must rewrite every route to `index.ht
 | Phone, WhatsApp, email, address, hours, socials, Whish number, delivery fee, LBP rate | `src/config/restaurant.ts` |
 | Menu items, prices, descriptions, options, removable ingredients | `src/data/menu.ts` |
 | Food photos | `public/images/menu/<item>.webp` (+ `<item>-sm.webp` thumbnail) |
-| Interface text (EN / AR) | `src/i18n/strings.ts` |
+| Interface text | `src/content/copy.ts` |
 | Order delivery (WhatsApp today) | `src/services/orders.ts` |
 | Feedback delivery | `src/services/feedback.ts`, or set `VITE_FEEDBACK_ENDPOINT` in `.env` |
 
@@ -43,7 +44,6 @@ The site is a single-page app, so the host must rewrite every route to `index.ht
 
 These are flagged in the code and the UI adapts until they're filled in:
 
-- **Whish Money number.** `payments.whishNumber` is `null`, so for now customers are asked to request it on WhatsApp.
 - **Opening hours.** The ordering page says 3:00 PM–12:00 AM, but the Instagram bio says 12:00 PM–1:00 AM.
 - **Google Maps link.** The short link was cut off in the screenshot, so a Maps search is used for now.
 - **Delivery fee.** Not provided; shown as "confirmed on WhatsApp".

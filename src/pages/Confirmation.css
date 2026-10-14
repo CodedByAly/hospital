@@ -11,7 +11,8 @@
 .ticket {
   background: #fff;
   border-radius: var(--radius-l);
-  box-shadow: 0 30px 60px -30px rgba(11, 22, 34, 0.45);
+  border: var(--stroke);
+  box-shadow: 10px 10px 0 var(--ink);
   transform-origin: 50% 0;
   overflow: hidden;
 }
@@ -67,10 +68,6 @@
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.1em;
-}
-:root[lang='ar'] .ticket__facts dt {
-  letter-spacing: 0;
-  font-size: 0.84rem;
 }
 .ticket__facts dd {
   margin: 4px 0 0;

@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
-import { useLang, fmt } from '../i18n/LanguageProvider'
+import { copy as t } from '../content/copy'
+import { fmt } from '../utils/format'
 import { lastOrder } from '../services/orders'
 import { restaurant, whatsappLink, phoneLink, mapsLink } from '../config/restaurant'
 import { clock, money, lbp, num } from '../utils/format'
@@ -9,7 +10,6 @@ import { Icon } from '../components/Icon'
 import './Confirmation.css'
 
 export default function Confirmation() {
-  const { t, l, lang } = useLang()
   const { number } = useParams()
   const reduce = useReducedMotion()
   usePageMeta(t.confirm.title)
@@ -29,7 +29,7 @@ export default function Confirmation() {
     order.type === 'pickup'
       ? order.pickupTime === 'asap'
         ? t.confirm.asapPickup
-        : fmt(t.confirm.etaPickup, { t: clock(order.pickupTime, lang) })
+        : fmt(t.confirm.etaPickup, { t: clock(order.pickupTime) })
       : t.confirm.etaDelivery
   const approx = lbp(order.total)
 
@@ -61,7 +61,7 @@ export default function Confirmation() {
           <div className="ticket__tear" aria-hidden="true" />
 
           <dl className="ticket__facts">
-            <div><dt>{t.confirm.number}</dt><dd dir="ltr">{order.number}</dd></div>
+            <div><dt>{t.confirm.number}</dt><dd>{order.number}</dd></div>
             <div><dt>{t.confirm.type}</dt><dd>{order.type === 'pickup' ? t.order.pickup : t.order.delivery}</dd></div>
             <div><dt>{t.confirm.payment}</dt><dd>{payment}</dd></div>
             <div><dt>{t.confirm.eta}</dt><dd>{eta}</dd></div>
@@ -73,7 +73,7 @@ export default function Confirmation() {
               {order.lines.map((line, i) => (
                 <li key={i}>
                   <div>
-                    <p><strong>{num(line.qty, lang)}×</strong> {line.name}</p>
+                    <p><strong>{num(line.qty)}×</strong> {line.name}</p>
                     {line.options.length > 0 && <small>{line.options.join(' · ')}</small>}
                     {line.removed.length > 0 && <small>{t.cart.without}: {line.removed.join(', ')}</small>}
                   </div>
@@ -87,15 +87,15 @@ export default function Confirmation() {
                 <div className="totals__muted"><dt>{t.cart.delivery}</dt><dd>{order.deliveryFee != null ? money(order.deliveryFee) : t.cart.deliveryTbd}</dd></div>
               )}
               <div className="totals__grand"><dt>{t.cart.total}</dt><dd className="price">{money(order.total)}</dd></div>
-              {approx && <p className="totals__lbp">{fmt(t.cart.approxLbp, { v: approx, r: num(restaurant.payments.lbpRate!, lang) })}</p>}
+              {approx && <p className="totals__lbp">{fmt(t.cart.approxLbp, { v: approx, r: num(restaurant.payments.lbpRate!) })}</p>}
             </dl>
           </div>
 
           <div className="ticket__foot">
             <p className="ticket__resto">
               <strong>{restaurant.name}</strong>
-              <a href={mapsLink} target="_blank" rel="noreferrer">{l(restaurant.address)}</a>
-              <a href={phoneLink} dir="ltr">{restaurant.phoneDisplay}</a>
+              <a href={mapsLink} target="_blank" rel="noreferrer">{restaurant.address}</a>
+              <a href={phoneLink}>{restaurant.phoneDisplay}</a>
             </p>
             <p className="ticket__problem">{t.confirm.problem}</p>
             <div className="ticket__actions">
@@ -105,7 +105,7 @@ export default function Confirmation() {
           </div>
         </motion.div>
 
-        <Link to="/menu" className="confirm__new">{t.confirm.newOrder} <Icon name="arrow" className="flip-rtl" /></Link>
+        <Link to="/menu" className="confirm__new">{t.confirm.newOrder} <Icon name="arrow" /></Link>
       </div>
     </div>
   )

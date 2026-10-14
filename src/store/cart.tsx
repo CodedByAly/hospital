@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useReducer, useState, type ReactNode } from 'react'
-import type { Lang, MenuItem } from '../data/types'
+import type { MenuItem } from '../data/types'
 import { findItem } from '../data/menu'
 import { restaurant } from '../config/restaurant'
 import { storage } from '../utils/storage'
@@ -70,7 +70,7 @@ export const lineTotal = (line: CartLine) => {
 }
 
 /** Human-readable option summary, e.g. ["Dipped in: Nashville", "Sauces: 2× Ranch"]. */
-export const describeLine = (line: CartLine, lang: Lang) => {
+export const describeLine = (line: CartLine) => {
   const item = findItem(line.itemId)
   if (!item) return []
   const out: string[] = []
@@ -79,8 +79,8 @@ export const describeLine = (line: CartLine, lang: Lang) => {
     if (!picked) continue
     const parts = group.choices
       .filter((c) => picked[c.id])
-      .map((c) => (group.type === 'count' && picked[c.id] > 1 ? `${picked[c.id]}× ` : '') + c.label[lang])
-    if (parts.length) out.push(`${group.label[lang]}: ${parts.join(', ')}`)
+      .map((c) => (group.type === 'count' && picked[c.id] > 1 ? `${picked[c.id]}× ` : '') + c.label)
+    if (parts.length) out.push(`${group.label}: ${parts.join(', ')}`)
   }
   return out
 }

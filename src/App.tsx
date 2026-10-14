@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect } from 'react'
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion, MotionConfig } from 'framer-motion'
-import { LanguageProvider, useLang } from './i18n/LanguageProvider'
+import { copy as t } from './content/copy'
 import { CartProvider } from './store/cart'
 import { UIProvider } from './store/ui'
 import { Header } from './components/Header'
@@ -59,7 +59,6 @@ function AnimatedRoutes() {
 }
 
 function Shell() {
-  const { t } = useLang()
   return (
     <>
       <a href="#main" className="skip-link">{t.nav.skip}</a>
@@ -78,7 +77,6 @@ function Shell() {
 export default function App() {
   return (
     <MotionConfig reducedMotion="user">
-      <LanguageProvider>
         <CartProvider>
           <BrowserRouter>
             <UIProvider>
@@ -87,7 +85,6 @@ export default function App() {
             </UIProvider>
           </BrowserRouter>
         </CartProvider>
-      </LanguageProvider>
     </MotionConfig>
   )
 }

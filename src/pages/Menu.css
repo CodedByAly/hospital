@@ -1,6 +1,7 @@
 .menu-hero {
-  background: var(--ink);
-  color: var(--cream);
+  background: radial-gradient(90% 120% at 70% 30%, #34b3f0 0%, #1aa0e6 50%, #0f7fc6 100%);
+  color: #fff;
+  border-bottom: var(--stroke);
   padding: clamp(36px, 6vw, 72px) 0 clamp(28px, 4vw, 44px);
 }
 .menu-hero__inner {
@@ -11,12 +12,13 @@
   flex-wrap: wrap;
 }
 .menu-hero h1 {
-  font-size: clamp(2.8rem, 8vw, 5.6rem);
-  letter-spacing: -0.04em;
+  font-size: clamp(3.6rem, 11vw, 8rem);
+  text-shadow: 0.045em 0.045em 0 var(--ink);
 }
 .menu-hero p {
-  margin-top: 8px;
-  color: rgba(251, 246, 236, 0.65);
+  margin-top: 10px;
+  font-weight: 600;
+  color: #fff;
 }
 .menu-search {
   position: relative;
@@ -24,17 +26,17 @@
   align-items: center;
   width: min(420px, 100%);
   height: 54px;
-  border-radius: 999px;
-  background: rgba(251, 246, 236, 0.08);
-  box-shadow: inset 0 0 0 1px var(--line-light);
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--ink);
+  border: var(--stroke);
+  box-shadow: var(--pop-sm);
   transition:
     background-color 0.2s,
     box-shadow 0.2s;
 }
 .menu-search:focus-within {
-  background: var(--cream);
-  color: var(--ink);
-  box-shadow: 0 0 0 4px rgba(255, 200, 30, 0.5);
+  box-shadow: 5px 5px 0 var(--yellow);
 }
 .menu-search > svg {
   width: 20px;
@@ -76,10 +78,8 @@
   position: sticky;
   top: var(--header-h);
   z-index: 40;
-  background: rgba(251, 246, 236, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--line);
+  background: var(--cream);
+  border-bottom: var(--stroke);
 }
 .cat-bar__scroll {
   display: flex;
@@ -97,9 +97,11 @@
   flex: none;
   height: 40px;
   padding: 0 16px;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 0.9rem;
+  border-radius: 10px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.95rem;
+  text-transform: uppercase;
   color: var(--muted);
   transition: color 0.2s;
 }
@@ -118,8 +120,9 @@
 .cat-chip__pill {
   position: absolute;
   inset: 0;
-  border-radius: 999px;
+  border-radius: 10px;
   background: var(--ink);
+  box-shadow: 3px 3px 0 var(--yellow);
 }
 
 .menu-body {
@@ -137,7 +140,10 @@
   margin-bottom: 6px;
 }
 .menu-section__head h2 {
-  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-size: clamp(2.4rem, 5.4vw, 3.8rem);
+  font-stretch: 75%;
+  font-variation-settings: 'wdth' 75;
+  text-transform: uppercase;
 }
 .menu-section__head span {
   color: var(--muted);

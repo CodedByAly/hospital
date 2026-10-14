@@ -48,7 +48,7 @@ export function Splash() {
         >
           <div className="splash__stage">
             <motion.img
-              src="/images/logo-on-dark.webp"
+              src="/images/logo.webp"
               alt=""
               className="splash__logo"
               width="440"

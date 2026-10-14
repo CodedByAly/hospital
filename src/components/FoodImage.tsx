@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useLang } from '../i18n/LanguageProvider'
+import { copy as t } from '../content/copy'
 import './FoodImage.css'
 
 interface Props {
@@ -15,7 +15,6 @@ export const imageUrl = (image: string, small = false) => `/images/menu/${image}
 
 /** Food photo with lazy loading, a soft fade-in, and a clean placeholder when no photo exists. */
 export function FoodImage({ image, alt, sizes = '(max-width: 600px) 50vw, 360px', eager, className = '' }: Props) {
-  const { t } = useLang()
   const [loaded, setLoaded] = useState(false)
   const [failed, setFailed] = useState(false)
 

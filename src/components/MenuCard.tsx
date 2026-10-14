@@ -1,7 +1,8 @@
 import { useRef, type MouseEvent } from 'react'
 import type { MenuItem } from '../data/types'
 import { isOrderable } from '../data/menu'
-import { useLang, fmt } from '../i18n/LanguageProvider'
+import { copy as t } from '../content/copy'
+import { fmt } from '../utils/format'
 import { useCart } from '../store/cart'
 import { useUI } from '../store/ui'
 import { money } from '../utils/format'
@@ -14,12 +15,11 @@ import './MenuCard.css'
 const needsChoices = (item: MenuItem) => (item.options ?? []).some((g) => g.required)
 
 export function MenuCard({ item, variant = 'grid' }: { item: MenuItem; variant?: 'grid' | 'feature' }) {
-  const { t, l } = useLang()
   const { add } = useCart()
   const { openItem } = useUI()
   const imgRef = useRef<HTMLDivElement>(null)
   const orderable = isOrderable(item)
-  const desc = l(item.description)
+  const desc = item.description
 
   const quickAdd = (e: MouseEvent) => {
     e.stopPropagation()

@@ -12,14 +12,8 @@ export const restaurant = {
   name: 'Kuku Chix Joint',
   shortName: 'Kuku',
   /** Wording taken from the restaurant's own Instagram bio. */
-  tagline: {
-    en: 'The Rolls-Royce of chicken in Lebanon.',
-    ar: 'رولز رويس الدجاج في لبنان.',
-  },
-  specialties: {
-    en: 'Mac n Cheese, Strips, Wings, Burgers & more',
-    ar: 'ماك أند تشيز، ستريبس، وينغز، برغر وأكثر',
-  },
+  tagline: 'The Rolls-Royce of chicken in Lebanon.',
+  specialties: 'Mac n Cheese, Strips, Wings, Burgers & more',
 
   /** Lebanese mobile, international format without "+" or spaces. */
   phone: '96181777384',
@@ -28,10 +22,7 @@ export const restaurant = {
   whatsapp: '96181777384',
   email: 'info@kukuchixjoint.com',
 
-  address: {
-    en: 'Khaldeh, Lebanon',
-    ar: 'خلدة، لبنان',
-  },
+  address: 'Khaldeh, Lebanon',
   /**
    * The full Google Maps short link was cut off in the screenshot
    * (maps.app.goo.gl/1m8WEaGyn…). Paste the complete link here.
@@ -60,12 +51,8 @@ export const restaurant = {
     currency: 'USD',
     /** "Dollar Rate: LBP 90,000 L.L" from the ordering page. Set to null to hide LBP totals. */
     lbpRate: 90000 as number | null,
-    /**
-     * Whish Money number for transfers. NOT provided yet.
-     * Put the number here (e.g. '96181777384') and it appears at checkout
-     * with a copy button. While null, customers are asked to request it on WhatsApp.
-     */
-    whishNumber: null as string | null,
+    /** Whish Money number for transfers — same line as the restaurant's WhatsApp. Set to null to hide. */
+    whishNumber: '+961 81 777 384' as string | null,
     whishAccountName: 'Kuku Chix Joint',
   },
 
@@ -83,9 +70,9 @@ export const restaurant = {
    * The exact levels were not shown on the menu — confirm with the kitchen.
    */
   spiceLevels: [
-    { id: 'mild', en: 'Mild', ar: 'خفيف' },
-    { id: 'medium', en: 'Medium', ar: 'وسط' },
-    { id: 'hot', en: 'Hot', ar: 'حار' },
+    { id: 'mild', label: 'Mild' },
+    { id: 'medium', label: 'Medium' },
+    { id: 'hot', label: 'Hot' },
   ],
 
   siteUrl: 'https://kukuchixjoint.com',

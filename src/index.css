@@ -4,52 +4,57 @@
    plus the studio-blue backdrop used in all of the food photography.
 ------------------------------------------------------------------- */
 :root {
+  /* Brand — taken from the logo and the packaging */
   --red: #e1262c;
   --red-deep: #b51b20;
   --yellow: #ffc81e;
   --yellow-soft: #ffe08a;
   --blue: #2e86c1;
-  --sky: #1ba6ea;
-  --ink: #0b1622;
-  --ink-2: #13222f;
-  --ink-3: #1d3142;
-  --cream: #fbf6ec;
-  --paper: #f3eada;
-  --sand: #e7dcc6;
-  --text: #14202b;
-  --muted: #5d6873;
-  --line: rgba(11, 22, 34, 0.12);
-  --line-light: rgba(251, 246, 236, 0.14);
+  /* The seamless studio blue every food photo is shot on */
+  --sky: #1ba3e8;
+  --studio: #1ba3e8;
+  --studio-deep: #0d78bd;
+
+  --ink: #121417;
+  --ink-2: #1b1f24;
+  --ink-3: #2a3038;
+  --cream: #fffcf4;
+  --paper: #f5ecda;
+  --sand: #e6dac2;
+  --text: #121417;
+  --muted: #5b6168;
+  --line: rgba(18, 20, 23, 0.14);
+  --line-light: rgba(255, 252, 244, 0.16);
   --success: #1f8a4c;
 
-  --font-display: 'Bricolage Grotesque Variable', 'Arial Black', system-ui, sans-serif;
+  --font-display: 'Bricolage Grotesque Variable', 'Arial Narrow', system-ui, sans-serif;
   --font-body: 'DM Sans Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
+  /* Packaging-style outlines and hard offset shadows */
+  --stroke: 2px solid var(--ink);
+  --pop: 4px 4px 0 var(--ink);
+  --pop-sm: 3px 3px 0 var(--ink);
+
   --radius-s: 8px;
-  --radius: 14px;
-  --radius-l: 22px;
-  --shadow-1: 0 1px 2px rgba(11, 22, 34, 0.06), 0 4px 14px rgba(11, 22, 34, 0.06);
-  --shadow-2: 0 10px 30px -10px rgba(11, 22, 34, 0.35);
+  --radius: 12px;
+  --radius-l: 18px;
+  --shadow-1: 0 1px 2px rgba(18, 20, 23, 0.06), 0 4px 14px rgba(18, 20, 23, 0.06);
+  --shadow-2: 0 18px 40px -18px rgba(18, 20, 23, 0.4);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
-  --header-h: 68px;
+  --header-h: 72px;
   --dock-h: 0px;
   --gutter: clamp(16px, 4vw, 40px);
-  --maxw: 1240px;
+  --maxw: 1280px;
 
   color-scheme: light;
 }
 
-:root[lang='ar'] {
-  --font-display: 'Lalezar', 'Cairo', system-ui, sans-serif;
-  --font-body: 'Cairo', system-ui, sans-serif;
-}
-
 @media (max-width: 859px) {
   :root {
-    --header-h: 60px;
-    --dock-h: 68px;
+    --header-h: 62px;
+    --dock-h: 76px;
   }
 }
 
@@ -61,6 +66,7 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  background: var(--cream);
   scroll-padding-top: calc(var(--header-h) + 64px);
 }
 
@@ -89,6 +95,7 @@ body.no-scroll {
 img {
   display: block;
   max-width: 100%;
+  height: auto;
 }
 
 a {
@@ -116,20 +123,23 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display);
-  line-height: 1.02;
+  line-height: 0.98;
   margin: 0;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   font-weight: 800;
 }
 
-:root[lang='ar'] h1,
-:root[lang='ar'] h2,
-:root[lang='ar'] h3,
-:root[lang='ar'] h4 {
-  letter-spacing: 0;
-  font-weight: 400;
-  line-height: 1.25;
+/* Big condensed caps, the way the restaurant writes its own menu */
+.display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 75%;
+  font-variation-settings: 'wdth' 75;
+  text-transform: uppercase;
+  line-height: 0.88;
+  letter-spacing: -0.005em;
 }
+
 
 p {
   margin: 0;
@@ -197,16 +207,6 @@ main {
   text-transform: uppercase;
   color: var(--red);
 }
-:root[lang='ar'] .eyebrow {
-  letter-spacing: 0;
-  font-size: 0.9rem;
-}
-.eyebrow::before {
-  content: '';
-  width: 22px;
-  height: 2px;
-  background: currentColor;
-}
 
 .section {
   padding-block: clamp(64px, 9vw, 120px);
@@ -229,7 +229,7 @@ main {
   max-width: 42ch;
 }
 
-/* ---------- buttons ---------- */
+/* ---------- buttons: outlined, hard shadow, like a sticker on the box ---------- */
 .btn {
   --bg: var(--ink);
   --fg: var(--cream);
@@ -238,33 +238,34 @@ main {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  min-height: 50px;
+  min-height: 52px;
   padding: 0 22px;
-  border-radius: 999px;
+  border-radius: var(--radius);
+  border: var(--stroke);
   background: var(--bg);
   color: var(--fg);
-  font-weight: 700;
+  font-weight: 800;
   font-size: 0.98rem;
-  letter-spacing: 0.01em;
   white-space: nowrap;
+  box-shadow: var(--pop-sm);
   transition:
-    transform 0.25s var(--ease-out),
-    box-shadow 0.25s var(--ease-out),
+    transform 0.18s var(--ease-out),
+    box-shadow 0.18s var(--ease-out),
     background-color 0.2s;
-  will-change: transform;
 }
 .btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 22px -10px rgba(11, 22, 34, 0.55);
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 var(--ink);
 }
 .btn:active {
-  transform: translateY(0) scale(0.98);
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink);
 }
 .btn[disabled] {
-  opacity: 0.45;
+  opacity: 0.5;
   cursor: not-allowed;
   transform: none;
-  box-shadow: none;
+  box-shadow: var(--pop-sm);
 }
 .btn svg {
   width: 18px;
@@ -274,30 +275,35 @@ main {
 .btn--yellow {
   --bg: var(--yellow);
   --fg: var(--ink);
-  box-shadow: inset 0 -3px 0 rgba(11, 22, 34, 0.18);
 }
 .btn--red {
   --bg: var(--red);
   --fg: #fff;
 }
+.btn--white {
+  --bg: #fff;
+  --fg: var(--ink);
+}
 .btn--ghost {
   --bg: transparent;
   --fg: currentColor;
-  box-shadow: inset 0 0 0 1.5px currentColor;
+  border-color: currentColor;
+  box-shadow: none;
 }
 .btn--ghost:hover {
-  box-shadow: inset 0 0 0 1.5px currentColor;
-  background: rgba(127, 127, 127, 0.08);
+  box-shadow: none;
+  transform: none;
+  background: rgba(127, 127, 127, 0.1);
 }
 .btn--wa {
-  --bg: #1f9d55;
+  --bg: #25a35a;
   --fg: #fff;
 }
 .btn--block {
   width: 100%;
 }
 .btn--sm {
-  min-height: 40px;
+  min-height: 42px;
   padding: 0 16px;
   font-size: 0.9rem;
 }
@@ -324,9 +330,6 @@ main {
 }
 
 /* flip directional icons in RTL */
-:root[dir='rtl'] .flip-rtl {
-  transform: scaleX(-1);
-}
 
 /* ---------- forms ---------- */
 .field {
@@ -379,10 +382,6 @@ main {
   font-weight: 600;
 }
 .input[type='tel'] {
-  direction: ltr;
-}
-:root[dir='rtl'] .input[type='tel'] {
-  text-align: right;
 }
 
 /* ---------- misc ---------- */
@@ -424,9 +423,6 @@ main {
   font-weight: 800;
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.01em;
-}
-:root[lang='ar'] .price {
-  font-family: 'Bricolage Grotesque Variable', sans-serif;
 }
 
 /* The ghost image used by the fly-to-cart animation. */

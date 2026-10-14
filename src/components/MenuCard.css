@@ -7,14 +7,15 @@
   flex-direction: column;
   height: 100%;
   background: #fff;
+  border: var(--stroke);
   border-radius: var(--radius);
-  box-shadow: var(--shadow-1);
+  box-shadow: var(--pop-sm);
   overflow: hidden;
-  transition: box-shadow 0.4s var(--ease-out);
+  transition: box-shadow 0.3s var(--ease-out);
   transform-style: preserve-3d;
 }
 .menu-card:hover .menu-card__body {
-  box-shadow: 0 24px 40px -22px rgba(11, 22, 34, 0.5);
+  box-shadow: 7px 7px 0 var(--ink);
 }
 .menu-card__hit {
   position: absolute;
@@ -25,6 +26,7 @@
 .menu-card__media {
   position: relative;
   aspect-ratio: 4 / 3;
+  border-bottom: var(--stroke);
   transform: translateZ(18px);
 }
 .menu-card__media .food-img {
@@ -40,6 +42,8 @@
   inset-inline-start: 10px;
   padding: 4px 9px;
   border-radius: 6px;
+  border: 2px solid var(--ink);
+  transform: rotate(-3deg);
   background: var(--red);
   color: #fff;
   font-size: 0.74rem;
@@ -59,14 +63,13 @@
   transform: translateZ(10px);
 }
 .menu-card__name {
-  font-size: 1.02rem;
-  line-height: 1.15;
+  font-size: 1.12rem;
+  line-height: 1.05;
   letter-spacing: 0;
   font-weight: 800;
-}
-:root[lang='ar'] .menu-card__name {
-  font-family: 'Bricolage Grotesque Variable', sans-serif;
-  font-weight: 800;
+  font-stretch: 80%;
+  font-variation-settings: 'wdth' 80;
+  text-transform: uppercase;
 }
 .menu-card__desc {
   color: var(--muted);
@@ -111,7 +114,8 @@
   gap: 6px;
   min-height: 40px;
   padding: 0 14px 0 10px;
-  border-radius: 999px;
+  border-radius: 10px;
+  border: var(--stroke);
   background: var(--yellow);
   color: var(--ink);
   font-weight: 800;
@@ -119,9 +123,6 @@
   transition:
     transform 0.25s var(--ease-spring),
     background-color 0.2s;
-}
-:root[dir='rtl'] .menu-card__add {
-  padding: 0 10px 0 14px;
 }
 .menu-card__add svg {
   width: 18px;

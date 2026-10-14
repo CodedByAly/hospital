@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react'
-import { useLang, fmt } from '../i18n/LanguageProvider'
+import { copy as t } from '../content/copy'
+import { fmt } from '../utils/format'
 import { restaurant, whatsappLink, phoneLink, mapsLink } from '../config/restaurant'
 import { sendFeedback } from '../services/feedback'
 import { clock } from '../utils/format'
@@ -11,21 +12,20 @@ import { Icon, type IconName } from '../components/Icon'
 import './Contact.css'
 
 export default function Contact() {
-  const { t, l, lang } = useLang()
   usePageMeta(t.contact.title, `Call or WhatsApp Kuku Chix Joint on ${restaurant.phoneDisplay}. Khaldeh, Lebanon.`)
 
-  const cards: { icon: IconName; label: string; value: string; href: string; ltr?: boolean; external?: boolean }[] = [
-    { icon: 'whatsapp', label: t.contact.whatsapp, value: restaurant.phoneDisplay, href: whatsappLink(), ltr: true, external: true },
-    { icon: 'phone', label: t.contact.phone, value: restaurant.phoneDisplay, href: phoneLink, ltr: true },
+  const cards: { icon: IconName; label: string; value: string; href: string; external?: boolean }[] = [
+    { icon: 'whatsapp', label: t.contact.whatsapp, value: restaurant.phoneDisplay, href: whatsappLink(), external: true },
+    { icon: 'phone', label: t.contact.phone, value: restaurant.phoneDisplay, href: phoneLink },
     { icon: 'mail', label: t.contact.email, value: restaurant.email, href: `mailto:${restaurant.email}` },
-    { icon: 'pin', label: t.contact.address, value: l(restaurant.address), href: mapsLink, external: true },
+    { icon: 'pin', label: t.contact.address, value: restaurant.address, href: mapsLink, external: true },
   ]
 
   return (
     <div className="contact">
       <header className="contact__hero">
         <div className="container">
-          <h1>{t.contact.title}</h1>
+          <h1 className="display">{t.contact.title}</h1>
           <p>{t.contact.sub}</p>
         </div>
       </header>
@@ -39,9 +39,9 @@ export default function Contact() {
                   <span className="contact-card__icon"><Icon name={c.icon} /></span>
                   <span className="contact-card__text">
                     <span>{c.label}</span>
-                    <strong dir={c.ltr ? 'ltr' : undefined}>{c.value}</strong>
+                    <strong>{c.value}</strong>
                   </span>
-                  <Icon name="arrow" className="contact-card__go flip-rtl" />
+                  <Icon name="arrow" className="contact-card__go" />
                 </a>
               </Reveal>
             ))}
@@ -50,7 +50,7 @@ export default function Contact() {
           <Reveal className="contact-hours">
             <h2><Icon name="clock" /> {t.contact.hours}</h2>
             <p>
-              {t.contact.everyday}: <strong dir="ltr">{clock(restaurant.hours.open, lang)} – {clock(restaurant.hours.close, lang)}</strong>
+              {t.contact.everyday}: <strong>{clock(restaurant.hours.open)} – {clock(restaurant.hours.close)}</strong>
             </p>
             <OpenStatus />
           </Reveal>
@@ -80,7 +80,6 @@ export default function Contact() {
 }
 
 function FeedbackForm() {
-  const { t } = useLang()
   const [name, setName] = useState('')
   const [contact, setContact] = useState('')
   const [rating, setRating] = useState(0)
@@ -145,7 +144,7 @@ function FeedbackForm() {
           </div>
           <fieldset className="field rating" data-invalid={!!errors.rating}>
             <legend className="label">{t.contact.fbRating}<span className="req" aria-hidden="true">*</span></legend>
-            <div className="rating__stars" dir="ltr">
+            <div className="rating__stars">
               {[1, 2, 3, 4, 5].map((n) => (
                 <label key={n} className={n <= rating ? 'is-on' : ''}>
                   <input type="radio" name="rating" value={n} checked={rating === n} onChange={() => setRating(n)} />

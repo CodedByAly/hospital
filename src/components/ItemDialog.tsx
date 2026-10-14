@@ -2,7 +2,8 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, motion, useDragControls, useReducedMotion } from 'framer-motion'
 import type { MenuItem, OptionGroup } from '../data/types'
 import { categories, findItem, isOrderable } from '../data/menu'
-import { useLang, fmt } from '../i18n/LanguageProvider'
+import { copy as t } from '../content/copy'
+import { fmt } from '../utils/format'
 import { useCart, unitPrice, type Selections } from '../store/cart'
 import { useUI } from '../store/ui'
 import { useDialog } from '../hooks/useDialog'
@@ -34,7 +35,6 @@ export function ItemDialog() {
 }
 
 function ItemSheet({ item, onClose }: { item: MenuItem; onClose: () => void }) {
-  const { t, l, lang } = useLang()
   const { add, replace } = useCart()
   const { dialog } = useUI()
   const editing = dialog?.line
@@ -134,9 +134,9 @@ function ItemSheet({ item, onClose }: { item: MenuItem; onClose: () => void }) {
 
         <div className="item-dialog__content">
           <header className="item-dialog__head">
-            {category && <p className="eyebrow">{l(category.name)}</p>}
+            {category && <p className="eyebrow">{category.name}</p>}
             <h2 id="item-dialog-title">{item.name}</h2>
-            {l(item.description) && <p className="item-dialog__desc">{l(item.description)}</p>}
+            {item.description && <p className="item-dialog__desc">{item.description}</p>}
             <p className="item-dialog__price">
               {orderable ? <span className="price">{money(item.price)}</span> : <span>{t.item.unavailable}</span>}
               {item.compareAt && <s>{money(item.compareAt)}</s>}
@@ -163,15 +163,15 @@ function ItemSheet({ item, onClose }: { item: MenuItem; onClose: () => void }) {
                   </legend>
                   <div className="chips">
                     {item.removable.map((ing) => {
-                      const on = removed.includes(ing.en)
+                      const on = removed.includes(ing)
                       return (
-                        <label key={ing.en} className={`chip chip--remove ${on ? 'is-on' : ''}`}>
+                        <label key={ing} className={`chip chip--remove ${on ? 'is-on' : ''}`}>
                           <input
                             type="checkbox"
                             checked={on}
-                            onChange={() => setRemoved((r) => (on ? r.filter((x) => x !== ing.en) : [...r, ing.en]))}
+                            onChange={() => setRemoved((r) => (on ? r.filter((x) => x !== ing) : [...r, ing]))}
                           />
-                          <span>{ing[lang]}</span>
+                          <span>{ing}</span>
                         </label>
                       )
                     })}
@@ -188,7 +188,7 @@ function ItemSheet({ item, onClose }: { item: MenuItem; onClose: () => void }) {
                   maxLength={200}
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  placeholder={item.notesHint ? l(item.notesHint) : t.item.notesPh}
+                  placeholder={item.notesHint ? item.notesHint : t.item.notesPh}
                 />
               </div>
             </>
@@ -227,7 +227,6 @@ function OptionGroupField({
   onChange: (g: OptionGroup, choiceId: string, units: number) => void
   invalid: boolean
 }) {
-  const { t, lang } = useLang()
   const picked = selections[g.id] ?? {}
   const total = groupTotal(selections, g)
   const max = g.max ?? (g.type === 'single' ? 1 : Infinity)
@@ -242,12 +241,12 @@ function OptionGroupField({
   return (
     <fieldset className={`opt-group ${invalid ? 'is-invalid' : ''}`} data-group={g.id}>
       <legend className="opt-group__head">
-        <span className="opt-group__title">{g.label[lang]}</span>
+        <span className="opt-group__title">{g.label}</span>
         <span className={`opt-group__tag ${g.required ? 'is-req' : ''}`}>
           {g.type === 'count' && g.required ? `${total}/${g.max}` : tag}
         </span>
       </legend>
-      {g.hint && <p className="opt-group__hint">{g.hint[lang]}</p>}
+      {g.hint && <p className="opt-group__hint">{g.hint}</p>}
 
       {g.type === 'count' ? (
         <ul className="count-list">
@@ -256,7 +255,7 @@ function OptionGroupField({
             return (
               <li key={c.id} className={n ? 'is-on' : ''}>
                 <span className="count-list__name">
-                  {c.label[lang]}
+                  {c.label}
                   {c.price ? <small>+{money(c.price)}</small> : null}
                 </span>
                 <QtyStepper
@@ -265,7 +264,7 @@ function OptionGroupField({
                   min={0}
                   max={n + Math.max(0, max - total)}
                   onChange={(v) => onChange(g, c.id, v)}
-                  label={c.label[lang]}
+                  label={c.label}
                 />
               </li>
             )
@@ -285,7 +284,7 @@ function OptionGroupField({
                   disabled={disabled}
                   onChange={() => onChange(g, c.id, on && g.type === 'multi' ? 0 : 1)}
                 />
-                <span>{c.label[lang]}</span>
+                <span>{c.label}</span>
                 {c.price ? <small>+{money(c.price)}</small> : null}
               </label>
             )

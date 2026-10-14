@@ -1,15 +1,17 @@
 .contact__hero {
-  background: var(--ink);
-  color: var(--cream);
+  background: radial-gradient(90% 120% at 70% 30%, #34b3f0 0%, #1aa0e6 50%, #0f7fc6 100%);
+  color: #fff;
+  border-bottom: var(--stroke);
   padding: clamp(40px, 7vw, 88px) 0 clamp(80px, 10vw, 130px);
 }
 .contact__hero h1 {
-  font-size: clamp(2.6rem, 7vw, 5rem);
-  letter-spacing: -0.04em;
+  font-size: clamp(3.4rem, 10vw, 7.4rem);
+  text-shadow: 0.045em 0.045em 0 var(--ink);
 }
 .contact__hero p {
   margin-top: 10px;
-  color: rgba(251, 246, 236, 0.65);
+  font-weight: 600;
+  color: #fff;
   font-size: 1.1rem;
 }
 .contact__grid {
@@ -40,14 +42,15 @@
   padding: 18px;
   border-radius: var(--radius);
   background: #fff;
-  box-shadow: var(--shadow-1);
+  border: var(--stroke);
+  box-shadow: var(--pop-sm);
   transition:
-    transform 0.3s var(--ease-out),
-    box-shadow 0.3s;
+    transform 0.2s var(--ease-out),
+    box-shadow 0.2s;
 }
 .contact-card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-2);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--ink);
 }
 .contact-card__icon {
   display: grid;
@@ -77,9 +80,6 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-:root[dir='rtl'] .contact-card__text strong[dir='ltr'] {
-  text-align: right;
-}
 .contact-card__go {
   width: 18px;
   height: 18px;
@@ -92,7 +92,7 @@
   padding: 20px 22px;
   border-radius: var(--radius);
   background: #fff;
-  box-shadow: var(--shadow-1);
+  border: var(--stroke);
 }
 .contact-hours h2,
 .contact-follow h2 {
@@ -124,15 +124,12 @@
   padding: 0;
   margin: 0 0 0 -10px;
 }
-:root[dir='rtl'] .contact-follow .socials {
-  margin: 0 -10px 0 0;
-}
 .contact-map {
   position: relative;
   border-radius: var(--radius);
   overflow: hidden;
   background: var(--paper);
-  box-shadow: var(--shadow-1);
+  border: var(--stroke);
 }
 .contact-map iframe {
   display: block;
@@ -152,8 +149,8 @@
   padding: 28px;
   border-radius: var(--radius-l);
   background: var(--cream);
-  box-shadow: var(--shadow-2);
-  border: 1px solid var(--line);
+  border: var(--stroke);
+  box-shadow: 8px 8px 0 var(--studio);
 }
 .feedback h2 {
   font-size: 1.8rem;
@@ -175,10 +172,6 @@
   display: flex;
   gap: 4px;
   margin-top: 4px;
-}
-:root[dir='rtl'] .rating__stars {
-  justify-content: flex-end;
-  flex-direction: row;
 }
 .rating__stars label {
   display: grid;
