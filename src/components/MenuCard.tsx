@@ -2,7 +2,6 @@ import { useRef, type MouseEvent } from 'react'
 import type { MenuItem } from '../data/types'
 import { isOrderable } from '../data/menu'
 import { copy as t } from '../content/copy'
-import { fmt } from '../utils/format'
 import { useCart } from '../store/cart'
 import { useUI } from '../store/ui'
 import { money } from '../utils/format'
@@ -14,12 +13,15 @@ import './MenuCard.css'
 
 const needsChoices = (item: MenuItem) => (item.options ?? []).some((g) => g.required)
 
-export function MenuCard({ item, variant = 'grid' }: { item: MenuItem; variant?: 'grid' | 'feature' }) {
+/**
+ * row  — menu list item: text on the left, photo on the right (the default)
+ * tile — photo on top, used for bundles
+ */
+export function MenuCard({ item, variant = 'row' }: { item: MenuItem; variant?: 'row' | 'tile' }) {
   const { add } = useCart()
   const { openItem } = useUI()
   const imgRef = useRef<HTMLDivElement>(null)
   const orderable = isOrderable(item)
-  const desc = item.description
 
   const quickAdd = (e: MouseEvent) => {
     e.stopPropagation()
@@ -32,36 +34,52 @@ export function MenuCard({ item, variant = 'grid' }: { item: MenuItem; variant?:
     add({ itemId: item.id, qty: 1, selections: {}, removed: [], notes: '' })
   }
 
-  return (
-    <TiltCard className={`menu-card menu-card--${variant}`} max={variant === 'feature' ? 7 : 6}>
-      <article className="menu-card__body">
-        <button type="button" className="menu-card__hit" onClick={() => openItem(item.id)} aria-label={`${item.name} — ${orderable ? money(item.price) : t.menu.ask}`} />
-        <div className="menu-card__media" ref={imgRef}>
-          <FoodImage image={item.image} alt={item.name} sizes={variant === 'feature' ? '(max-width: 600px) 80vw, 420px' : '(max-width: 600px) 46vw, 300px'} />
-          {item.compareAt && (
-            <span className="menu-card__save">{fmt(t.menu.save, { v: money(item.compareAt - item.price) })}</span>
-          )}
-        </div>
-        <div className="menu-card__text">
-          <h3 className="menu-card__name">{item.name}</h3>
-          {desc && <p className="menu-card__desc">{desc}</p>}
-          <div className="menu-card__foot">
-            <p className="menu-card__price">
-              {orderable ? <span className="price">{money(item.price)}</span> : <span className="menu-card__ask">{t.menu.ask}</span>}
-              {item.compareAt && (
-                <s className="menu-card__was">
-                  <span className="sr-only">{t.menu.from} </span>
-                  {money(item.compareAt)}
-                </s>
-              )}
-            </p>
-            <button type="button" className="menu-card__add" onClick={quickAdd} aria-label={`${t.menu.add} ${item.name}`}>
-              <Icon name="plus" />
-              <span>{t.menu.add}</span>
-            </button>
+  const price = (
+    <p className="mc__price">
+      {orderable ? <span>{money(item.price)}</span> : <span className="mc__ask">{t.menu.ask}</span>}
+      {item.compareAt && (
+        <s>
+          <span className="sr-only">{t.menu.from} </span>
+          {money(item.compareAt)}
+        </s>
+      )}
+    </p>
+  )
+
+  const addButton = (
+    <button type="button" className="mc__add" onClick={quickAdd} aria-label={`${t.menu.add} ${item.name}`}>
+      <Icon name="plus" />
+    </button>
+  )
+
+  const body = (
+    <article className={`mc mc--${variant}`}>
+      <button type="button" className="mc__hit" onClick={() => openItem(item.id)} aria-label={`${item.name}, ${orderable ? money(item.price) : t.menu.ask}`} />
+      <div className="mc__media" ref={imgRef}>
+        <FoodImage image={item.image} alt={item.name} sizes={variant === 'tile' ? '(max-width: 620px) 82vw, 380px' : '140px'} />
+        {variant === 'row' && addButton}
+        {variant === 'tile' && item.compareAt && <span className="mc__save">{t.menu.save.replace('{v}', money(item.compareAt - item.price))}</span>}
+      </div>
+      <div className="mc__text">
+        <h3 className="mc__name">{item.name}</h3>
+        {item.description && <p className="mc__desc">{item.description}</p>}
+        {variant === 'tile' ? (
+          <div className="mc__foot">
+            {price}
+            {addButton}
           </div>
-        </div>
-      </article>
+        ) : (
+          price
+        )}
+      </div>
+    </article>
+  )
+
+  return variant === 'tile' ? (
+    <TiltCard max={4} className="mc-tilt">
+      {body}
     </TiltCard>
+  ) : (
+    body
   )
 }

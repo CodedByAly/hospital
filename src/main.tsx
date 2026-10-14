@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import '@fontsource-variable/bricolage-grotesque/wdth.css'
+import '@fontsource-variable/bricolage-grotesque/index.css'
 import '@fontsource-variable/dm-sans/index.css'
 import './index.css'
 import App from './App.tsx'

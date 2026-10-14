@@ -1,188 +1,146 @@
-import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type PointerEvent } from 'react'
 import { Link } from 'react-router-dom'
-import { motion, useMotionValue, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion'
+import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion'
 import { copy as t } from '../content/copy'
 import { useUI } from '../store/ui'
-import { findItem, isOrderable, menu } from '../data/menu'
-import { restaurant } from '../config/restaurant'
-import { clock, money } from '../utils/format'
+import { findItem, isOrderable } from '../data/menu'
+import { restaurant, phoneLink } from '../config/restaurant'
+import { money } from '../utils/format'
 import { imageUrl } from './FoodImage'
 import { OpenStatus } from './OpenStatus'
 import { Icon } from './Icon'
 import './Hero.css'
 
-const HeroScene = lazy(() => import('../three/HeroScene'))
-
-/** Dishes that float in the studio, in fly-through order. */
-const DISHES = [
-  'kukus-chix', 'nashvillicious', 'abou-kukus-combo', 'ranch-rush-mac', 'holy-stripinity', 'healers-fries',
-  'shroom-lord', 'chicken-wings', 'crispy-meal', 'risky', 'heroes-fries', 'mini-corn-ribs', 'bbq-freak',
-  'sweet-n-fire-mac', 'curly-fries', 'strips', 'bee-glory', 'banana-caramel-pudding',
-]
-
-const webglAvailable = () => {
-  try {
-    const c = document.createElement('canvas')
-    return !!(c.getContext('webgl2') || c.getContext('webgl'))
-  } catch {
-    return false
-  }
-}
-
-const useCompact = () => {
-  const [compact, setCompact] = useState(() => window.matchMedia('(max-width: 760px)').matches)
-  useEffect(() => {
-    const mq = window.matchMedia('(max-width: 760px)')
-    const on = () => setCompact(mq.matches)
-    mq.addEventListener('change', on)
-    return () => mq.removeEventListener('change', on)
-  }, [])
-  return compact
-}
+/** Dishes the hero photo cycles through. */
+const SHOWCASE = ['kukus-chix', 'abou-kukus-combo', 'nashvillicious', 'ranch-rush-mac', 'holy-stripinity']
 
 export function Hero() {
   const { openItem } = useUI()
   const reduce = useReducedMotion()
-  const compact = useCompact()
   const sectionRef = useRef<HTMLElement>(null)
-  const [active, setActive] = useState(true)
-  const [ready, setReady] = useState(false)
-  const use3D = useMemo(() => webglAvailable(), [])
-  const fly = use3D && !reduce
+  const stageRef = useRef<HTMLDivElement>(null)
+  const [index, setIndex] = useState(0)
+  const item = findItem(SHOWCASE[index])!
 
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end end'] })
-  const still = useMotionValue(0)
-  const progress = fly ? scrollYProgress : still
-
-  const dishes = useMemo(
-    () =>
-      DISHES.slice(0, compact ? 14 : DISHES.length)
-        .map(findItem)
-        .filter((i) => i?.image)
-        .map((i) => ({ id: i!.id, image: imageUrl(i!.image!, true), name: i!.name, price: isOrderable(i!) ? money(i!.price) : t.menu.ask })),
-    [compact],
-  )
-
-  // Stop rendering once the hero has scrolled away.
+  // Rotate the photo every few seconds.
   useEffect(() => {
-    const el = sectionRef.current
-    if (!el) return
-    const io = new IntersectionObserver(([e]) => setActive(e.isIntersecting), { threshold: 0 })
-    io.observe(el)
-    return () => io.disconnect()
-  }, [])
+    if (reduce) return
+    const id = window.setInterval(() => setIndex((i) => (i + 1) % SHOWCASE.length), 5200)
+    return () => window.clearInterval(id)
+  }, [reduce])
 
-  const onReady = useCallback(() => setReady(true), [])
+  // Scroll: the stack tips back and sinks slightly as the page moves on.
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] })
+  const tiltX = useSpring(useTransform(scrollYProgress, [0, 1], [0, 18]), { stiffness: 120, damping: 24 })
+  const sink = useTransform(scrollYProgress, [0, 1], [0, 80])
+
+  // Pointer: a slow, small tilt so the photos feel like objects on a table.
+  const rx = useSpring(0, { stiffness: 90, damping: 18 })
+  const ry = useSpring(0, { stiffness: 90, damping: 18 })
+  const rotateX = useTransform([rx, tiltX], ([a, b]: number[]) => a + b)
+  const onMove = (e: PointerEvent) => {
+    if (reduce || e.pointerType !== 'mouse') return
+    const r = stageRef.current!.getBoundingClientRect()
+    ry.set(((e.clientX - r.left) / r.width - 0.5) * 12)
+    rx.set(-((e.clientY - r.top) / r.height - 0.5) * 10)
+  }
+  const onLeave = () => {
+    rx.set(0)
+    ry.set(0)
+  }
 
   return (
-    <section ref={sectionRef} className={`hero ${fly ? 'hero--fly' : ''}`} aria-labelledby="hero-title">
-      <div className="hero__sticky">
-        <div className={`hero__scene ${ready ? 'is-ready' : ''}`}>
-          {use3D && (
-            <Suspense fallback={null}>
-              <HeroScene dishes={dishes} progress={progress} active={active} compact={compact} onSelect={(id) => openItem(id)} onReady={onReady} />
-            </Suspense>
-          )}
-          {!ready && <StaticStudio />}
+    <section ref={sectionRef} className="hero" aria-labelledby="hero-title">
+      <div className="container hero__grid">
+        <div className="hero__copy">
+          <motion.p className="hero__eyebrow" initial={reduce ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <OpenStatus />
+          </motion.p>
+          <motion.h1
+            id="hero-title"
+            className="hero__title"
+            initial={reduce ? false : { opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <span className="sr-only">{restaurant.name}. </span>
+            {t.hero.title}
+          </motion.h1>
+          <motion.div initial={reduce ? false : { opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.25 }}>
+            <p className="hero__lede">{t.hero.lede}</p>
+            <div className="hero__ctas">
+              <Link to="/menu" className="btn btn--red">
+                {t.nav.order} <Icon name="arrow" />
+              </Link>
+              <Link to="/menu" className="btn btn--white">
+                {t.hero.ctaMenu}
+              </Link>
+            </div>
+            <ul className="hero__facts">
+              <li><Icon name="store" /> {t.hero.factPickup}</li>
+              <li><Icon name="cash" /> {t.hero.factPay}</li>
+              <li><Icon name="phone" /> <a href={phoneLink}>{restaurant.phoneDisplay}</a></li>
+            </ul>
+          </motion.div>
         </div>
 
-        <div className="container hero__overlay">
-          <Stage progress={progress} range={[0, 0.06, 0.24, 0.32]} first className="hero__stage hero__stage--intro">
-            <p className="hero__status"><OpenStatus /></p>
-            <h1 id="hero-title" className="hero__title display">
-              <span className="sr-only">{restaurant.name}: </span>
-              {['The Rolls-Royce', 'of chicken', 'in Lebanon.'].map((line, i) => (
-                <span key={line} className={`hero__line ${i === 2 ? 'hero__line--yellow' : ''}`}>
-                  <motion.span
-                    initial={reduce ? false : { y: '105%', rotateX: -70 }}
-                    animate={{ y: 0, rotateX: 0 }}
-                    transition={{ duration: 1, delay: 0.2 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                  >
-                    {line}
-                  </motion.span>
+        <motion.div
+          ref={stageRef}
+          className="hero__stage"
+          onPointerMove={onMove}
+          onPointerLeave={onLeave}
+          initial={reduce ? false : { opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          style={{ y: reduce ? 0 : sink }}
+        >
+          <motion.div className="hero__stack" style={reduce ? undefined : { rotateX, rotateY: ry }}>
+            <button type="button" className="hero__photo" onClick={() => openItem(item.id)} aria-label={`${item.name}, ${money(item.price)}`}>
+              <AnimatePresence initial={false}>
+                <motion.img
+                  key={item.id}
+                  src={imageUrl(item.image!)}
+                  alt=""
+                  width="680"
+                  height="680"
+                  initial={{ opacity: 0, scale: 1.06 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+                />
+              </AnimatePresence>
+              <span className="hero__sheen" aria-hidden="true" />
+            </button>
+
+            <div className="hero__caption-wrap">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={item.id}
+                className="hero__caption"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.4 }}
+              >
+                <span>
+                  <strong>{item.name}</strong>
+                  <small>{isOrderable(item) ? money(item.price) : t.menu.ask}</small>
                 </span>
-              ))}
-            </h1>
-            <motion.div initial={reduce ? false : { opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 0.7 }}>
-              <p className="hero__lede">{t.hero.lede}</p>
-              <div className="hero__ctas">
-                <Link to="/menu" className="btn btn--yellow">
-                  {t.nav.order} <Icon name="arrow" />
-                </Link>
-                <a href="#deals" className="btn btn--white">
-                  {t.hero.ctaDeals}
-                </a>
-              </div>
-            </motion.div>
-          </Stage>
+                <button type="button" className="hero__caption-add" onClick={() => openItem(item.id)} aria-label={`${t.menu.add} ${item.name}`}>
+                  <Icon name="plus" />
+                </button>
+              </motion.div>
+            </AnimatePresence>
+            </div>
+          </motion.div>
 
-          {fly && (
-            <>
-              <Stage progress={progress} range={[0.34, 0.42, 0.58, 0.66]} className="hero__stage hero__stage--mid">
-                <p className="hero__kicker">{t.hero.midKicker}</p>
-                <h2 className="hero__big display">
-                  {t.hero.mid1}
-                  <br />
-                  <span>{t.hero.mid2}</span>
-                </h2>
-                <ul className="hero__facts">
-                  <li><strong>{menu.length}</strong>{t.hero.factItems}</li>
-                  <li><strong>8</strong>{t.hero.factSauces}</li>
-                  <li><strong>{clock(restaurant.hours.open)}</strong>{t.hero.factOpen}</li>
-                </ul>
-              </Stage>
-              <Stage progress={progress} range={[0.7, 0.78, 0.98, 1]} last className="hero__stage hero__stage--end">
-                <h2 className="hero__big display">{t.hero.end}</h2>
-                <Link to="/menu" className="btn btn--yellow hero__end-cta">
-                  {t.hero.endCta} <Icon name="arrow" />
-                </Link>
-              </Stage>
-            </>
-          )}
-        </div>
-
-        {fly && <ScrollCue progress={progress} />}
-        {use3D && <p className="hero__hint" aria-hidden="true">{t.hero.hint}</p>}
+          <div className="hero__dots" role="tablist" aria-label={t.hero.dishes}>
+            {SHOWCASE.map((id, i) => (
+              <button key={id} type="button" role="tab" aria-selected={i === index} aria-label={findItem(id)?.name} className={i === index ? 'is-on' : ''} onClick={() => setIndex(i)} />
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
-  )
-}
-
-/** Overlay copy that rises in and tilts away across a slice of the scroll. */
-function Stage({ progress, range, first, last, className, children }: { progress: MotionValue<number>; range: [number, number, number, number]; first?: boolean; last?: boolean; className: string; children: ReactNode }) {
-  const opacity = useTransform(progress, range, [first ? 1 : 0, 1, 1, last ? 1 : 0])
-  const y = useTransform(progress, range, [first ? 0 : 70, 0, 0, last ? 0 : -70])
-  const rotateX = useTransform(progress, range, [first ? 0 : -20, 0, 0, last ? 0 : 16])
-  const visibility = useTransform(opacity, (o) => (o < 0.02 ? 'hidden' : 'visible'))
-  return (
-    <motion.div className={className} style={{ opacity, y, rotateX, visibility, transformPerspective: 1000 }}>
-      {children}
-    </motion.div>
-  )
-}
-
-function ScrollCue({ progress }: { progress: MotionValue<number> }) {
-  const scaleY = useTransform(progress, [0, 1], [0.04, 1])
-  const opacity = useTransform(progress, [0.92, 1], [1, 0])
-  return (
-    <motion.div className="hero__cue" style={{ opacity }} aria-hidden="true">
-      <span>{t.hero.scroll}</span>
-      <i>
-        <motion.b style={{ scaleY }} />
-      </i>
-    </motion.div>
-  )
-}
-
-/** Shown while the 3D scene loads, and as the fallback without WebGL. */
-function StaticStudio() {
-  const ids = ['kukus-chix', 'nashvillicious', 'healers-fries']
-  return (
-    <div className="hero__static" aria-hidden="true">
-      {ids.map((id, i) => {
-        const item = findItem(id)
-        return item?.image ? <img key={id} src={imageUrl(item.image, true)} alt="" className={`hero__static-${i}`} width="360" height="360" /> : null
-      })}
-    </div>
   )
 }

@@ -9,8 +9,8 @@ Built with React + TypeScript + Vite. It's English-only, works mobile-first, and
 - Full menu with all 11 sections, prices, struck-through bundle prices and descriptions, copied from the restaurant's ordering page
 - Item dialog with the required choices (flavour, free dip, "pick 2/4 sauces"), paid extras, ingredients to leave out, notes and quantity
 - Cart that stays saved between visits: edit items, change quantities, remove them, clear the cart, and see the LBP total next to the dollar total
-- Scroll-driven 3D hero (three.js): the real food photos are chroma-keyed off their blue studio backdrop and float in one continuous blue space as the camera flies through on scroll. It loads separately so it never slows the first paint
-- Fly-to-cart animation, 3D bundle cards, a 3D sauce carousel and a menu board with a floating photo preview
+- Photo-led hero: the restaurant's real dish photos rotate in a gently tilting 3D frame that follows the mouse and eases back as you scroll
+- Menu laid out like a real ordering app (name, description and price beside the photo), plus a 3D sauce carousel and a fly-to-cart animation
 - Checkout for pickup (time slots generated from opening hours) or delivery (area, address, building), with form validation
 - Payment by cash or Whish Money (shows the Whish number, +961 81 777 384, with a copy button)
 - Order confirmation page with an order number, a summary, expected time, and buttons to call or WhatsApp the restaurant

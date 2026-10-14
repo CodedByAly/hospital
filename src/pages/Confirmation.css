@@ -12,7 +12,7 @@
   background: #fff;
   border-radius: var(--radius-l);
   border: var(--stroke);
-  box-shadow: 10px 10px 0 var(--ink);
+  box-shadow: var(--pop);
   transform-origin: 50% 0;
   overflow: hidden;
 }
@@ -31,7 +31,7 @@
   width: 68px;
   height: 68px;
   border-radius: 50%;
-  background: var(--yellow);
+  background: var(--paper);
   color: var(--ink);
   box-shadow: 0 0 0 10px rgba(255, 200, 30, 0.15);
 }
@@ -66,8 +66,7 @@
   font-size: 0.74rem;
   font-weight: 700;
   color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0;
 }
 .ticket__facts dd {
   margin: 4px 0 0;

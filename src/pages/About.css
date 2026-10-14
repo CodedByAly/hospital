@@ -13,7 +13,7 @@
   justify-items: start;
 }
 .about__copy h1 {
-  font-size: clamp(3.6rem, 10vw, 7.4rem);
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
 }
 .about__copy p {
   color: var(--muted);
@@ -41,7 +41,7 @@
   object-fit: cover;
   border-radius: var(--radius-l);
   border: var(--stroke);
-  box-shadow: 6px 6px 0 var(--ink);
+  box-shadow: var(--pop);
 }
 .about__tile--1,
 .about__tile--3 {
@@ -67,14 +67,13 @@
   font-size: 0.8rem;
   font-weight: 700;
   color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0;
 }
 .fact dd {
   margin: 6px 0 0;
   font-family: 'Bricolage Grotesque Variable', var(--font-display);
   font-size: clamp(1.3rem, 2.6vw, 1.9rem);
-  font-weight: 800;
+  font-weight: 700;
 }
 @media (max-width: 860px) {
   .about__grid {

@@ -30,10 +30,7 @@
   border-bottom: 1px solid var(--line);
 }
 .cart__head h2 {
-  font-size: 2.2rem;
-  font-stretch: 75%;
-  font-variation-settings: 'wdth' 75;
-  text-transform: uppercase;
+  font-size: 1.5rem;
 }
 .cart__head p {
   color: var(--muted);
@@ -108,7 +105,7 @@
   font-family: 'Bricolage Grotesque Variable', sans-serif;
   font-size: 0.98rem;
   letter-spacing: 0;
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.2;
 }
 .cart-line__meta {
@@ -190,7 +187,7 @@
 }
 .totals__grand dt {
   color: var(--text);
-  font-weight: 800;
+  font-weight: 700;
 }
 .totals__lbp {
   font-size: 0.8rem;

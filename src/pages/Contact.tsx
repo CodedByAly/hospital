@@ -25,7 +25,7 @@ export default function Contact() {
     <div className="contact">
       <header className="contact__hero">
         <div className="container">
-          <h1 className="display">{t.contact.title}</h1>
+          <h1>{t.contact.title}</h1>
           <p>{t.contact.sub}</p>
         </div>
       </header>

@@ -1,17 +1,13 @@
 .contact__hero {
-  background: radial-gradient(90% 120% at 70% 30%, #34b3f0 0%, #1aa0e6 50%, #0f7fc6 100%);
-  color: #fff;
-  border-bottom: var(--stroke);
+  background: var(--paper);
   padding: clamp(40px, 7vw, 88px) 0 clamp(80px, 10vw, 130px);
 }
 .contact__hero h1 {
-  font-size: clamp(3.4rem, 10vw, 7.4rem);
-  text-shadow: 0.045em 0.045em 0 var(--ink);
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
 }
 .contact__hero p {
   margin-top: 10px;
-  font-weight: 600;
-  color: #fff;
+  color: var(--muted);
   font-size: 1.1rem;
 }
 .contact__grid {
@@ -50,7 +46,7 @@
 }
 .contact-card:hover {
   transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 var(--ink);
+  box-shadow: var(--pop);
 }
 .contact-card__icon {
   display: grid;
@@ -58,7 +54,7 @@
   width: 46px;
   height: 46px;
   border-radius: 12px;
-  background: var(--yellow);
+  background: var(--paper);
   flex: none;
 }
 .contact-card__icon svg {
@@ -150,7 +146,7 @@
   border-radius: var(--radius-l);
   background: var(--cream);
   border: var(--stroke);
-  box-shadow: 8px 8px 0 var(--studio);
+  box-shadow: var(--pop);
 }
 .feedback h2 {
   font-size: 1.8rem;
@@ -189,7 +185,7 @@
   transform: scale(1.12);
 }
 .rating__stars label.is-on {
-  color: var(--yellow);
+  color: var(--red);
 }
 .rating__stars label.is-on svg {
   fill: currentColor;
@@ -219,7 +215,7 @@
   height: 44px;
   padding: 10px;
   border-radius: 50%;
-  background: var(--yellow);
+  background: var(--paper);
   stroke-width: 2.6;
 }
 @media (max-width: 900px) {

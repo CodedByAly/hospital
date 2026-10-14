@@ -28,7 +28,7 @@ export default function About() {
         <div className="container about__grid">
           <Reveal className="about__copy">
             <p className="eyebrow">{restaurant.tagline}</p>
-            <h1 className="display">{t.about.title}</h1>
+            <h1>{t.about.title}</h1>
             <p className="about__lead">{t.about.lead}</p>
             <p>{t.about.p1}</p>
             <p>{t.about.p2}</p>

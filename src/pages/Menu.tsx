@@ -100,7 +100,7 @@ export default function Menu() {
       <header className="menu-hero">
         <div className="container menu-hero__inner">
           <div>
-            <h1 className="display">{t.menu.title}</h1>
+            <h1>{t.menu.title}</h1>
             <p>{t.menu.sub}</p>
           </div>
           <label className="menu-search">
@@ -186,11 +186,10 @@ function Grid({ items }: { items: MenuItem[] }) {
       {items.map((item, i) => (
         <motion.li
           key={item.id}
-          initial={{ opacity: 0, y: 24, rotateX: 8 }}
-          whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '0px 0px -40px 0px' }}
-          transition={{ duration: 0.55, delay: (i % 4) * 0.05, ease: [0.16, 1, 0.3, 1] }}
-          style={{ transformPerspective: 900 }}
+          transition={{ duration: 0.5, delay: (i % 2) * 0.05, ease: [0.22, 1, 0.36, 1] }}
         >
           <MenuCard item={item} />
         </motion.li>

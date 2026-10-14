@@ -3,9 +3,11 @@
   top: 0;
   z-index: 90;
   height: var(--header-h);
-  background: var(--cream);
+  background: rgba(251, 248, 243, 0.88);
+  backdrop-filter: saturate(1.6) blur(14px);
+  -webkit-backdrop-filter: saturate(1.6) blur(14px);
   color: var(--ink);
-  border-bottom: var(--stroke);
+  border-bottom: 1px solid var(--line);
 }
 .site-header__inner {
   height: 100%;
@@ -18,7 +20,7 @@
   transition: transform 0.35s var(--ease-spring);
 }
 .site-header__logo:hover {
-  transform: rotate(-4deg) scale(1.04);
+  transform: scale(1.03);
 }
 .site-header__logo img {
   width: auto;
@@ -40,29 +42,27 @@
   align-items: center;
   height: 44px;
   padding: 0 14px;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 1.02rem;
-  text-transform: uppercase;
-  letter-spacing: 0.01em;
+  font-weight: 500;
+  font-size: 0.97rem;
+  color: var(--muted);
+  transition: color 0.2s;
+}
+.site-nav__link:hover,
+.site-nav__link.active {
+  color: var(--ink);
 }
 .site-nav__link > span:not(.site-nav__mark) {
   position: relative;
   z-index: 1;
 }
-/* yellow highlighter swipe behind the active link */
 .site-nav__mark {
   position: absolute;
-  left: 8px;
-  right: 8px;
-  top: 50%;
-  height: 16px;
-  margin-top: -2px;
-  background: var(--yellow);
-  transform: skewX(-12deg);
-}
-.site-nav__link:hover > span:not(.site-nav__mark) {
-  color: var(--red);
+  left: 14px;
+  right: 14px;
+  bottom: 6px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--red);
 }
 .site-header__tools {
   display: flex;
@@ -115,19 +115,17 @@
   height: 46px;
   padding: 0 16px;
   margin-inline-start: 8px;
-  border-radius: var(--radius);
-  border: var(--stroke);
-  background: var(--yellow);
-  color: var(--ink);
-  font-weight: 800;
-  box-shadow: var(--pop-sm);
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font-weight: 600;
   transition:
-    transform 0.18s var(--ease-out),
-    box-shadow 0.18s var(--ease-out);
+    transform 0.25s var(--ease-out),
+    background-color 0.2s;
 }
 .header-cart:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 5px 5px 0 var(--ink);
+  transform: translateY(-1px);
+  background: #000;
 }
 .header-cart svg {
   width: 20px;
@@ -142,9 +140,8 @@
   border-radius: 999px;
   background: var(--red);
   color: #fff;
-  border: 2px solid var(--ink);
-  font-size: 0.76rem;
-  font-weight: 800;
+  font-size: 0.74rem;
+  font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
 
@@ -188,10 +185,13 @@
     align-items: center;
     height: 62px;
     padding: 0 6px;
-    border-radius: 16px;
-    background: var(--cream);
-    border: var(--stroke);
-    box-shadow: var(--pop);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(16px) saturate(1.5);
+    -webkit-backdrop-filter: blur(16px) saturate(1.5);
+    box-shadow:
+      0 0 0 1px var(--line),
+      0 14px 34px -14px rgba(29, 27, 25, 0.35);
   }
   .dock__link {
     position: relative;
@@ -200,7 +200,7 @@
     gap: 1px;
     padding: 7px 0;
     font-size: 0.68rem;
-    font-weight: 800;
+    font-weight: 600;
     color: var(--muted);
   }
   .dock__link > svg,
@@ -218,8 +218,8 @@
   .dock__pill {
     position: absolute;
     inset: 3px 4px;
-    border-radius: 10px;
-    background: var(--yellow);
+    border-radius: 14px;
+    background: var(--paper);
   }
   .dock__cart {
     position: relative;
@@ -227,13 +227,13 @@
     place-items: center;
     width: 60px;
     height: 60px;
-    margin: -26px 6px 0;
-    border-radius: 16px;
+    margin: -24px 6px 0;
+    border-radius: 50%;
     background: var(--red);
     color: #fff;
-    border: var(--stroke);
-    box-shadow: var(--pop-sm);
-    transform: rotate(-4deg);
+    box-shadow:
+      0 0 0 5px var(--cream),
+      0 10px 22px -8px rgba(216, 38, 44, 0.6);
   }
   .dock__cart svg {
     width: 26px;
@@ -241,10 +241,10 @@
   }
   .dock__cart .cart-count {
     position: absolute;
-    top: -8px;
-    right: -8px;
-    background: var(--yellow);
-    color: var(--ink);
+    top: -2px;
+    right: -2px;
+    background: var(--ink);
+    color: #fff;
   }
 }
 @media (max-width: 380px) {

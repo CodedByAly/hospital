@@ -65,7 +65,7 @@ export function Splash() {
             />
           </div>
           <div className="splash__bars">
-            {['var(--red)', 'var(--yellow)', 'var(--blue)'].map((c, i) => (
+            {['var(--red)'].map((c, i) => (
               <motion.span
                 key={c}
                 style={{ background: c }}

@@ -18,10 +18,7 @@
   height: 18px;
 }
 .checkout__title {
-  font-size: clamp(3rem, 8vw, 5.4rem);
-  font-stretch: 75%;
-  font-variation-settings: 'wdth' 75;
-  text-transform: uppercase;
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
   margin: 6px 0 28px;
 }
 .checkout__grid {
@@ -55,7 +52,7 @@
   height: 30px;
   border-radius: 50%;
   background: var(--ink);
-  color: var(--yellow);
+  color: var(--red);
   font-family: 'Bricolage Grotesque Variable', sans-serif;
   font-size: 0.95rem;
 }
@@ -139,12 +136,12 @@
   background: #fffaf0;
 }
 .choice.is-on .choice__icon {
-  background: var(--yellow);
+  background: var(--paper);
 }
 .choice.is-on .choice__tick {
   background: var(--ink);
   border-color: var(--ink);
-  color: var(--yellow);
+  color: var(--red);
 }
 .checkout__note {
   display: flex;
@@ -217,7 +214,7 @@
   border-radius: var(--radius-l);
   background: var(--ink);
   color: var(--cream);
-  box-shadow: 8px 8px 0 var(--yellow);
+  box-shadow: var(--pop);
 }
 .checkout__summary h2 {
   font-size: 1.4rem;
@@ -249,7 +246,7 @@
   line-height: 1.3;
 }
 .summary-lines__name span {
-  color: var(--yellow);
+  color: var(--red);
 }
 .summary-lines__meta {
   font-size: 0.78rem;

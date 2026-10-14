@@ -14,9 +14,8 @@
   font-family: var(--font-body);
   font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--yellow);
+  letter-spacing: 0;
+  color: rgba(255, 255, 255, 0.5);
   margin-bottom: 16px;
 }
 .site-footer ul {
@@ -54,7 +53,7 @@
 .site-footer__contact svg {
   width: 18px;
   height: 18px;
-  color: var(--yellow);
+  color: rgba(255, 255, 255, 0.5);
   flex: none;
 }
 .site-footer__hours strong {
