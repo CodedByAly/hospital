@@ -1,0 +1,48 @@
+.dialog--nav { align-items: stretch; }
+.dialog--nav .dialog__panel {
+  width: 100%;
+  height: 100%;
+  animation: nav-in 0.38s var(--ease-out) both;
+}
+.dialog--nav.is-closing .dialog__panel { animation: nav-out 0.24s var(--ease) both; }
+@keyframes nav-in { from { opacity: 0; transform: translateY(-12px); } }
+@keyframes nav-out { to { opacity: 0; transform: translateY(-8px); } }
+
+.mobile-nav { padding: 0 var(--gutter) max(1.25rem, env(safe-area-inset-bottom)); overflow-y: auto; }
+.mobile-nav__top {
+  display: flex; align-items: center; justify-content: space-between;
+  height: var(--header-h);
+  flex-shrink: 0;
+}
+.mobile-nav__top .logo__mark { height: 2.1rem; }
+.mobile-nav__top .logo__word { width: 6.8rem; }
+.mobile-nav__close { display: grid; place-items: center; width: 46px; height: 46px; margin-inline-end: -0.5rem; border-radius: 50%; }
+
+.mobile-nav__links { margin-top: 1.5rem; }
+.mobile-nav__links ul { list-style: none; margin: 0; padding: 0; }
+.mobile-nav__links li {
+  border-bottom: 1px solid var(--line);
+  animation: nav-link-in 0.5s var(--ease-out) both;
+  animation-delay: calc(80ms + var(--i) * 45ms);
+}
+.mobile-nav__links a {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 0;
+  font-family: var(--font-display);
+  font-size: 2.1rem;
+  font-weight: 300;
+  color: var(--ink);
+  transition: color 0.2s var(--ease);
+}
+:lang(ar) .mobile-nav__links a { font-weight: 400; font-size: 1.85rem; }
+.mobile-nav__links a .icon { color: var(--line-strong); transition: color 0.2s var(--ease), transform 0.25s var(--ease-out); }
+.mobile-nav__links a.active { color: var(--bark); }
+.mobile-nav__links a.active .icon,
+.mobile-nav__links a:hover .icon { color: var(--bark); }
+@keyframes nav-link-in { from { opacity: 0; transform: translateY(10px); } }
+
+.mobile-nav__footer { margin-top: auto; padding-top: 2rem; display: grid; gap: 1rem; }
+.mobile-nav__area { display: flex; align-items: center; gap: 0.4rem; color: var(--ink-2); font-size: 0.95rem; }
+.mobile-nav__actions { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+.mobile-nav__actions .btn { padding-inline: 0.75rem; }
+.mobile-nav__bottom { display: flex; align-items: center; justify-content: space-between; color: var(--ink-2); }

@@ -1,0 +1,5 @@
+.hours-list { margin: 0; display: grid; gap: 0.35rem; }
+.hours-list__row { display: flex; justify-content: space-between; gap: 1.5rem; }
+.hours-list dt { color: inherit; }
+.hours-list dd { margin: 0; font-variant-numeric: tabular-nums; }
+.hours-list__row.is-today { font-weight: 600; }

@@ -1,0 +1,272 @@
+/* Life Kitchen design tokens, drawn from the logo and the printed menu. */
+:root {
+  --paper: #f3f5f1;
+  --paper-2: #e8ede5;
+  --surface: #ffffff;
+  --ink: #1e2a1f;
+  --ink-2: #4a574a;
+  --ink-3: #6b776a;
+  --line: #d8dfd4;
+  --line-strong: #c3ccbf;
+
+  --leaf: #74966f;        /* logo leaves, decorative */
+  --sage-deep: #5e7d5d;   /* large green surfaces with white text */
+  --forest: #3f5a40;      /* primary actions */
+  --forest-hover: #344c35;
+  --leaf-text: #4e714e;   /* green text on paper */
+  --bark: #9c7a70;        /* logo trunk, large headings */
+  --bark-text: #86625a;   /* brown text at body size */
+  --danger: #a33d2f;
+
+  --font-display: 'Josefin Sans', 'Segoe UI', sans-serif;
+  --font-body: 'Figtree', 'Segoe UI', system-ui, sans-serif;
+
+  --radius: 6px;
+  --radius-lg: 10px;
+  --shadow: 0 1px 2px rgba(30, 42, 31, 0.06), 0 8px 24px rgba(30, 42, 31, 0.08);
+  --shadow-lg: 0 24px 64px rgba(30, 42, 31, 0.22);
+
+  --header-h: 64px;
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+  --max: 1200px;
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  color-scheme: light;
+}
+
+:root:lang(ar) {
+  --font-display: 'Reem Kufi', 'IBM Plex Sans Arabic', sans-serif;
+  --font-body: 'IBM Plex Sans Arabic', 'Segoe UI', system-ui, sans-serif;
+}
+
+@media (min-width: 960px) {
+  :root { --header-h: 76px; }
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 64px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body.is-locked { overflow: hidden; }
+
+:lang(ar) body { line-height: 1.75; }
+
+img { display: block; max-width: 100%; height: auto; }
+
+h1, h2, h3, h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.005em;
+}
+
+:lang(ar) h1, :lang(ar) h2, :lang(ar) h3, :lang(ar) h4 { line-height: 1.35; letter-spacing: 0; }
+
+p { margin: 0; }
+
+a { color: inherit; text-decoration: none; }
+
+button, input, select, textarea { font: inherit; color: inherit; }
+
+button { cursor: pointer; background: none; border: 0; padding: 0; }
+
+:focus { outline: none; }
+:focus-visible {
+  outline: 2px solid var(--forest);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+::selection { background: rgba(116, 150, 111, 0.3); }
+
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0);
+  white-space: nowrap; border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  inset-inline-start: 1rem;
+  top: -3rem;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  background: var(--forest);
+  color: #fff;
+  border-radius: var(--radius);
+  transition: top 0.2s var(--ease);
+}
+.skip-link:focus { top: 1rem; }
+
+.container {
+  width: 100%;
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Prices and phone numbers stay left-to-right inside Arabic text. */
+.ltr { direction: ltr; unicode-bidi: isolate; display: inline-block; }
+
+/* Type helpers */
+.eyebrow {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bark-text);
+}
+:lang(ar) .eyebrow { letter-spacing: 0; font-size: 0.9rem; }
+
+.section-title {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 300;
+  color: var(--bark);
+}
+:lang(ar) .section-title { font-weight: 500; }
+
+.lead { font-size: 1.075rem; color: var(--ink-2); max-width: 38rem; }
+
+/* Buttons */
+.btn {
+  --btn-bg: var(--forest);
+  --btn-fg: #fff;
+  --btn-border: var(--forest);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 48px;
+  padding: 0.75rem 1.4rem;
+  border: 1px solid var(--btn-border);
+  border-radius: var(--radius);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-weight: 600;
+  font-size: 0.97rem;
+  line-height: 1.2;
+  text-align: center;
+  transition: background-color 0.2s var(--ease), color 0.2s var(--ease), border-color 0.2s var(--ease), transform 0.15s var(--ease);
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:hover { --btn-bg: var(--forest-hover); --btn-border: var(--forest-hover); }
+.btn:active { transform: scale(0.98); }
+.btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+.btn--ghost { --btn-bg: transparent; --btn-fg: var(--forest); --btn-border: var(--line-strong); }
+.btn--ghost:hover { --btn-bg: var(--paper-2); --btn-border: var(--forest); }
+
+.btn--light { --btn-bg: #fff; --btn-fg: var(--forest); --btn-border: #fff; }
+.btn--light:hover { --btn-bg: var(--paper); --btn-border: var(--paper); }
+
+.btn--outline-light { --btn-bg: transparent; --btn-fg: #fff; --btn-border: rgba(255, 255, 255, 0.55); }
+.btn--outline-light:hover { --btn-bg: rgba(255, 255, 255, 0.1); --btn-border: #fff; }
+
+.btn--whatsapp { --btn-bg: #1f7a4d; --btn-border: #1f7a4d; }
+.btn--whatsapp:hover { --btn-bg: #186540; --btn-border: #186540; }
+
+.btn--block { width: 100%; }
+.btn--sm { min-height: 40px; padding: 0.5rem 0.9rem; font-size: 0.9rem; }
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--leaf-text);
+  font-weight: 600;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 1px;
+  transition: color 0.2s var(--ease);
+}
+.text-link:hover { color: var(--forest); }
+
+.icon { flex-shrink: 0; }
+[dir='rtl'] .flip-rtl { transform: scaleX(-1); }
+
+/* Tags */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bark-text);
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  padding: 0.1rem 0.5rem;
+  line-height: 1.4;
+}
+:lang(ar) .tag { letter-spacing: 0; font-size: 0.78rem; }
+
+/* Reveal on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* Route change */
+.page { animation: page-in 0.45s var(--ease-out) both; }
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Flying item */
+.fly-item { position: fixed; z-index: 90; pointer-events: none; will-change: transform; }
+.fly-item__inner {
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(30, 42, 31, 0.3);
+  will-change: transform, opacity;
+}
+.fly-item__inner img { width: 100%; height: 100%; object-fit: cover; }
+.fly-item__inner--mark { background: var(--surface); padding: 22%; border: 1px solid var(--line); }
+.fly-item__inner--mark img { object-fit: contain; }
+
+.is-bumping { animation: bump 0.45s var(--ease-out); }
+@keyframes bump {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
+
+/* Long Arabic passages read better in the text face than the Kufi display face. */
+:lang(ar) .mission__quote p,
+:lang(ar) .about-story__quote p { font-family: var(--font-body); font-weight: 400; }

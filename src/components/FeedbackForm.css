@@ -1,0 +1,24 @@
+.feedback { display: grid; gap: 1.25rem; justify-items: stretch; }
+.feedback > .btn { justify-self: start; }
+.feedback__row { display: grid; gap: 1.25rem; }
+@media (min-width: 640px) { .feedback__row { grid-template-columns: 1fr 1fr; } }
+
+.stars { display: flex; gap: 0.15rem; }
+.stars__star {
+  position: relative;
+  display: grid; place-items: center;
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  color: var(--line-strong);
+  cursor: pointer;
+  transition: color 0.15s var(--ease), transform 0.15s var(--ease);
+}
+.stars__star input { position: absolute; opacity: 0; pointer-events: none; }
+.stars__star.is-on { color: var(--bark); }
+.stars__star.is-on .icon { fill: currentColor; }
+.stars__star:hover { transform: scale(1.08); }
+.stars__star:has(input:focus-visible) { outline: 2px solid var(--forest); outline-offset: 1px; }
+
+.feedback-done { display: grid; gap: 0.9rem; justify-items: start; padding: 1.5rem; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); animation: rise-in 0.4s var(--ease-out); }
+.feedback-done__icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--forest); color: #fff; }
+@keyframes rise-in { from { opacity: 0; transform: translateY(10px); } }

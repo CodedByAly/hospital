@@ -1,0 +1,6 @@
+.open-status { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; font-weight: 500; }
+.open-status__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--bark); flex-shrink: 0; }
+.open-status.is-open .open-status__dot { background: #3f9a5a; box-shadow: 0 0 0 4px rgba(63, 154, 90, 0.18); }
+.open-status--light { color: rgba(255, 255, 255, 0.92); }
+.open-status--light.is-open .open-status__dot { background: #b9f0c6; box-shadow: 0 0 0 4px rgba(185, 240, 198, 0.2); }
+.open-status--light.is-closed .open-status__dot { background: #f1d3c9; }

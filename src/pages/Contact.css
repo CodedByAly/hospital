@@ -1,0 +1,31 @@
+.contact-cards { display: grid; gap: 0.9rem; }
+.contact-card {
+  display: grid; gap: 0.35rem; align-content: start;
+  padding: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  transition: border-color 0.25s var(--ease), transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease);
+}
+.contact-card > .icon { color: var(--leaf-text); margin-bottom: 0.6rem; }
+.contact-card:hover { border-color: var(--line-strong); transform: translateY(-2px); box-shadow: var(--shadow); }
+.contact-card__label { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
+:lang(ar) .contact-card__label { letter-spacing: 0; font-size: 0.92rem; }
+.contact-card__value { font-family: var(--font-display); font-size: 1.6rem; color: var(--ink); justify-self: start; }
+.contact-card__cta { display: inline-flex; align-items: center; gap: 0.35rem; margin-top: 0.6rem; font-weight: 600; color: var(--leaf-text); }
+.contact-card--primary { background: var(--sage-deep); border-color: var(--sage-deep); color: #fff; }
+.contact-card--primary > .icon,
+.contact-card--primary .contact-card__value,
+.contact-card--primary .contact-card__cta { color: #fff; }
+.contact-card--primary .contact-card__label { color: rgba(255, 255, 255, 0.75); }
+.contact-card--primary:hover { border-color: var(--forest); }
+@media (min-width: 760px) { .contact-cards { grid-template-columns: repeat(3, 1fr); } }
+
+.contact-main__grid { display: grid; gap: 3.5rem; }
+.contact-main__info { display: grid; gap: 2.5rem; align-content: start; }
+.contact-block { display: grid; gap: 0.75rem; max-width: 22rem; }
+.contact-block h2 { font-family: var(--font-body); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--bark-text); }
+:lang(ar) .contact-block h2 { letter-spacing: 0; font-size: 0.95rem; }
+.contact-main__form { display: grid; gap: 1rem; align-content: start; }
+.contact-main__form .lead { margin-bottom: 0.75rem; }
+@media (min-width: 900px) { .contact-main__grid { grid-template-columns: 0.8fr 1.2fr; gap: 5rem; } }

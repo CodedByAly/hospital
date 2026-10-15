@@ -1,0 +1,65 @@
+.confirmation { padding-block: clamp(2.5rem, 7vw, 4.5rem) clamp(4rem, 9vw, 6rem); }
+.confirmation__head { display: grid; justify-items: center; text-align: center; gap: 1rem; max-width: 40rem; margin: 0 auto clamp(2.5rem, 6vw, 3.5rem); }
+.confirmation__mark { position: relative; width: 84px; height: 84px; display: grid; place-items: center; border-radius: 50%; background: var(--surface); border: 1px solid var(--line); animation: pop 0.6s var(--ease-out) both; }
+.confirmation__mark .tree-mark { height: 46px; }
+.confirmation__check {
+  position: absolute; bottom: -2px; inset-inline-end: -2px;
+  display: grid; place-items: center;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--forest); color: #fff;
+  border: 3px solid var(--paper);
+  animation: pop 0.5s var(--ease-out) 0.35s both;
+}
+@keyframes pop { from { opacity: 0; transform: scale(0.6); } }
+.confirmation__head h1 { font-size: clamp(2.2rem, 6vw, 3.2rem); font-weight: 300; color: var(--bark); }
+:lang(ar) .confirmation__head h1 { font-weight: 500; }
+.confirmation__head .lead { margin-inline: auto; }
+.confirmation__resend { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.75rem; font-size: 0.92rem; color: var(--ink-3); }
+
+.confirmation__grid { display: grid; gap: 2rem; align-items: start; }
+
+.ticket {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  animation: rise-in 0.6s var(--ease-out) 0.15s both;
+}
+@keyframes rise-in { from { opacity: 0; transform: translateY(12px); } }
+.ticket__top { display: grid; gap: 0.2rem; padding-bottom: 1.1rem; border-bottom: 1px dashed var(--line-strong); }
+.ticket__label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-3); }
+:lang(ar) .ticket__label { letter-spacing: 0; text-transform: none; }
+.ticket__number { font-family: var(--font-display); font-size: 2rem; letter-spacing: 0.04em; color: var(--ink); }
+.ticket__facts { display: grid; gap: 0.9rem; margin: 1.1rem 0; }
+.ticket__facts div { display: grid; gap: 0.1rem; align-content: start; }
+.ticket__facts dt { font-size: 0.82rem; color: var(--ink-3); }
+.ticket__facts dd { margin: 0; font-weight: 500; }
+@media (min-width: 560px) { .ticket__facts { grid-template-columns: 1fr 1fr; } }
+
+.ticket__lines { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.ticket__lines > li { display: grid; grid-template-columns: auto 1fr auto; gap: 0.75rem; padding: 0.8rem 0; border-bottom: 1px solid var(--line); }
+.ticket__qty { color: var(--ink-3); }
+.ticket__name { font-weight: 600; }
+.ticket__totals { margin: 0.9rem 0 0; display: grid; gap: 0.35rem; }
+.ticket__totals div { display: flex; justify-content: space-between; color: var(--ink-2); }
+.ticket__totals dd { margin: 0; }
+.ticket__total { padding-top: 0.6rem; border-top: 1px solid var(--line); font-weight: 700; color: var(--ink) !important; font-size: 1.1rem; }
+.ticket__notes { margin-top: 1rem; padding: 0.75rem 0.9rem; background: var(--paper); border-radius: var(--radius); font-size: 0.93rem; color: var(--ink-2); }
+
+.confirmation__aside { display: grid; gap: 1rem; justify-items: start; }
+.confirmation__box { display: flex; gap: 0.8rem; align-items: flex-start; padding: 1rem 1.1rem; background: var(--paper-2); border-radius: var(--radius); width: 100%; color: var(--ink-2); }
+.confirmation__box .icon { color: var(--leaf-text); margin-top: 0.1rem; }
+.confirmation__help { display: grid; gap: 0.75rem; width: 100%; padding: 1.25rem 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 0.5rem 0; }
+.confirmation__help h2 { font-size: 1.4rem; }
+.confirmation__help p { color: var(--ink-2); }
+.confirmation__help-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+.confirmation__help-actions .btn { padding-inline: 0.6rem; }
+.confirmation__address { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; font-size: 0.93rem; }
+
+@media (min-width: 960px) {
+  .confirmation__grid { grid-template-columns: 1.4fr 1fr; gap: 3.5rem; }
+}
+
+.confirmation-missing { padding-block: 6rem; display: grid; justify-items: center; gap: 1.5rem; text-align: center; }
+.confirmation-missing h1 { font-size: 1.8rem; }

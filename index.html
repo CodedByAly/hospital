@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Life Kitchen | Dekwaneh: burgers, subs, salads &amp; mezza</title>
+    <meta
+      name="description"
+      content="Life Kitchen is a non-profit kitchen in Dekwaneh. Order burgers, subs, salads and Lebanese mezza for pickup or delivery. For every plate sold, we give a plate to someone in need."
+    />
+    <meta name="theme-color" content="#3f5a40" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+
+    <meta property="og:type" content="restaurant" />
+    <meta property="og:site_name" content="Life Kitchen" />
+    <meta property="og:title" content="Life Kitchen | a bite for you, a bite for them" />
+    <meta
+      property="og:description"
+      content="A non-profit kitchen in Dekwaneh. For every plate sold, we give a plate to someone in need. Order for pickup or delivery."
+    />
+    <meta property="og:url" content="__SITE_URL__/" />
+    <meta property="og:image" content="__SITE_URL__/images/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="ar_LB" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Josefin+Sans:wght@300;400;600&family=Reem+Kufi:wght@400;500;600&display=swap"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Restaurant",
+        "name": "Life Kitchen",
+        "alternateName": "لايف كيتشن",
+        "slogan": "a bite for you, a bite for them",
+        "description": "Non-profit kitchen built inside an NGO. For every plate sold, a plate is given to someone in need.",
+        "url": "__SITE_URL__/",
+        "logo": "__SITE_URL__/images/logo.svg",
+        "image": "__SITE_URL__/images/og-image.png",
+        "telephone": "+961 3 525 615",
+        "servesCuisine": ["Lebanese", "Burgers", "Sandwiches", "Salads"],
+        "priceRange": "$",
+        "currenciesAccepted": "USD",
+        "paymentAccepted": "Cash, Whish Money",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Dekwaneh",
+          "addressCountry": "LB"
+        },
+        "hasMap": "https://maps.app.goo.gl/xm2VWDoXRKsLMeKZA",
+        "hasMenu": "__SITE_URL__/menu",
+        "acceptsReservations": false,
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "12:00",
+            "closes": "22:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Sunday",
+            "opens": "12:00",
+            "closes": "16:00"
+          }
+        ],
+        "sameAs": ["https://www.instagram.com/lifekitchen.lb/"]
+      }
+    </script>
+
+    <script>
+      // Apply saved language before first paint (no flash of the wrong direction),
+      // and only play the splash once per visit.
+      (function () {
+        var root = document.documentElement;
+        try {
+          var lang = localStorage.getItem('lk.lang');
+          if (!lang && (navigator.language || '').toLowerCase().indexOf('ar') === 0) lang = 'ar';
+          if (lang === 'ar') { root.lang = 'ar'; root.dir = 'rtl'; }
+          if (sessionStorage.getItem('lk.splash')) root.classList.add('no-splash');
+          sessionStorage.setItem('lk.splash', '1');
+        } catch (e) {}
+        var start = Date.now();
+        window.__hideSplash = function () {
+          var el = document.getElementById('splash');
+          if (!el) return;
+          var wait = Math.max(0, 1150 - (Date.now() - start));
+          setTimeout(function () {
+            el.classList.add('is-leaving');
+            setTimeout(function () { el.remove(); }, 520);
+          }, root.classList.contains('no-splash') ? 0 : wait);
+        };
+      })();
+    </script>
+    <style>
+      #splash {
+        position: fixed; inset: 0; z-index: 1000;
+        display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px;
+        background: #f3f5f1;
+        transition: opacity .5s cubic-bezier(.22,.61,.36,1), visibility .5s;
+        /* Safety net if scripts fail to load */
+        animation: splash-failsafe .4s 4s forwards;
+      }
+      .no-splash #splash { display: none; }
+      #splash.is-leaving { opacity: 0; visibility: hidden; }
+      #splash.is-leaving .splash__inner { transform: scale(.97) translateY(-6px); }
+      .splash__inner { display: flex; flex-direction: column; align-items: center; gap: 18px; transition: transform .5s cubic-bezier(.22,.61,.36,1); }
+      .splash__mark { width: 92px; height: auto; opacity: 0; transform: translateY(10px) scale(.92); animation: splash-in .8s cubic-bezier(.16,1,.3,1) .05s forwards; transform-origin: 50% 90%; }
+      .splash__word { width: 190px; height: auto; opacity: 0; animation: splash-fade .7s ease .35s forwards; }
+      .splash__line { width: 0; height: 1px; background: #9c7a70; animation: splash-line .6s cubic-bezier(.22,.61,.36,1) .55s forwards; }
+      @keyframes splash-in { to { opacity: 1; transform: none; } }
+      @keyframes splash-fade { to { opacity: 1; } }
+      @keyframes splash-line { to { width: 56px; } }
+      @keyframes splash-failsafe { to { opacity: 0; visibility: hidden; } }
+      @media (prefers-reduced-motion: reduce) {
+        .splash__mark, .splash__word { animation: none; opacity: 1; transform: none; }
+        .splash__line { animation: none; width: 56px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="splash" aria-hidden="true">
+      <div class="splash__inner">
+        <img class="splash__mark" src="/favicon.svg" alt="" width="92" height="99" />
+        <img class="splash__word" src="/images/wordmark.svg" alt="" width="190" height="28" />
+        <span class="splash__line"></span>
+      </div>
+    </div>
+    <div id="root"></div>
+    <noscript>
+      <p style="padding:2rem;font-family:sans-serif">
+        Life Kitchen, Dekwaneh. Call or WhatsApp 03 525 615 to order. Instagram: @lifekitchen.lb
+      </p>
+    </noscript>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

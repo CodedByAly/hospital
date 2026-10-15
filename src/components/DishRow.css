@@ -1,0 +1,54 @@
+.dish {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  gap: 1rem;
+  padding: 1.15rem 0;
+  border-bottom: 1px solid var(--line);
+  transition: background-color 0.2s var(--ease);
+}
+.dish--has-image { grid-template-columns: 1fr 88px; }
+
+.dish__text { min-width: 0; display: grid; gap: 0.35rem; padding-inline-end: 3.25rem; }
+.dish--has-image .dish__text { padding-inline-end: 0; }
+
+.dish__name { font-family: var(--font-display); font-size: 1.32rem; font-weight: 400; color: var(--leaf-text); line-height: 1.25; }
+:lang(ar) .dish__name { font-size: 1.2rem; font-weight: 500; }
+.dish__open { text-align: start; color: inherit; font: inherit; }
+/* Whole row opens the item */
+.dish__open::after { content: ''; position: absolute; inset: 0; z-index: 1; }
+.dish__open:focus-visible { outline: none; }
+.dish:has(.dish__open:focus-visible) { outline: 2px solid var(--forest); outline-offset: 4px; border-radius: 4px; }
+.dish:hover .dish__name { color: var(--forest); }
+
+.dish__desc { font-size: 0.93rem; color: var(--ink-2); line-height: 1.5; }
+.dish__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.9rem; margin-top: 0.2rem; }
+.dish__price { font-weight: 600; font-variant-numeric: tabular-nums; color: var(--ink); }
+.dish__variant { font-size: 0.86rem; color: var(--bark-text); }
+
+.dish__thumb { width: 88px; border-radius: var(--radius); overflow: hidden; }
+.dish__thumb img { transition: transform 0.6s var(--ease-out); }
+.dish:hover .dish__thumb img { transform: scale(1.05); }
+
+.dish__add {
+  position: absolute;
+  z-index: 2;
+  inset-inline-end: 0;
+  top: 1.05rem;
+  display: grid; place-items: center;
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--forest);
+  transition: background-color 0.2s var(--ease), color 0.2s var(--ease), border-color 0.2s var(--ease), transform 0.15s var(--ease);
+}
+.dish__add:hover { background: var(--forest); color: #fff; border-color: var(--forest); }
+.dish__add:active { transform: scale(0.92); }
+.dish--has-image .dish__add { top: auto; bottom: 0.75rem; inset-inline-end: -0.4rem; width: 38px; height: 38px; box-shadow: var(--shadow); }
+
+@media (min-width: 720px) {
+  .dish--has-image { grid-template-columns: 1fr 112px; }
+  .dish__thumb { width: 112px; }
+}

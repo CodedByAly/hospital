@@ -1,0 +1,60 @@
+.dialog { position: fixed; inset: 0; z-index: 60; display: flex; }
+.dialog__backdrop {
+  position: absolute; inset: 0;
+  background: rgba(22, 31, 23, 0.48);
+  animation: fade-in 0.28s var(--ease) both;
+}
+.dialog.is-closing .dialog__backdrop { animation: fade-out 0.26s var(--ease) both; }
+
+.dialog__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  outline: none;
+}
+
+/* Sheet: from the bottom on phones */
+.dialog--sheet { align-items: flex-end; justify-content: center; }
+.dialog--sheet .dialog__panel {
+  width: 100%;
+  max-height: calc(100dvh - 24px);
+  border-radius: 16px 16px 0 0;
+  animation: sheet-in 0.42s var(--ease-out) both;
+}
+.dialog--sheet.is-closing .dialog__panel { animation: sheet-out 0.26s var(--ease) both; }
+
+@media (min-width: 720px) {
+  .dialog--sheet { align-items: center; padding: 2rem; }
+  .dialog--sheet .dialog__panel {
+    max-width: 880px;
+    max-height: min(780px, calc(100dvh - 4rem));
+    border-radius: var(--radius-lg);
+    animation-name: panel-in;
+  }
+  .dialog--sheet.is-closing .dialog__panel { animation-name: panel-out; }
+}
+
+/* Drawer: from the inline-end edge */
+.dialog--drawer { justify-content: flex-end; }
+.dialog--drawer .dialog__panel {
+  width: min(440px, 100%);
+  height: 100%;
+  animation: drawer-in 0.4s var(--ease-out) both;
+}
+.dialog--drawer.is-closing .dialog__panel { animation: drawer-out 0.26s var(--ease) both; }
+[dir='rtl'] .dialog--drawer .dialog__panel { animation-name: drawer-in-rtl; }
+[dir='rtl'] .dialog--drawer.is-closing .dialog__panel { animation-name: drawer-out-rtl; }
+
+@keyframes fade-in { from { opacity: 0; } }
+@keyframes fade-out { to { opacity: 0; } }
+@keyframes sheet-in { from { transform: translateY(100%); } }
+@keyframes sheet-out { to { transform: translateY(100%); } }
+@keyframes panel-in { from { opacity: 0; transform: translateY(16px) scale(0.98); } }
+@keyframes panel-out { to { opacity: 0; transform: translateY(10px) scale(0.98); } }
+@keyframes drawer-in { from { transform: translateX(100%); } }
+@keyframes drawer-out { to { transform: translateX(100%); } }
+@keyframes drawer-in-rtl { from { transform: translateX(-100%); } }
+@keyframes drawer-out-rtl { to { transform: translateX(-100%); } }
