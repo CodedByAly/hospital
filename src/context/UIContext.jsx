@@ -3,17 +3,8 @@ import { createContext, useCallback, useContext, useMemo, useRef, useState } fro
 const UIContext = createContext(null);
 
 export function UIProvider({ children }) {
-  const [itemView, setItemView] = useState(null); // { itemId, lineKey }
-  const [orderOpen, setOrderOpen] = useState(false);
-  const [toast, setToast] = useState(null);
-  const toastTimer = useRef(0);
+  const [itemId, setItemId] = useState(null);
   const searchInput = useRef(null);
-
-  const showToast = useCallback((message) => {
-    clearTimeout(toastTimer.current);
-    setToast({ message, id: Date.now() });
-    toastTimer.current = setTimeout(() => setToast(null), 2600);
-  }, []);
 
   const focusSearch = useCallback(() => {
     document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -22,18 +13,13 @@ export function UIProvider({ children }) {
 
   const value = useMemo(
     () => ({
-      itemView,
-      openItem: (itemId, lineKey = null) => setItemView({ itemId, lineKey }),
-      closeItem: () => setItemView(null),
-      orderOpen,
-      openOrder: () => setOrderOpen(true),
-      closeOrder: () => setOrderOpen(false),
-      toast,
-      showToast,
+      itemId,
+      openItem: (id) => setItemId(id),
+      closeItem: () => setItemId(null),
       searchInput,
       focusSearch,
     }),
-    [itemView, orderOpen, toast, showToast, focusSearch]
+    [itemId, focusSearch]
   );
 
   return <UIContext.Provider value={value}>{children}</UIContext.Provider>;

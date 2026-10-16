@@ -6,15 +6,8 @@
 //   name         as printed on the menu
 //   description  as printed (omit if the menu has none)
 //   price        number in USD, or null when the price is not known yet
-//                (items with a null price are shown but cannot be ordered)
+//                (shown as "Ask our staff")
 //   image        file name in /public/images/menu without extension (omit = placeholder)
-//   options      optional choice groups, e.g.
-//                [{ id: 'size', label: 'Size', required: true,
-//                   choices: [{ id: 'sm', label: 'Small', price: 0 }, { id: 'lg', label: 'Large', price: 1 }] }]
-//   addons       optional extras, e.g. [{ id: 'cheese', label: 'Extra cheese', price: 0.5 }]
-//
-// The menu does not list sizes or extras yet, so no item has `options` or
-// `addons`. The ordering screen supports both as soon as they are added here.
 
 const i = (id, name, description, price, image) => ({ id, name, description, price, image });
 

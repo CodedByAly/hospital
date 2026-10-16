@@ -74,6 +74,7 @@
   color: var(--paper);
   font-size: 14px;
   font-weight: 600;
+  text-decoration: none;
   transition: background-color 0.2s, transform 0.2s var(--ease-out);
 }
 .site-header__cart:hover {
@@ -81,30 +82,6 @@
 }
 .site-header__cart:active {
   transform: scale(0.96);
-}
-
-.cart-count {
-  display: inline-grid;
-  place-items: center;
-  min-width: 22px;
-  height: 22px;
-  padding: 0 6px;
-  border-radius: 999px;
-  background: var(--wine);
-  color: #fff;
-  font-size: 12px;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  animation: count-pop 0.4s var(--ease-out);
-}
-.site-header__cart .cart-count {
-  background: var(--paper);
-  color: var(--espresso);
-}
-@keyframes count-pop {
-  from {
-    transform: scale(0.4);
-  }
 }
 
 @media (max-width: 899px) {

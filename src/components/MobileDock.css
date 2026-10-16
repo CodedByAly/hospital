@@ -61,28 +61,11 @@
     font-weight: 700;
     font-size: 14px;
     font-variant-numeric: tabular-nums;
+    text-decoration: none;
     transition: background-color 0.25s, color 0.25s, transform 0.2s var(--ease-out);
-  }
-  .dock__order.has-items {
-    background: var(--wine);
-    color: #fff;
   }
   .dock__order:active {
     transform: scale(0.96);
-  }
-  .dock__order-icon {
-    position: relative;
-    display: grid;
-  }
-  .dock__order .cart-count {
-    position: absolute;
-    top: -9px;
-    right: -11px;
-    min-width: 19px;
-    height: 19px;
-    font-size: 11px;
-    background: var(--cream);
-    color: var(--wine);
   }
 }
 

@@ -5,7 +5,6 @@ import { pluralize } from '../../lib/format';
 import Icon from '../Icon';
 import MenuCard from './MenuCard';
 import MenuRow from './MenuRow';
-import { useQuickAdd } from './useQuickAdd';
 import './Menu.css';
 
 const normalize = (s) =>
@@ -20,7 +19,7 @@ const layoutFor = (category) => {
   return withPhotos / category.items.length >= 0.5 ? 'grid' : 'list';
 };
 
-function CategorySection({ category, onOpen, onAdd }) {
+function CategorySection({ category, onOpen }) {
   const layout = layoutFor(category);
   const items = category.items.map((it) => ({ ...it, categoryName: category.name }));
   return (
@@ -34,13 +33,13 @@ function CategorySection({ category, onOpen, onAdd }) {
       {layout === 'grid' ? (
         <div className="menu-grid">
           {items.map((item, i) => (
-            <MenuCard key={item.id} item={item} onOpen={onOpen} onAdd={onAdd} index={i} />
+            <MenuCard key={item.id} item={item} onOpen={onOpen} index={i} />
           ))}
         </div>
       ) : (
         <ul className="menu-list">
           {items.map((item) => (
-            <MenuRow key={item.id} item={item} onOpen={onOpen} onAdd={onAdd} />
+            <MenuRow key={item.id} item={item} onOpen={onOpen} />
           ))}
         </ul>
       )}
@@ -50,7 +49,6 @@ function CategorySection({ category, onOpen, onAdd }) {
 
 export default function Menu() {
   const { openItem, searchInput } = useUI();
-  const quickAdd = useQuickAdd();
   const [groupId, setGroupId] = useState(menuGroups[0].id);
   const [activeCat, setActiveCat] = useState(menuGroups[0].categories[0].id);
   const [query, setQuery] = useState('');
@@ -80,7 +78,10 @@ export default function Menu() {
     if (searching) return undefined;
     const sections = [...document.querySelectorAll('.menu-cat[data-cat]')];
     if (!('IntersectionObserver' in window) || sections.length === 0) return undefined;
-    const offset = (toolbarRef.current?.getBoundingClientRect().bottom ?? 120) + 8;
+    // Band just under the sticky header + toolbar (measured by height, since the
+    // toolbar may not be stuck yet when this runs).
+    const headerH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 60;
+    const offset = headerH + (toolbarRef.current?.offsetHeight ?? 100) + 8;
     // The observer only reports sections that changed, so remember all of them
     // and pick the first one (in page order) that is currently in the band.
     const inView = new Map();
@@ -143,7 +144,7 @@ export default function Menu() {
             From the kitchen <em>and the bar.</em>
           </h2>
           <p className="lede">
-            Prices are in US dollars. Tap a dish to see it up close, then add it to your table&rsquo;s order.
+            Prices are in US dollars. Tap any dish to see it up close.
           </p>
         </header>
       </div>
@@ -234,7 +235,7 @@ export default function Menu() {
             {results.length > 0 ? (
               <ul className="menu-list menu-list--results">
                 {results.map((item) => (
-                  <MenuRow key={item.id} item={item} onOpen={onOpen} onAdd={quickAdd} showCategory />
+                  <MenuRow key={item.id} item={item} onOpen={onOpen} showCategory />
                 ))}
               </ul>
             ) : (
@@ -250,7 +251,7 @@ export default function Menu() {
         ) : (
           <div className={`menu__page menu__page--${turn}`} key={groupId}>
             {group.categories.map((c) => (
-              <CategorySection key={c.id} category={c} onOpen={onOpen} onAdd={quickAdd} />
+              <CategorySection key={c.id} category={c} onOpen={onOpen} />
             ))}
           </div>
         )}

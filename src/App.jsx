@@ -4,12 +4,11 @@ import MobileDock from './components/MobileDock';
 import Hero from './components/Hero';
 import Menu from './components/menu/Menu';
 import ItemSheet from './components/menu/ItemSheet';
-import OrderPanel from './components/order/OrderPanel';
 import About from './components/About';
 import Visit from './components/Visit';
 import Feedback from './components/Feedback';
 import Footer from './components/Footer';
-import { BackToTop, Toast } from './components/Extras';
+import { BackToTop } from './components/Extras';
 
 export default function App() {
   return (
@@ -29,9 +28,7 @@ export default function App() {
       <Footer />
       <MobileDock />
       <ItemSheet />
-      <OrderPanel />
       <BackToTop />
-      <Toast />
     </>
   );
 }

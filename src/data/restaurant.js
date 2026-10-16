@@ -50,18 +50,6 @@ export const restaurant = {
 
   currency: '$',
 
-  ordering: {
-    // Talia is a dine-in cafe: guests build their order at the table.
-    mode: 'dine-in',
-    // Payment options shown on the order screen.
-    payments: {
-      cash: true,
-      // Whish Money number in international format, e.g. '96170000000'.
-      // Leave as null to hide the Whish option entirely.
-      whishNumber: null,
-    },
-  },
-
   // Where the feedback form sends its data. When null, the form opens
   // WhatsApp with the message already written instead.
   // Works with any JSON endpoint (Formspree, a serverless function, etc.).

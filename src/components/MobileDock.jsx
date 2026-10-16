@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useCart } from '../context/CartContext';
 import { useUI } from '../context/UIContext';
-import { formatPrice } from '../lib/format';
+import { whatsappLink } from '../data/restaurant';
 import Icon from './Icon';
-import { CartCount } from './Header';
 import './MobileDock.css';
 
 const tabs = [
@@ -12,10 +10,9 @@ const tabs = [
   { id: 'visit', label: 'Visit', icon: 'pin' },
 ];
 
-// Thumb-reach navigation for phones. The order button doubles as a running total.
+// Thumb-reach navigation for phones.
 export default function MobileDock() {
-  const { count, total } = useCart();
-  const { openOrder, focusSearch } = useUI();
+  const { focusSearch } = useUI();
   const [active, setActive] = useState('top');
 
   useEffect(() => {
@@ -48,19 +45,10 @@ export default function MobileDock() {
           <span>Search</span>
         </button>
       </div>
-      <button
-        type="button"
-        className={`dock__order ${count > 0 ? 'has-items' : ''}`}
-        onClick={openOrder}
-        data-cart-target
-        aria-label={`Your order, ${count} ${count === 1 ? 'item' : 'items'}`}
-      >
-        <span className="dock__order-icon">
-          <Icon name="tray" size={22} />
-          <CartCount count={count} />
-        </span>
-        <span className="dock__order-text">{count > 0 ? formatPrice(total) : 'Order'}</span>
-      </button>
+      <a className="dock__order" href={whatsappLink()} target="_blank" rel="noopener noreferrer" aria-label="Message Talia on WhatsApp">
+        <Icon name="whatsapp" size={22} />
+        <span className="dock__order-text">Chat</span>
+      </a>
     </nav>
   );
 }

@@ -419,23 +419,6 @@ textarea.input {
   transform: none;
 }
 
-/* ---------- flying cart item ---------- */
-.fly-ghost {
-  position: fixed;
-  z-index: 300;
-  pointer-events: none;
-  background: var(--sand) center / cover no-repeat;
-  border-radius: 14px;
-  box-shadow: 0 18px 40px -10px rgba(35, 20, 15, 0.55), 0 0 0 3px rgba(251, 248, 243, 0.9);
-  transform-style: preserve-3d;
-  will-change: transform, opacity;
-}
-
-.fly-ghost--dot {
-  background: var(--wine);
-  box-shadow: 0 8px 20px -6px rgba(125, 44, 55, 0.6), 0 0 0 3px rgba(251, 248, 243, 0.9);
-}
-
 /* ---------- image placeholder (dish without a photo yet) ---------- */
 .dish-placeholder {
   display: grid;

@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import { restaurant } from '../data/restaurant';
-import { useCart } from '../context/CartContext';
-import { useUI } from '../context/UIContext';
 import Logo from './Logo';
 import Icon from './Icon';
 import './Header.css';
@@ -13,17 +11,7 @@ export const navLinks = [
   { href: '#visit', label: 'Contact' },
 ];
 
-export function CartCount({ count }) {
-  return count > 0 ? (
-    <span className="cart-count" key={count}>
-      {count > 99 ? '99+' : count}
-    </span>
-  ) : null;
-}
-
 export default function Header() {
-  const { count } = useCart();
-  const { openOrder } = useUI();
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -63,17 +51,10 @@ export default function Header() {
               <Icon name={s.id} size={20} />
             </a>
           ))}
-          <button
-            type="button"
-            className="site-header__cart"
-            onClick={openOrder}
-            data-cart-target
-            aria-label={`Your order, ${count} ${count === 1 ? 'item' : 'items'}`}
-          >
-            <Icon name="tray" size={20} />
-            <span className="site-header__cart-label">Your order</span>
-            <CartCount count={count} />
-          </button>
+          <a href="#menu" className="site-header__cart">
+            <Icon name="book" size={20} />
+            <span className="site-header__cart-label">See the menu</span>
+          </a>
         </div>
       </div>
     </header>

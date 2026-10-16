@@ -17,16 +17,11 @@ the Web Animations API, which keeps the bundle small (about 75 KB gzipped for al
   Sticky section tabs, a category rail that follows your scroll, a 3D page-turn between sections, and search.
   Photo-heavy categories show cards that tilt toward the cursor; categories without photos use a printed-menu
   list.
-- **Dish sheet** — large photo, description, price, quantity and a free-text "requests" box
-  (e.g. "no tomatoes"). Choice groups and add-ons are supported as soon as they are added to the menu data.
-- **Your order (dine-in)** — add, edit, change quantities, remove, clear. Every add sends a copy of the photo
-  flying into the order button. The order is saved in the browser, so it survives a refresh.
-- **Table details and confirmation** — name, table number, notes and payment method (cash, plus Whish Money when
-  a number is configured). The confirmation shows an order number, the full summary and a button that sends the
-  order to Talia's WhatsApp, with the restaurant's contact details in case something is wrong.
+- **Dish sheet** — tap any dish for a large photo, its description and price.
+- **Menu only** — there is no ordering, cart or checkout. Guests browse; the team takes orders at the table.
 - **About, Visit & contact, Feedback, Footer** — address, hours, phone, WhatsApp, Instagram, Google Maps, and a
   feedback form with an optional star rating.
-- **Mobile** — a bottom dock (Home, Menu, Visit, Search, and the order button with a running total), bottom
+- **Mobile** — a bottom dock (Home, Menu, Visit, Search and a WhatsApp chat button), bottom
   sheets with swipe-to-close, and touch-sized controls throughout.
 
 ## Run it
@@ -50,10 +45,9 @@ feedback endpoint. Anything set to `null` is hidden on the site.
 
 | Setting | What it does |
 | --- | --- |
-| `whatsapp` | Digits only, international format. Used for every WhatsApp button and the order message. |
+| `whatsapp` | Digits only, international format. Used for every WhatsApp button. |
 | `hours.closes` | Closing time. Currently `null` because it hasn't been provided; set e.g. `'12:00 AM'`. |
 | `socials` | Instagram and WhatsApp today. Facebook / TikTok entries are ready to uncomment. |
-| `ordering.payments.whishNumber` | **Not provided yet, so the Whish option is hidden.** Set e.g. `'96170123456'` and Whish Money appears at checkout with a copy button. There is no automatic payment verification: staff confirm transfers. |
 | `feedbackEndpoint` | `null` sends feedback through WhatsApp. Set a URL (Formspree, a serverless function…) to POST it as JSON instead. |
 | `mapsUrl` | Currently a Google Maps search for the address. Replace with the exact share link of the pin. |
 | `siteUrl` | The live domain, once known. Also update `og:image` in `index.html` to an absolute URL. |
@@ -69,9 +63,8 @@ i('zaatar', 'Zaatar', 'Classic thyme and sesame manakish', 2, 'zaatar'),
 
 - **Change a price**: edit the number.
 - **Add an item**: copy a line, give it a new unique id.
-- **Price unknown**: use `null`. The item is shown with "Ask our staff" and can't be added to an order.
+- **Price unknown**: use `null`. The item is shown with "Ask our staff".
   *Fresh Orange Juice* is set like this because its price wasn't visible in the menu screenshots.
-- **Options / add-ons**: see the comment at the top of the file for the format.
 
 ### Photos
 
@@ -89,12 +82,11 @@ except the Pistachio Crepe.
 ```
 src/
   data/            restaurant info and the menu (edit these)
-  context/         cart state (persisted) and UI state (open sheets, toasts)
-  lib/             price formatting, pricing rules, storage, fly-to-cart animation
+  context/         UI state (which dish is open, search focus)
+  lib/             price formatting
   hooks/           media queries, accessible dialog behaviour
   components/      page sections and shared pieces
     menu/          menu, cards, rows, dish sheet
-    order/         order list, table details, confirmation
   styles/global.css  design tokens (colours, type, spacing) and base styles
 ```
 

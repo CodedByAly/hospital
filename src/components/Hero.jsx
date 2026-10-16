@@ -41,8 +41,8 @@ export default function Hero() {
               <dd>{addressLine.replace(', Lebanon', '')}</dd>
             </div>
             <div>
-              <dt>Service</dt>
-              <dd>Dine-in, order from your table</dd>
+              <dt>Call</dt>
+              <dd>{restaurant.phoneDisplay}</dd>
             </div>
           </dl>
         </div>

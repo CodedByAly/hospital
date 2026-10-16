@@ -2,12 +2,10 @@ import { useRef } from 'react';
 import { formatPrice } from '../../lib/format';
 import { useFinePointer } from '../../hooks/useMediaQuery';
 import DishImage from '../DishImage';
-import Icon from '../Icon';
 
 // Photo-led card. On desktop it tilts toward the cursor like a card picked up off the table.
-export default function MenuCard({ item, onOpen, onAdd, index = 0 }) {
+export default function MenuCard({ item, onOpen, index = 0 }) {
   const cardRef = useRef(null);
-  const mediaRef = useRef(null);
   const fine = useFinePointer();
 
   const onMove = (e) => {
@@ -38,7 +36,7 @@ export default function MenuCard({ item, onOpen, onAdd, index = 0 }) {
       style={{ '--i': index }}
     >
       <button type="button" className="menu-card__open" onClick={() => onOpen(item)} aria-label={`${item.name}, ${unavailable ? 'price on request' : formatPrice(item.price)}. View details`}>
-        <span className="menu-card__media" ref={mediaRef}>
+        <span className="menu-card__media">
           <DishImage item={item} size="sm" sizes="(max-width: 639px) 112px, (max-width: 1100px) 33vw, 290px" />
           <span className="menu-card__glare" aria-hidden="true" />
         </span>
@@ -48,16 +46,6 @@ export default function MenuCard({ item, onOpen, onAdd, index = 0 }) {
           <span className="menu-card__price">{unavailable ? 'Ask our staff' : formatPrice(item.price)}</span>
         </span>
       </button>
-      {!unavailable && (
-        <button
-          type="button"
-          className="menu-card__add"
-          onClick={() => onAdd(item, mediaRef.current)}
-          aria-label={`Add ${item.name} to your order`}
-        >
-          <Icon name="plus" size={18} strokeWidth={2} />
-        </button>
-      )}
     </article>
   );
 }

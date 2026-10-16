@@ -1,21 +1,18 @@
-import { useRef } from 'react';
 import { formatPrice } from '../../lib/format';
 import DishImage from '../DishImage';
-import Icon from '../Icon';
 
 // Printed-menu style line for sections that are mostly without photos
 // (drinks fridge, argili, sweets). Dishes that do have a photo show it small.
-export default function MenuRow({ item, onOpen, onAdd, showCategory = false }) {
+export default function MenuRow({ item, onOpen, showCategory = false }) {
   // In search results every row gets a thumbnail (or placeholder) so the list lines up.
   const withThumb = Boolean(item.image) || showCategory;
-  const thumbRef = useRef(null);
   const unavailable = item.price == null;
 
   return (
     <li className="menu-row">
       <button type="button" className="menu-row__open" onClick={() => onOpen(item)} aria-label={`${item.name}, ${unavailable ? 'price on request' : formatPrice(item.price)}. View details`}>
         {withThumb && (
-          <span className="menu-row__thumb" ref={thumbRef}>
+          <span className="menu-row__thumb">
             <DishImage item={item} size="sm" sizes="64px" />
           </span>
         )}
@@ -29,16 +26,6 @@ export default function MenuRow({ item, onOpen, onAdd, showCategory = false }) {
           {item.description && <span className="menu-row__desc">{item.description}</span>}
         </span>
       </button>
-      {!unavailable && (
-        <button
-          type="button"
-          className="menu-row__add"
-          onClick={(e) => onAdd(item, thumbRef.current || e.currentTarget)}
-          aria-label={`Add ${item.name} to your order`}
-        >
-          <Icon name="plus" size={16} strokeWidth={2} />
-        </button>
-      )}
     </li>
   );
 }

@@ -263,7 +263,6 @@
   display: grid;
   gap: 6px;
   padding: 16px 18px 18px;
-  padding-right: 62px;
   flex: 1;
   align-content: start;
 }
@@ -288,32 +287,6 @@
   font-size: 15px;
   color: var(--wine);
   font-variant-numeric: tabular-nums;
-}
-
-.menu-card__add,
-.menu-row__add {
-  display: grid;
-  place-items: center;
-  border-radius: 999px;
-  background: var(--espresso);
-  color: var(--paper);
-  transition: background-color 0.2s, transform 0.25s var(--ease-out);
-}
-.menu-card__add:hover,
-.menu-row__add:hover {
-  background: var(--wine);
-}
-.menu-card__add:active,
-.menu-row__add:active {
-  transform: scale(0.88);
-}
-.menu-card__add {
-  position: absolute;
-  right: 14px;
-  bottom: 14px;
-  width: 42px;
-  height: 42px;
-  transform: translateZ(20px);
 }
 
 /* ---------- printed list ---------- */
@@ -405,11 +378,6 @@
   color: var(--muted);
   line-height: 1.45;
 }
-.menu-row__add {
-  flex: none;
-  width: 34px;
-  height: 34px;
-}
 
 /* ---------- search ---------- */
 .menu__results-count {
@@ -482,7 +450,7 @@
     border-radius: var(--radius) 0 0 var(--radius);
   }
   .menu-card__body {
-    padding: 12px 52px 12px 14px;
+    padding: 12px 14px;
     gap: 4px;
     align-content: center;
   }
@@ -495,12 +463,6 @@
   .menu-card__price {
     font-size: 14.5px;
     margin-top: 2px;
-  }
-  .menu-card__add {
-    right: 10px;
-    bottom: 10px;
-    width: 38px;
-    height: 38px;
   }
   .menu-list,
   .menu-list--results {
