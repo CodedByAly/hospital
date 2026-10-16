@@ -17,7 +17,6 @@
   --red: #d7262c;
 
   --font-display: 'Anton', 'Oswald', Impact, 'Arial Narrow', sans-serif;
-  --font-hand: 'Permanent Marker', 'Comic Sans MS', cursive;
   --font-body: 'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
 
@@ -64,7 +63,7 @@ body::after {
   z-index: 200;
   pointer-events: none;
   background-image: var(--grain);
-  opacity: 0.55;
+  opacity: 0.3;
   mix-blend-mode: multiply;
 }
 img {
@@ -131,28 +130,10 @@ h3 {
   }
 }
 
-/* the brush-stroke rules above and below every heading in the printed menu */
 .brush {
-  position: relative;
   display: inline-block;
-  padding-block: 10px;
-}
-.brush::before,
-.brush::after {
-  content: '';
-  position: absolute;
-  left: -6%;
-  right: -6%;
-  height: 4px;
-  background: var(--ink);
-  border-radius: 2px;
-  clip-path: polygon(0 40%, 8% 0, 30% 30%, 55% 0, 80% 35%, 100% 10%, 100% 70%, 85% 100%, 60% 70%, 35% 100%, 12% 75%, 0 100%);
-}
-.brush::before {
-  top: 0;
-}
-.brush::after {
-  bottom: 0;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--ink);
 }
 
 .dot {

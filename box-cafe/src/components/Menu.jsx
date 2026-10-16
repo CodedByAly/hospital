@@ -68,6 +68,7 @@ export default function Menu({ groups, request }) {
   const toolbarRef = useRef(null);
   const chipsRef = useRef(null);
   const bodyRef = useRef(null);
+  const spyLock = useRef(0);
 
   const group = groups.find((g) => g.id === groupId) ?? groups[0];
   const searching = deferred.trim().length > 0;
@@ -105,11 +106,20 @@ export default function Menu({ groups, request }) {
     }
   };
 
+  // Layout position, ignoring any transform the page-turn animation is applying.
+  const pageTop = (el) => {
+    let y = 0;
+    for (let n = el; n; n = n.offsetParent) y += n.offsetTop;
+    return y;
+  };
+
   const goToCategory = (catId, behavior = 'smooth') => {
     const el = document.getElementById(`cat-${catId}`);
     if (!el) return;
     const offset = headerH() + (toolbarRef.current?.offsetHeight ?? 0);
-    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - offset - 4, behavior });
+    window.scrollTo({ top: pageTop(el) - offset - 4, behavior });
+    // keep the chosen chip lit while the page scrolls past its neighbours
+    spyLock.current = Date.now() + 1200;
     setActiveCat(catId);
   };
 
@@ -145,7 +155,7 @@ export default function Menu({ groups, request }) {
       (entries) => {
         entries.forEach((e) => seen.set(e.target.dataset.cat, e.isIntersecting));
         const first = sections.find((s) => seen.get(s.dataset.cat));
-        if (first) setActiveCat(first.dataset.cat);
+        if (first && Date.now() > spyLock.current) setActiveCat(first.dataset.cat);
       },
       { rootMargin: `-${Math.round(offset)}px 0px -55% 0px` }
     );

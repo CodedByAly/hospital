@@ -1,22 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 import { branches } from '../data/branches';
-import CoffeeBox from './CoffeeBox';
+import { BoxCafeLogo } from './Logo';
 import Icon from './Icon';
 import './BranchGate.css';
 
-// Opening scene: the Box Cafe box drops onto the counter, its flaps open and the
-// logo card rises out. Under it, the branches are laid out as paper tickets.
-// Choosing one stamps the ticket and opens that branch's menu.
-const TIMELINE = [
-  ['drop', 0],
-  ['open', 950],
-  ['rise', 1650],
-  ['done', 2500],
-];
-const tilt = [-1.6, 1.1, -0.7];
-
+// Opening scene built on Box Cafe's own cover photo. The photo slowly settles
+// into focus while the logo fades in; the photo, the light and the logo sit on
+// separate depth layers that shift with the pointer (or the phone's tilt).
+// The branch list then slides up from the bottom.
 export default function BranchGate({ open, intro, current, onPick, onClose }) {
-  const [stage, setStage] = useState(intro ? 'drop' : 'done');
+  const [ready, setReady] = useState(!intro);
   const [picked, setPicked] = useState(null);
   const [leaving, setLeaving] = useState(false);
   const rootRef = useRef(null);
@@ -26,87 +19,104 @@ export default function BranchGate({ open, intro, current, onPick, onClose }) {
     setPicked(null);
     setLeaving(false);
     if (!intro) {
-      setStage('done');
+      setReady(true);
       return undefined;
     }
-    const timers = TIMELINE.map(([s, t]) => setTimeout(() => setStage(s), t));
-    return () => timers.forEach(clearTimeout);
+    setReady(false);
+    const t = setTimeout(() => setReady(true), 1700);
+    return () => clearTimeout(t);
   }, [open, intro]);
 
   useEffect(() => {
     if (!open) return undefined;
+    const root = rootRef.current;
     document.documentElement.classList.add('is-locked');
-    rootRef.current?.focus({ preventScroll: true });
+    root?.focus({ preventScroll: true });
+
+    const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    let target = { x: 0, y: 0 };
+    const cur = { x: 0, y: 0 };
+    let raf = 0;
+    const onMove = (e) => {
+      target = { x: e.clientX / window.innerWidth - 0.5, y: e.clientY / window.innerHeight - 0.5 };
+    };
+    const onTilt = (e) => {
+      if (e.gamma == null) return;
+      target = { x: Math.max(-1, Math.min(1, e.gamma / 30)) * 0.5, y: Math.max(-1, Math.min(1, (e.beta - 45) / 30)) * 0.5 };
+    };
+    const tick = () => {
+      cur.x += (target.x - cur.x) * 0.05;
+      cur.y += (target.y - cur.y) * 0.05;
+      root?.style.setProperty('--px', cur.x.toFixed(4));
+      root?.style.setProperty('--py', cur.y.toFixed(4));
+      raf = requestAnimationFrame(tick);
+    };
+    if (!reduced) {
+      window.addEventListener('pointermove', onMove, { passive: true });
+      window.addEventListener('deviceorientation', onTilt, { passive: true });
+      raf = requestAnimationFrame(tick);
+    }
     const onKey = (e) => {
       if (e.key === 'Escape' && current && onClose) onClose();
     };
     window.addEventListener('keydown', onKey);
     return () => {
+      cancelAnimationFrame(raf);
       document.documentElement.classList.remove('is-locked');
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('deviceorientation', onTilt);
       window.removeEventListener('keydown', onKey);
     };
   }, [open, current, onClose]);
 
   if (!open) return null;
 
-  const ready = stage === 'rise' || stage === 'done';
-
   const choose = (b) => {
     if (picked) return;
     setPicked(b.id);
-    window.setTimeout(() => setLeaving(true), 650);
-    window.setTimeout(() => onPick(b.id), 1150);
-  };
-
-  // tickets lean toward the pointer a little, like paper picked up off the counter
-  const lean = (e) => {
-    const el = e.currentTarget;
-    const r = el.getBoundingClientRect();
-    el.style.setProperty('--lx', `${((e.clientX - r.left) / r.width - 0.5) * 10}deg`);
-    el.style.setProperty('--ly', `${((e.clientY - r.top) / r.height - 0.5) * -12}deg`);
-  };
-  const unlean = (e) => {
-    e.currentTarget.style.setProperty('--lx', '0deg');
-    e.currentTarget.style.setProperty('--ly', '0deg');
+    setLeaving(true);
+    window.setTimeout(() => onPick(b.id), 900);
   };
 
   return (
     <div
-      className={`gate ${ready ? 'is-ready' : ''} ${leaving ? 'is-leaving' : ''}`}
+      className={`gate ${intro ? 'gate--intro' : ''} ${ready ? 'is-ready' : ''} ${leaving ? 'is-leaving' : ''}`}
       role="dialog"
       aria-modal="true"
       aria-labelledby="gate-title"
       ref={rootRef}
       tabIndex={-1}
     >
-      <div className="gate__counter" aria-hidden="true" />
+      <div className="gate__photo" aria-hidden="true">
+        <img src="photo/cover.webp" alt="" />
+      </div>
+      <div className="gate__glow" aria-hidden="true" />
+      <div className="gate__shade" aria-hidden="true" />
+
       <div className="gate__inner">
-        <div className="gate__scene">
-          <CoffeeBox stage={stage} />
+        <div className="gate__brand">
+          <BoxCafeLogo className="gate__logo" title="Box Cafe" />
+          <p className="gate__slogan">For the love of coffee</p>
         </div>
 
-        <div className="gate__pick" aria-hidden={!ready}>
+        <div className="gate__sheet" aria-hidden={!ready}>
           <h1 id="gate-title" className="gate__title">
-            Where are you sitting today?
+            Choose your branch
           </h1>
-          <ul className="gate__tickets">
+          <ul className="gate__list">
             {branches.map((b, i) => (
-              <li key={b.id} style={{ '--i': i, '--tilt': `${tilt[i % tilt.length]}deg` }}>
-                <div className={`ticket ${picked === b.id ? 'is-picked' : ''} ${picked && picked !== b.id ? 'is-dim' : ''}`} onPointerMove={lean} onPointerLeave={unlean}>
-                  <button type="button" className="ticket__main" onClick={() => choose(b)} tabIndex={ready ? 0 : -1} aria-label={`${b.name}. Open the menu`}>
-                    <span className="ticket__no">No. {String(i + 1).padStart(2, '0')}</span>
-                    <span className="ticket__name">{b.name}</span>
-                    <span className="ticket__hours">{b.hours ? b.hours.join(' / ') : 'Ask us for today’s hours'}</span>
-                    {current === b.id && <span className="ticket__last">your last visit</span>}
-                    <span className="ticket__stamp" aria-hidden="true">
-                      Welcome
-                    </span>
-                  </button>
-                  <a className="ticket__stub" href={b.mapsUrl} target="_blank" rel="noopener noreferrer" tabIndex={ready ? 0 : -1} aria-label={`Directions to Box Cafe ${b.name}`}>
-                    <Icon name="pin" size={18} />
-                    <span>Map</span>
-                  </a>
-                </div>
+              <li key={b.id} style={{ '--i': i }} className={picked === b.id ? 'is-picked' : ''}>
+                <button type="button" className="gate__row" onClick={() => choose(b)} tabIndex={ready ? 0 : -1}>
+                  <span className="gate__name">{b.name}</span>
+                  <span className="gate__hours">{b.hours ? b.hours.join(' · ') : 'Dine-in'}</span>
+                  {current === b.id && <span className="gate__last">Last visit</span>}
+                  <span className="gate__arrow" aria-hidden="true">
+                    <Icon name="arrowRight" size={20} />
+                  </span>
+                </button>
+                <a className="gate__map" href={b.mapsUrl} target="_blank" rel="noopener noreferrer" tabIndex={ready ? 0 : -1} aria-label={`Directions to Box Cafe ${b.name}`}>
+                  <Icon name="pin" size={18} />
+                </a>
               </li>
             ))}
           </ul>
@@ -115,6 +125,7 @@ export default function BranchGate({ open, intro, current, onPick, onClose }) {
               Back to the menu
             </button>
           )}
+          <p className="gate__by">By Société Last Exit</p>
         </div>
       </div>
     </div>

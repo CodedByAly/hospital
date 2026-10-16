@@ -278,19 +278,14 @@ export const menuGroups = [
 export const groupsForBranch = (branch) =>
   menuGroups.filter((g) => !g.branches || (branch && g.branches.includes(branch.id)));
 
-// Products shown on the 3D shelf at the top, each linked to its section.
-export const shelf = [
-  { image: 'cold-coffee', label: 'Cold Coffee', category: 'cold-coffee' },
-  { image: 'croissant', label: 'Viennoiseries', category: 'viennoiseries' },
-  { image: 'milkshake', label: 'Milkshakes', category: 'milkshakes' },
-  { image: 'sweet-crepe', label: 'Sweet Crepes', category: 'sweet-crepes' },
-  { image: 'brownie', label: 'Brownies', category: 'brownies' },
-  { image: 'fruit-ade', label: 'Fruit Ade', category: 'refreshers' },
-  { image: 'pancakes', label: 'Pancakes', category: 'pancakes' },
-  { image: 'cupcake', label: 'Cakes', category: 'cakes' },
-  { image: 'frappe', label: 'BoxCafe Specials', category: 'boxcafe-specials' },
-  { image: 'sandwich', label: 'Sandwiches', category: 'sandwiches' },
-  { image: 'cookies', label: 'Cookies', category: 'cookies' },
-];
-
 export const img = (name) => `img/${name}.webp`;
+
+// Box Cafe's own studio photos (from @box.cafelb), shown in the 3D gallery.
+export const photos = [
+  { src: 'photo/black-coffee.webp', label: 'Hot Coffee', category: 'hot-coffee' },
+  { src: 'photo/cinnamon-roll.webp', label: 'Cinnamon Rolls', category: 'viennoiseries' },
+  { src: 'photo/hot-chocolate.webp', label: 'Hot Chocolate', category: 'hot-coffee' },
+  { src: 'photo/bagel.webp', label: 'Sandwiches', category: 'sandwiches' },
+  { src: 'photo/matcha-latte.webp', label: 'Matcha', category: 'special-hot-mix' },
+  { src: 'photo/sandwich.webp', label: 'Sandwiches', category: 'sandwiches' },
+];

@@ -1,0 +1,110 @@
+.flow {
+  --cw: min(56vw, 280px);
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  width: 100%;
+}
+.flow__stage {
+  position: relative;
+  width: 100%;
+  height: calc(var(--cw) * 1.42);
+  perspective: 1200px;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+}
+.flow__stage.is-dragging {
+  cursor: grabbing;
+}
+.flow__card {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: var(--cw);
+  aspect-ratio: 0.72;
+  margin-left: calc(var(--cw) / -2);
+  border-radius: 6px;
+  overflow: hidden;
+  background: #e9b830;
+  /* real-world shadow: tight contact shadow + soft ambient */
+  box-shadow: 0 2px 3px rgba(40, 25, 0, 0.22), 0 26px 40px -18px rgba(40, 25, 0, 0.55);
+  transform: translateX(calc(var(--d) * var(--cw) * 0.62)) translateZ(calc(var(--a) * -170px))
+    rotateY(calc(var(--d) * -38deg));
+  filter: brightness(calc(1 - var(--a) * 0.16)) saturate(calc(1 - var(--a) * 0.12));
+  transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1), filter 0.75s, opacity 0.5s;
+  -webkit-box-reflect: below 6px linear-gradient(transparent 82%, rgba(0, 0, 0, 0.12));
+}
+.flow__stage.is-dragging .flow__card {
+  transition: none;
+}
+.flow__card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+/* soft light falling across the print as it turns */
+.flow__sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    calc(100deg + var(--d) * 30deg),
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, calc(0.16 - var(--a) * 0.05)) 50%,
+    rgba(255, 255, 255, 0) 60%
+  );
+  pointer-events: none;
+}
+.flow__card:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 4px;
+}
+
+.flow__bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.flow__arrow {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1.5px var(--line-strong);
+  color: var(--ink);
+  transition: background-color 0.2s;
+}
+.flow__arrow:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+.flow__label {
+  display: grid;
+  justify-items: center;
+  min-width: 180px;
+  animation: label-in 0.5s var(--ease-out);
+}
+.flow__label span {
+  font-family: var(--font-display);
+  font-size: 22px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.flow__label small {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+}
+@keyframes label-in {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+}
+@media (max-width: 420px) {
+  .flow {
+    --cw: 54vw;
+  }
+}

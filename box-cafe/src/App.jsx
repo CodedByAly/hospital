@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import { brand, getBranch } from './data/branches';
-import { groupsForBranch, shelf } from './data/menu';
+import { groupsForBranch, photos } from './data/menu';
 import BranchGate from './components/BranchGate';
 import Header from './components/Header';
-import Shelf3D from './components/Shelf3D';
+import PhotoFlow from './components/PhotoFlow';
 import Menu from './components/Menu';
 import BranchInfo from './components/BranchInfo';
 
@@ -63,10 +63,10 @@ export default function App() {
       <main id="top">
         <section className="intro wrap" aria-labelledby="intro-title">
           <div className="intro__text">
-            <p className="intro__hand">For the love of coffee...</p>
+            <p className="intro__kicker">For the love of coffee</p>
             <h1 id="intro-title" className="intro__title">
               Box Cafe
-              {branch && <span className="intro__stamp">{branch.name}</span>}
+              {branch && <span className="intro__branch">{branch.name}</span>}
             </h1>
             <p className="intro__sub">
               {branch?.hours ? branch.hours.join(' · ') : 'Dine-in menu'}
@@ -74,7 +74,7 @@ export default function App() {
               Prices in US dollars
             </p>
           </div>
-          <Shelf3D items={shelf} onSelect={(item) => setRequest({ category: item.category, t: Date.now() })} />
+          <PhotoFlow items={photos} onSelect={(item) => setRequest({ category: item.category, t: Date.now() })} />
         </section>
         {branch && <Menu groups={groups} request={request} key={branch.id} />}
       </main>

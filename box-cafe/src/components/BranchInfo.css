@@ -9,9 +9,11 @@
   gap: 36px;
 }
 .info__label {
-  font-family: var(--font-hand);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
   color: var(--yellow);
-  font-size: 18px;
 }
 .info__name {
   margin-top: 6px;
