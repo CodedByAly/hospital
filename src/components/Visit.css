@@ -1,0 +1,107 @@
+.visit {
+  position: relative;
+  background:
+    radial-gradient(70% 60% at 85% 0%, rgba(255, 255, 255, 0.06), transparent 60%),
+    linear-gradient(180deg, var(--olive) 0%, var(--olive-night) 100%);
+  color: var(--cream);
+}
+.visit__eyebrow {
+  color: var(--blush);
+}
+.visit__title {
+  margin-top: 16px;
+  color: var(--cream);
+  max-width: 14ch;
+}
+.visit__title em {
+  color: var(--blush);
+}
+
+.visit__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: clamp(36px, 5vw, 60px);
+}
+
+.visit__card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 26px 24px;
+  border-radius: 20px;
+  background: rgba(244, 238, 228, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(244, 238, 228, 0.12);
+  color: rgba(244, 238, 228, 0.82);
+}
+.visit__card > .icon {
+  color: var(--blush);
+  margin-bottom: 8px;
+}
+.visit__card h3 {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(244, 238, 228, 0.6);
+}
+.visit__card address {
+  font-style: normal;
+  font-family: var(--font-display);
+  font-size: 24px;
+  line-height: 1.25;
+  color: var(--cream);
+}
+.visit__big {
+  font-family: var(--font-display);
+  font-size: 24px;
+  line-height: 1.25;
+  color: var(--cream);
+}
+.visit__plain {
+  text-decoration: none;
+}
+.visit__muted {
+  font-size: 14px;
+  color: rgba(244, 238, 228, 0.6);
+}
+.visit__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 14px;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--blush);
+  text-decoration: none;
+}
+.visit__link:hover {
+  color: var(--cream);
+}
+.visit__actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 14px;
+}
+
+@media (max-width: 1099px) {
+  .visit__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 599px) {
+  .visit__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.visit__phone {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+}

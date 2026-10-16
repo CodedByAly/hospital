@@ -1,0 +1,149 @@
+.sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  perspective: 1400px;
+}
+
+.sheet__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(30, 20, 14, 0.5);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  animation: backdrop-in 0.35s var(--ease-out) both;
+}
+.sheet.is-closing .sheet__backdrop {
+  animation: backdrop-out 0.32s var(--ease-in-out) both;
+}
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes backdrop-out {
+  to {
+    opacity: 0;
+  }
+}
+
+.sheet__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-height: min(860px, calc(100dvh - 48px));
+  width: min(940px, calc(100vw - 48px));
+  background: var(--paper);
+  border-radius: 26px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  transform-origin: 50% 100%;
+  animation: dialog-in 0.55s var(--ease-out) both;
+}
+.sheet__panel:focus {
+  outline: none;
+}
+.sheet.is-closing .sheet__panel {
+  animation: dialog-out 0.3s var(--ease-in-out) both;
+}
+/* the dish lifts up off the table towards the guest */
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(60px) rotateX(16deg) scale(0.94);
+  }
+}
+@keyframes dialog-out {
+  to {
+    opacity: 0;
+    transform: translateY(30px) rotateX(8deg) scale(0.97);
+  }
+}
+
+.sheet__handle {
+  display: none;
+}
+
+/* drawer: order panel on the right */
+.sheet--drawer {
+  place-items: stretch end;
+}
+.sheet--drawer .sheet__panel {
+  width: min(480px, 100vw);
+  height: 100dvh;
+  max-height: none;
+  border-radius: 26px 0 0 26px;
+  transform-origin: 100% 50%;
+  animation-name: drawer-in;
+}
+.sheet--drawer.is-closing .sheet__panel {
+  animation-name: drawer-out;
+}
+@keyframes drawer-in {
+  from {
+    transform: translateX(100%);
+  }
+}
+@keyframes drawer-out {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@media (max-width: 899px) {
+  .sheet,
+  .sheet--drawer {
+    place-items: end stretch;
+  }
+  .sheet__panel,
+  .sheet--drawer .sheet__panel {
+    width: 100%;
+    height: auto;
+    max-height: calc(100dvh - 28px);
+    border-radius: 24px 24px 0 0;
+    transform-origin: 50% 100%;
+    animation-name: sheet-up;
+    transition: transform 0.35s var(--ease-out);
+  }
+  .sheet--drawer .sheet__panel {
+    height: calc(100dvh - 28px);
+  }
+  .sheet.is-closing .sheet__panel {
+    animation-name: sheet-down;
+  }
+  @keyframes sheet-up {
+    from {
+      transform: translateY(100%);
+    }
+  }
+  @keyframes sheet-down {
+    to {
+      transform: translateY(100%);
+    }
+  }
+  .sheet__handle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 5;
+    display: grid;
+    place-items: center;
+    height: 26px;
+    touch-action: none;
+    cursor: grab;
+  }
+  .sheet__handle span {
+    width: 42px;
+    height: 5px;
+    border-radius: 99px;
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+  }
+  .sheet--drawer .sheet__handle span {
+    background: var(--line-strong);
+    box-shadow: none;
+  }
+}

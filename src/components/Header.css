@@ -1,0 +1,121 @@
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  height: var(--header-h);
+  transition: background-color 0.35s, box-shadow 0.35s, backdrop-filter 0.35s;
+}
+.site-header.is-scrolled {
+  background: rgba(244, 238, 228, 0.86);
+  backdrop-filter: saturate(1.4) blur(14px);
+  -webkit-backdrop-filter: saturate(1.4) blur(14px);
+  box-shadow: 0 1px 0 var(--line);
+}
+
+.site-header__inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.site-header__brand {
+  display: inline-flex;
+  color: var(--espresso);
+  flex: none;
+}
+.site-header__logo {
+  height: 40px;
+  width: auto;
+}
+
+.site-header__nav {
+  margin-inline: auto;
+}
+.site-header__nav ul {
+  display: flex;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.site-header__nav a {
+  position: relative;
+  display: block;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  color: var(--espresso);
+  border-radius: 999px;
+  transition: background-color 0.2s;
+}
+.site-header__nav a:hover {
+  background: rgba(74, 31, 31, 0.06);
+}
+
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.site-header__cart {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 10px;
+  height: 44px;
+  padding: 0 18px 0 16px;
+  border-radius: 999px;
+  background: var(--espresso);
+  color: var(--paper);
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.2s, transform 0.2s var(--ease-out);
+}
+.site-header__cart:hover {
+  background: var(--ink);
+}
+.site-header__cart:active {
+  transform: scale(0.96);
+}
+
+.cart-count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--wine);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  animation: count-pop 0.4s var(--ease-out);
+}
+.site-header__cart .cart-count {
+  background: var(--paper);
+  color: var(--espresso);
+}
+@keyframes count-pop {
+  from {
+    transform: scale(0.4);
+  }
+}
+
+@media (max-width: 899px) {
+  .site-header__nav,
+  .site-header__cart {
+    display: none;
+  }
+  .site-header__inner {
+    justify-content: space-between;
+  }
+  .site-header__logo {
+    height: 34px;
+  }
+}

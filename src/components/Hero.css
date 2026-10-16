@@ -1,0 +1,121 @@
+.hero {
+  position: relative;
+  margin-top: calc(var(--header-h) * -1);
+  padding-top: calc(var(--header-h) + clamp(24px, 5vw, 56px));
+  padding-bottom: clamp(48px, 7vw, 96px);
+  overflow: hidden;
+}
+
+.hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+  gap: clamp(24px, 4vw, 64px);
+  align-items: center;
+}
+
+.hero__eyebrow {
+  margin-bottom: 22px;
+}
+
+.hero__title {
+  font-size: clamp(46px, 6.1vw, 88px);
+  line-height: 1;
+  color: var(--espresso);
+  letter-spacing: -0.035em;
+}
+.hero__title em {
+  display: block;
+  font-style: italic;
+  color: var(--wine);
+}
+
+.hero__text {
+  margin-top: 26px;
+  max-width: 44ch;
+  font-size: clamp(16px, 1.5vw, 18px);
+  color: var(--muted);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 34px;
+}
+
+.hero__facts {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  justify-content: start;
+  gap: 28px;
+  margin: 46px 0 0;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+.hero__facts dt {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.hero__facts dd {
+  margin: 4px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--espresso);
+  max-width: 18ch;
+}
+
+/* The stage recreates Talia's photo set: olive wall, terrazzo table. */
+.hero__visual {
+  position: relative;
+  padding: clamp(28px, 4vw, 48px) 0 18px;
+  border-radius: 28px;
+  isolation: isolate;
+  overflow: hidden;
+}
+.hero__wall {
+  position: absolute;
+  inset: 0 0 34% 0;
+  z-index: -2;
+  background:
+    radial-gradient(60% 70% at 70% 20%, rgba(255, 255, 255, 0.08), transparent 60%),
+    linear-gradient(180deg, var(--olive) 0%, var(--olive-deep) 100%);
+}
+.hero__table {
+  position: absolute;
+  inset: 66% 0 0 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(122, 70, 52, 0.18) 0 1px, transparent 1.6px) 0 0 / 9px 11px,
+    radial-gradient(circle at 70% 60%, rgba(255, 255, 255, 0.5) 0 1px, transparent 1.6px) 0 0 / 13px 7px,
+    radial-gradient(circle at 40% 80%, rgba(90, 50, 40, 0.12) 0 1.2px, transparent 2px) 0 0 / 17px 15px,
+    linear-gradient(180deg, #e3c3ae 0%, #ecd6c5 100%);
+  box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.35), 0 -18px 30px -12px rgba(0, 0, 0, 0.35);
+}
+
+.hero__hint {
+  margin-top: 6px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 899px) {
+  .hero__grid {
+    grid-template-columns: 1fr;
+  }
+  .hero__facts {
+    grid-template-columns: repeat(2, auto);
+    gap: 18px 28px;
+  }
+  .hero__facts div:last-child {
+    grid-column: 1 / -1;
+  }
+  .hero__visual {
+    margin-inline: calc(var(--gutter) * -0.5);
+    border-radius: 22px;
+  }
+}
