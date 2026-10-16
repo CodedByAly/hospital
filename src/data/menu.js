@@ -370,7 +370,7 @@ const byId = new Map(allItems.map((item) => [item.id, item]));
 export const getItem = (id) => byId.get(id);
 
 export const imageUrl = (image, size = 'lg') =>
-  image ? `/images/menu/${image}${size === 'sm' ? '-sm' : ''}.webp` : null;
+  image ? `images/menu/${image}${size === 'sm' ? '-sm' : ''}.webp` : null;
 
 // Dishes featured on the home page (all with photos).
 export const featuredIds = [
