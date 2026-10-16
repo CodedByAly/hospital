@@ -1,0 +1,192 @@
+/* Box Cafe — tokens taken from the printed menu: cream paper, black ink,
+   the Box Bun mustard, and the blue / yellow dots that mark small / large. */
+:root {
+  --paper: #f8efe3;
+  --paper-2: #f1e4d2;
+  --card: #fffaf3;
+  --ink: #161514;
+  --ink-2: #3a3734;
+  --muted: #6e655b;
+  --line: rgba(22, 21, 20, 0.14);
+  --line-strong: rgba(22, 21, 20, 0.28);
+  --yellow: #f2b705;
+  --yellow-deep: #d69b00;
+  --grey: #57585a;
+  --dot-small: #5866c9;
+  --dot-large: #f2c80f;
+  --red: #d7262c;
+
+  --font-display: 'Anton', 'Oswald', Impact, 'Arial Narrow', sans-serif;
+  --font-hand: 'Permanent Marker', 'Comic Sans MS', cursive;
+  --font-body: 'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --header-h: 64px;
+  --maxw: 1180px;
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + 12px);
+}
+html.is-locked {
+  overflow: hidden;
+}
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img {
+  display: block;
+  max-width: 100%;
+}
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+button {
+  cursor: pointer;
+  background: none;
+  border: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+a {
+  color: inherit;
+}
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+h1,
+h2,
+h3 {
+  font-weight: 400;
+  line-height: 1;
+  text-wrap: balance;
+}
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+::selection {
+  background: var(--yellow);
+  color: var(--ink);
+}
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.wrap {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+@media (min-width: 700px) {
+  .wrap {
+    padding-left: max(32px, env(safe-area-inset-left, 0px));
+    padding-right: max(32px, env(safe-area-inset-right, 0px));
+  }
+}
+
+/* the brush-stroke rules above and below every heading in the printed menu */
+.brush {
+  position: relative;
+  display: inline-block;
+  padding-block: 10px;
+}
+.brush::before,
+.brush::after {
+  content: '';
+  position: absolute;
+  left: -6%;
+  right: -6%;
+  height: 4px;
+  background: var(--ink);
+  border-radius: 2px;
+  clip-path: polygon(0 40%, 8% 0, 30% 30%, 55% 0, 80% 35%, 100% 10%, 100% 70%, 85% 100%, 60% 70%, 35% 100%, 12% 75%, 0 100%);
+}
+.brush::before {
+  top: 0;
+}
+.brush::after {
+  bottom: 0;
+}
+
+.dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  vertical-align: 0.1em;
+  margin-right: 4px;
+}
+.dot--s {
+  background: var(--dot-small);
+}
+.dot--l {
+  background: var(--dot-large);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  font-weight: 700;
+  font-size: 15px;
+  text-decoration: none;
+  transition: transform 0.2s var(--ease-out), background-color 0.2s;
+}
+.btn:active {
+  transform: scale(0.97);
+}
+.btn--ghost {
+  background: transparent;
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1.5px var(--ink);
+}
+.btn--yellow {
+  background: var(--yellow);
+  color: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
