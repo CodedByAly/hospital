@@ -1,32 +1,42 @@
 import { useEffect, useRef, useState } from 'react';
 import { branches } from '../data/branches';
-import { BoxCafeLogo } from './Logo';
+import CoffeeBox from './CoffeeBox';
 import Icon from './Icon';
 import './BranchGate.css';
 
-// Opening screen: the logo lands, rises, and the branches appear under it.
-// Picking one opens that branch's menu. `intro` plays the logo animation
-// (first visit of the session); reopening from the header skips it.
+// Opening scene: the Box Cafe box drops onto the counter, its flaps open and the
+// logo card rises out. Under it, the branches are laid out as paper tickets.
+// Choosing one stamps the ticket and opens that branch's menu.
+const TIMELINE = [
+  ['drop', 0],
+  ['open', 950],
+  ['rise', 1650],
+  ['done', 2500],
+];
+const tilt = [-1.6, 1.1, -0.7];
+
 export default function BranchGate({ open, intro, current, onPick, onClose }) {
-  const [phase, setPhase] = useState(intro ? 'logo' : 'pick');
+  const [stage, setStage] = useState(intro ? 'drop' : 'done');
+  const [picked, setPicked] = useState(null);
   const [leaving, setLeaving] = useState(false);
-  const panelRef = useRef(null);
+  const rootRef = useRef(null);
 
   useEffect(() => {
     if (!open) return undefined;
+    setPicked(null);
     setLeaving(false);
     if (!intro) {
-      setPhase('pick');
+      setStage('done');
       return undefined;
     }
-    setPhase('logo');
-    const t = setTimeout(() => setPhase('pick'), 1150);
-    return () => clearTimeout(t);
+    const timers = TIMELINE.map(([s, t]) => setTimeout(() => setStage(s), t));
+    return () => timers.forEach(clearTimeout);
   }, [open, intro]);
 
   useEffect(() => {
     if (!open) return undefined;
     document.documentElement.classList.add('is-locked');
+    rootRef.current?.focus({ preventScroll: true });
     const onKey = (e) => {
       if (e.key === 'Escape' && current && onClose) onClose();
     };
@@ -37,63 +47,74 @@ export default function BranchGate({ open, intro, current, onPick, onClose }) {
     };
   }, [open, current, onClose]);
 
-  useEffect(() => {
-    if (phase === 'pick') panelRef.current?.focus({ preventScroll: true });
-  }, [phase]);
-
   if (!open) return null;
 
-  const choose = (branch) => {
-    setLeaving(true);
-    window.setTimeout(() => onPick(branch.id), 520);
+  const ready = stage === 'rise' || stage === 'done';
+
+  const choose = (b) => {
+    if (picked) return;
+    setPicked(b.id);
+    window.setTimeout(() => setLeaving(true), 650);
+    window.setTimeout(() => onPick(b.id), 1150);
+  };
+
+  // tickets lean toward the pointer a little, like paper picked up off the counter
+  const lean = (e) => {
+    const el = e.currentTarget;
+    const r = el.getBoundingClientRect();
+    el.style.setProperty('--lx', `${((e.clientX - r.left) / r.width - 0.5) * 10}deg`);
+    el.style.setProperty('--ly', `${((e.clientY - r.top) / r.height - 0.5) * -12}deg`);
+  };
+  const unlean = (e) => {
+    e.currentTarget.style.setProperty('--lx', '0deg');
+    e.currentTarget.style.setProperty('--ly', '0deg');
   };
 
   return (
     <div
-      className={`gate gate--${phase} ${leaving ? 'is-leaving' : ''}`}
+      className={`gate ${ready ? 'is-ready' : ''} ${leaving ? 'is-leaving' : ''}`}
       role="dialog"
       aria-modal="true"
       aria-labelledby="gate-title"
-      ref={panelRef}
+      ref={rootRef}
       tabIndex={-1}
     >
+      <div className="gate__counter" aria-hidden="true" />
       <div className="gate__inner">
-        <div className="gate__logo">
-          <BoxCafeLogo title="Box Cafe" />
+        <div className="gate__scene">
+          <CoffeeBox stage={stage} />
         </div>
 
-        <div className="gate__pick" aria-hidden={phase !== 'pick'}>
-          <p className="gate__slogan">For the love of coffee...</p>
+        <div className="gate__pick" aria-hidden={!ready}>
           <h1 id="gate-title" className="gate__title">
-            Choose your branch
+            Where are you sitting today?
           </h1>
-          <ul className="gate__list">
+          <ul className="gate__tickets">
             {branches.map((b, i) => (
-              <li key={b.id} style={{ '--i': i }}>
-                <button
-                  type="button"
-                  className={`gate__branch ${current === b.id ? 'is-current' : ''}`}
-                  onClick={() => choose(b)}
-                  tabIndex={phase === 'pick' ? 0 : -1}
-                >
-                  <span className="gate__name">{b.name}</span>
-                  <span className="gate__hours">{b.hours ? b.hours.join(' · ') : 'Dine-in menu'}</span>
-                  <span className="gate__go" aria-hidden="true">
-                    <Icon name="arrowRight" size={20} />
-                  </span>
-                </button>
-                <a className="gate__map" href={b.mapsUrl} target="_blank" rel="noopener noreferrer" tabIndex={phase === 'pick' ? 0 : -1}>
-                  <Icon name="pin" size={15} /> Directions to {b.name}
-                </a>
+              <li key={b.id} style={{ '--i': i, '--tilt': `${tilt[i % tilt.length]}deg` }}>
+                <div className={`ticket ${picked === b.id ? 'is-picked' : ''} ${picked && picked !== b.id ? 'is-dim' : ''}`} onPointerMove={lean} onPointerLeave={unlean}>
+                  <button type="button" className="ticket__main" onClick={() => choose(b)} tabIndex={ready ? 0 : -1} aria-label={`${b.name}. Open the menu`}>
+                    <span className="ticket__no">No. {String(i + 1).padStart(2, '0')}</span>
+                    <span className="ticket__name">{b.name}</span>
+                    <span className="ticket__hours">{b.hours ? b.hours.join(' / ') : 'Ask us for today’s hours'}</span>
+                    {current === b.id && <span className="ticket__last">your last visit</span>}
+                    <span className="ticket__stamp" aria-hidden="true">
+                      Welcome
+                    </span>
+                  </button>
+                  <a className="ticket__stub" href={b.mapsUrl} target="_blank" rel="noopener noreferrer" tabIndex={ready ? 0 : -1} aria-label={`Directions to Box Cafe ${b.name}`}>
+                    <Icon name="pin" size={18} />
+                    <span>Map</span>
+                  </a>
+                </div>
               </li>
             ))}
           </ul>
           {current && onClose && (
-            <button type="button" className="gate__cancel" onClick={onClose} tabIndex={phase === 'pick' ? 0 : -1}>
-              Keep the current branch
+            <button type="button" className="gate__cancel" onClick={onClose} tabIndex={ready ? 0 : -1}>
+              Back to the menu
             </button>
           )}
-          <p className="gate__by">By Société Last Exit</p>
         </div>
       </div>
     </div>

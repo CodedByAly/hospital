@@ -8,7 +8,7 @@
 .shelf__stage {
   position: relative;
   width: 100%;
-  height: calc(var(--w) * 1.75);
+  height: calc(var(--w) * 2.15);
   perspective: 1000px;
   perspective-origin: 50% 25%;
   touch-action: pan-y;
@@ -24,14 +24,37 @@
   position: absolute;
   inset: 0;
   transform-style: preserve-3d;
-  transform: rotateX(-8deg);
+  transform: rotateX(-16deg);
 }
 .shelf__ring {
   position: absolute;
   left: 50%;
-  top: 8%;
+  top: 12%;
   transform-style: preserve-3d;
   will-change: transform;
+}
+.shelf__tray {
+  /* wooden lazy susan, drawn as its own layer so it never cuts through the products */
+  position: absolute;
+  left: 50%;
+  top: calc(12% + var(--w) * 1.12);
+  width: calc(var(--r) * 2);
+  height: calc(var(--r) * 2);
+  margin-left: calc(var(--r) * -1);
+  margin-top: calc(var(--r) * -1);
+  border-radius: 50%;
+  transform: scaleY(0.26);
+  box-shadow: 0 0 0 9px #7e4f24, 0 18px 0 6px #5f3a18, 0 70px 90px 20px rgba(60, 35, 10, 0.35);
+  overflow: hidden;
+}
+.shelf__wood {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    repeating-radial-gradient(circle at 50% 50%, rgba(80, 45, 15, 0.13) 0 2px, transparent 2px 9px),
+    repeating-linear-gradient(8deg, rgba(255, 220, 170, 0.09) 0 3px, transparent 3px 13px),
+    radial-gradient(circle at 38% 30%, #dcaa70, #b9804a 55%, #9a6232);
 }
 .shelf__item {
   --face: 1;
@@ -39,8 +62,7 @@
   left: calc(var(--w) / -2);
   width: var(--w);
   height: calc(var(--w) * 1.25);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+  transform-style: preserve-3d;
 }
 .shelf__button {
   width: 100%;
@@ -48,7 +70,7 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  opacity: calc(0.35 + var(--face) * 0.65);
+  opacity: calc(0.55 + var(--face) * 0.45);
   filter: brightness(calc(0.75 + var(--face) * 0.25));
 }
 .shelf__button img {
@@ -56,10 +78,10 @@
   max-height: 100%;
   object-fit: contain;
   pointer-events: none;
-  filter: drop-shadow(0 16px 14px rgba(40, 25, 5, 0.32));
-  -webkit-box-reflect: below 2px linear-gradient(transparent 78%, rgba(0, 0, 0, 0.14));
+  filter: drop-shadow(0 10px 8px rgba(40, 20, 0, 0.4));
 }
 .shelf__floor {
+  display: none;
   position: absolute;
   left: 50%;
   bottom: 6%;

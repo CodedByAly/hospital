@@ -13,6 +13,7 @@ export default function Shelf3D({ items, onSelect }) {
   const reduced = useReducedMotion();
   const stageRef = useRef(null);
   const ringRef = useRef(null);
+  const woodRef = useRef(null);
   const cardRefs = useRef([]);
   const st = useRef({ angle: 0, target: null, velocity: 0, dragging: false, moved: 0, lastX: 0, lastT: 0, visible: true, hover: false });
   const [radius, setRadius] = useState(300);
@@ -32,12 +33,15 @@ export default function Shelf3D({ items, onSelect }) {
   const paint = useCallback(() => {
     const s = st.current;
     if (ringRef.current) ringRef.current.style.transform = `translateZ(${-radius}px) rotateY(${s.angle}deg)`;
+    if (woodRef.current) woodRef.current.style.transform = `rotate(${-s.angle}deg)`;
     let best = 0;
     let bestFace = -2;
     cardRefs.current.forEach((card, i) => {
       if (!card) return;
       const face = Math.cos(((i * step + s.angle) * Math.PI) / 180);
       card.style.setProperty('--face', face.toFixed(3));
+      // stand each product upright facing the guest, like real items on a turning tray
+      card.style.transform = `rotateY(${i * step}deg) translateZ(${radius}px) rotateY(${-(i * step + s.angle)}deg)`;
       if (face > bestFace) {
         bestFace = face;
         best = i;
@@ -145,6 +149,9 @@ export default function Shelf3D({ items, onSelect }) {
           onUp();
         }}
       >
+        <div className="shelf__tray" style={{ '--r': `${Math.round(radius * 0.92)}px` }} aria-hidden="true">
+          <div className="shelf__wood" ref={woodRef} />
+        </div>
         <div className="shelf__scene">
           <div className="shelf__ring" ref={ringRef}>
             {items.map((item, i) => (
@@ -152,7 +159,6 @@ export default function Shelf3D({ items, onSelect }) {
                 key={item.image}
                 className="shelf__item"
                 ref={(el) => (cardRefs.current[i] = el)}
-                style={{ transform: `rotateY(${i * step}deg) translateZ(${radius}px)` }}
               >
                 <button
                   type="button"

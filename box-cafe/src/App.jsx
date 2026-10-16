@@ -65,10 +65,13 @@ export default function App() {
           <div className="intro__text">
             <p className="intro__hand">For the love of coffee...</p>
             <h1 id="intro-title" className="intro__title">
-              Box Cafe <span>{branch ? branch.name : 'Menu'}</span>
+              Box Cafe
+              {branch && <span className="intro__stamp">{branch.name}</span>}
             </h1>
             <p className="intro__sub">
-              {branch?.hours ? branch.hours.join(' · ') : 'Dine-in menu'} &middot; prices in US dollars
+              {branch?.hours ? branch.hours.join(' · ') : 'Dine-in menu'}
+              <br />
+              Prices in US dollars
             </p>
           </div>
           <Shelf3D items={shelf} onSelect={(item) => setRequest({ category: item.category, t: Date.now() })} />

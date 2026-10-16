@@ -30,7 +30,8 @@
   flex: none;
   height: 40px;
   padding: 0 16px;
-  border-radius: 6px;
+  border-radius: 8px 8px 3px 3px;
+  background-image: var(--grain);
   font-family: var(--font-display);
   font-size: 18px;
   letter-spacing: 0.03em;
@@ -40,12 +41,12 @@
   transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
 }
 .menu__tab.is-active {
-  background: var(--ink);
+  background-color: var(--ink);
   color: var(--paper);
   box-shadow: none;
 }
 .menu__tab--bun.is-active {
-  background: var(--yellow);
+  background-color: var(--yellow);
   color: var(--ink);
 }
 
@@ -165,8 +166,41 @@
   gap: 8px 64px;
   align-items: start;
 }
+.cats {
+  padding-top: 18px;
+}
+/* each category is a sheet of menu paper taped down on the counter */
 .cat {
-  padding-top: 26px;
+  --tilt: -0.6deg;
+  position: relative;
+  margin-top: 26px;
+  padding: 14px 22px 18px;
+  background-color: var(--card);
+  background-image: var(--grain);
+  border-radius: 2px;
+  box-shadow: 0 1px 1px rgba(60, 40, 10, 0.12), 0 10px 22px -12px rgba(60, 40, 10, 0.35);
+  transform: rotate(var(--tilt));
+}
+.cat:nth-child(3n + 2) {
+  --tilt: 0.5deg;
+}
+.cat:nth-child(3n) {
+  --tilt: -0.25deg;
+}
+.cat::before {
+  /* masking tape */
+  content: '';
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  width: 92px;
+  height: 24px;
+  margin-left: -46px;
+  background: rgba(236, 222, 190, 0.82);
+  background-image: var(--grain);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  transform: rotate(calc(var(--tilt) * -5));
+  clip-path: polygon(3% 0, 97% 4%, 100% 30%, 96% 60%, 100% 100%, 4% 96%, 0 70%, 3% 40%);
 }
 .cat__head {
   position: relative;
@@ -187,7 +221,7 @@
   width: auto;
   max-width: 120px;
   max-height: 110px;
-  margin-top: -18px;
+  margin: -46px -30px 0 0;
   filter: drop-shadow(0 10px 10px rgba(40, 25, 5, 0.25));
   transform: rotate(-4deg);
   transition: transform 0.6s var(--ease-out);
@@ -257,7 +291,8 @@
 }
 
 .menu__foot {
-  margin-top: 36px;
+  margin-top: 40px;
+  transform: rotate(0.4deg);
   padding: 20px 22px;
   border-radius: 8px;
   background: var(--ink);
@@ -272,10 +307,8 @@
 }
 
 /* Box Bun keeps its own grey and mustard look from the printed menu */
-.menu__page--bun .cats {
-  padding: 8px 24px 24px;
-  border-radius: 10px;
-  background: var(--grey);
+.menu__page--bun .cat {
+  background-color: var(--grey);
   color: #fff;
 }
 .menu__page--bun .cat__title::before,
@@ -328,8 +361,11 @@
   .cats {
     grid-template-columns: 1fr;
   }
-  .menu__page--bun .cats {
-    padding: 4px 16px 16px;
+  .cat {
+    padding: 12px 16px 16px;
+  }
+  .cat__img {
+    margin-right: -14px;
   }
   .cat__img {
     max-width: 96px;
