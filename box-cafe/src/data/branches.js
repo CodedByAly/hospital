@@ -11,9 +11,9 @@ export const branches = [
     boxBun: false,
   },
   {
-    id: 'antelias',
-    name: 'Antelias',
-    hours: null,
+    id: 'rabieh',
+    name: 'Rabieh',
+    hours: ['Mon to Sat, 10 AM to 7:30 PM'],
     mapsUrl: 'https://maps.app.goo.gl/3FioYdERVf3qbKBbA',
     boxBun: false,
   },
