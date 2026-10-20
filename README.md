@@ -1,50 +1,59 @@
-# MediTrack - Hospital Patient Management System
+# Chippy Restaurant website
 
-Course: CSCI390 Web Programming
+Official website and online ordering for **Chippy Restaurant**, Hleliyeh (facing Queen Station), Saida.
+"A Taste To Remember."
 
-## Project Description
+Built with React 18, React Router and Vite. No UI framework, no animation library. Styling is plain CSS with design tokens taken from the Chippy logo.
 
-MediTrack is a responsive web application built to help hospital staff manage patient records. It allows users to admit new patients, track their ward and status, search for specific patients, and edit or discharge them. All patient data is saved directly in the browser using local storage.
+## Run it
 
-## Project Pages
-
-1. Home: Main dashboard showing overall hospital stats like total, admitted, critical, and discharged patients.
-2. Patients: The main management page where staff can search, filter, admit, edit, or remove patients.
-3. About: Information about the project, the tools used, and the development team.
-4. Contact: A simple page with a message form and contact details.
-
-## Technologies Used
-
-- ReactJS with functional components and hooks
-- React Router for page navigation
-- Vite for running and building the project
-- CSS for layout and responsive design on desktop and mobile screens
-- Browser LocalStorage to store patient records
-
-## How to Run the Project Locally
-
-1. Install dependencies:
+```bash
 npm install
+npm run dev       # http://localhost:5173
+npm run build     # production build in dist/ (homepage is prerendered)
+npm run preview   # serve the build locally
+```
 
-2. Start the local server:
-npm run dev
+Deploy `dist/` to Netlify. `public/_redirects` is already set up for the app routes.
 
-3. Open your browser and go to http://localhost:5173
+## Where to change things
 
-4. Build for production:
-npm run build
+| What | File |
+| --- | --- |
+| Phone, WhatsApp, email, address, Maps link, Instagram, opening hours, Whish number, delivery fee, feedback endpoint, site URL | `src/config/restaurant.js` |
+| Menu items, prices, descriptions, categories, removable ingredients, add-ons, photos | `src/data/menu.js` |
+| Dish photos (cut-outs, transparent WebP) | `public/images/menu/<name>-480.webp` and `-960.webp` |
+| Logo | `public/logo.svg`, `public/logo-light.svg` (footer), `public/favicon.svg` |
+| SEO title, description, Open Graph, structured data | `index.html` |
+| Colours and fonts | `src/styles/base.css` (`:root`) |
 
-5. Preview build locally:
-npm run preview
+Values that were not provided yet are `null` in the config. The site hides or adapts those parts instead of showing invented details:
 
-## Live Demo Link
+- `hours`: opening hours. Until set, the site asks customers to message on WhatsApp for today's hours.
+- `whish.number`: Whish Money number. Until set, checkout tells the customer the number is sent with the WhatsApp confirmation. Once set, it is shown with a copy button.
+- `ordering.deliveryFee`: until set, delivery shows "Confirmed on call" and totals are labelled "before delivery".
+- `feedbackEndpoint`: until set, the feedback form opens the customer's email app addressed to the restaurant.
+- `siteUrl`, plus the URLs in `index.html`, `robots.txt` and `sitemap.xml`: replace `chippy-restaurant.netlify.app` with the real domain.
 
-- Deployed Website: https://cozy-paletas-3da171.netlify.app/
+## How ordering works
 
-## Group Contribution Statement
+1. Customers build their order from the menu (options, removed ingredients, sides, kitchen notes, quantities). The cart is saved in the browser.
+2. At checkout they choose delivery or pickup, enter their details and pick cash or Whish Money.
+3. Placing the order opens WhatsApp with the full order written out, addressed to 78 703 770, and shows a confirmation page with the order number.
 
-- CodedByAly: Built project pages, components, local storage data handling, layout styling, and project report setup.
+There is no payment gateway and no automatic payment check. Whish transfers are confirmed by the team.
 
-## Academic Integrity
+## Project structure
 
-This project was developed from scratch for CSCI390 Phase 2 without using pre-made template files.
+```
+src/
+  config/restaurant.js   business details (single source of truth)
+  data/menu.js           the menu
+  context/               cart (persisted) and UI state
+  components/            header, bottom bar, item sheet, cart drawer, ...
+  sections/              homepage sections (hero, line-up, menu, about, contact, feedback)
+  pages/                 home, checkout, confirmation, 404
+  utils/                 prices, cart lines, order message, fly-to-cart animation
+  styles/                CSS split by area
+scripts/prerender.js     renders the homepage to static HTML after the build
+```

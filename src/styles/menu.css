@@ -1,0 +1,208 @@
+/* ---------- Menu ---------- */
+.menu { background: var(--cream); padding-bottom: 80px; }
+.menu .section-head { margin-bottom: 24px; }
+
+.menu__search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 420px;
+  height: 50px;
+  margin-top: 20px;
+  padding: 0 8px 0 16px;
+  border: 1.5px solid var(--sand-2);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+  color: var(--muted);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.menu__search:focus-within { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(31, 104, 179, 0.16); color: var(--blue); }
+.menu__search input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--ink);
+  font-size: 1rem;
+}
+.menu__search input::placeholder { color: #8d8676; }
+.menu__search-clear { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; color: var(--muted); }
+.menu__search-clear:hover { background: var(--cream-2); color: var(--navy); }
+
+.menu__bar {
+  position: sticky;
+  top: var(--header-h);
+  z-index: 30;
+  background: rgba(246, 239, 226, 0.94);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-block: 1px solid var(--sand);
+}
+.menu__bar-inner { display: flex; align-items: center; }
+.menu__tabs {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin-inline: calc(var(--gutter) * -1);
+  padding-inline: calc(var(--gutter) - 6px);
+  mask-image: linear-gradient(90deg, transparent, #000 var(--gutter), #000 calc(100% - var(--gutter)), transparent);
+}
+.menu__tabs::-webkit-scrollbar { display: none; }
+.menu__tab {
+  position: relative;
+  flex-shrink: 0;
+  padding: 16px 12px;
+  font-weight: 700;
+  font-size: 0.94rem;
+  color: var(--muted);
+  white-space: nowrap;
+  transition: color 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.menu__tab::after {
+  content: '';
+  position: absolute;
+  left: 12px; right: 12px; bottom: -1px;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: var(--orange);
+  transform: scaleX(0);
+  transition: transform 0.3s var(--ease);
+}
+.menu__tab:hover { color: var(--navy); }
+.menu__tab[aria-current='true'] { color: var(--navy); }
+.menu__tab[aria-current='true']::after { transform: scaleX(1); }
+@media (min-width: 960px) {
+  .menu__tabs { margin-inline: -12px; padding-inline: 0; mask-image: none; flex-wrap: wrap; }
+}
+
+.menu__results { margin-top: 24px; font-weight: 600; color: var(--muted); }
+.menu__empty { display: grid; justify-items: start; gap: 8px; padding: 48px 0; }
+.menu__empty-title { font-size: 1.3rem; font-weight: 800; color: var(--navy); }
+.menu__empty p:not(.menu__empty-title) { color: var(--muted); margin-bottom: 8px; }
+
+.menu__group { padding-top: 48px; scroll-margin-top: calc(var(--header-h) + 56px); animation: group-in 0.4s var(--ease); }
+@keyframes group-in { from { opacity: 0; transform: translateY(8px); } }
+.menu__group-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; margin-bottom: 18px; }
+.menu__group-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(1.7rem, 5vw, 2.2rem);
+  line-height: 1;
+  color: var(--blue);
+  letter-spacing: 0.01em;
+  text-shadow: 2px 2px 0 rgba(233, 121, 42, 0.4);
+}
+.menu__group-blurb {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--navy);
+  padding: 4px 10px;
+  background: var(--orange-50);
+  border-left: 3px solid var(--orange);
+  border-radius: 0 6px 6px 0;
+}
+
+.menu__grid { display: grid; gap: 14px; }
+@media (min-width: 760px) {
+  .menu__grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+}
+
+/* ---------- Dish card ---------- */
+.dish {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  padding: 18px 18px 18px 20px;
+  border-radius: var(--radius);
+  background: var(--paper);
+  border: 1px solid var(--sand);
+  transition: border-color 0.2s, box-shadow 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.dish:hover { border-color: var(--sand-2); box-shadow: var(--shadow); transform: translateY(-2px); }
+.dish:has(.dish__open:focus-visible) { outline: 3px solid var(--orange); outline-offset: 2px; }
+.dish__text { display: grid; align-content: start; gap: 6px; padding-right: 56px; }
+.dish__name { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; font-size: 1.08rem; font-weight: 800; color: var(--navy); line-height: 1.25; }
+.dish__open { text-align: left; font-weight: inherit; color: inherit; }
+.dish__open:focus-visible { outline: none; }
+/* Whole card opens the item, the add button sits above this layer. */
+.dish__open::after { content: ''; position: absolute; inset: 0; border-radius: inherit; z-index: 1; }
+.dish__detail {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--orange-700);
+  background: var(--orange-50);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.dish__desc { font-size: 0.92rem; color: var(--muted); line-height: 1.5; }
+.dish__meta { display: flex; align-items: center; gap: 12px; margin-top: auto; padding-top: 6px; }
+.dish__price { font-weight: 800; font-size: 1.08rem; color: var(--blue); font-variant-numeric: tabular-nums; }
+.dish__incart { font-size: 0.78rem; font-weight: 700; color: var(--green); }
+.dish__add {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  margin-top: -21px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: #fff;
+  box-shadow: 0 4px 10px -4px rgba(15, 39, 71, 0.5);
+  transition: background-color 0.2s, color 0.2s, transform 0.25s var(--ease);
+  -webkit-tap-highlight-color: transparent;
+}
+.dish__add:hover { background: var(--orange); color: var(--navy-900); transform: rotate(90deg); }
+.dish__add:active { transform: scale(0.92); }
+
+/* Cards with a photo: the cut-out floats out of the card's top edge.
+   Grids holding one get extra room above so nothing overlaps. */
+.dish--photo { margin-top: 38px; }
+@media (min-width: 760px) {
+  .dish--photo { margin-top: 0; }
+  .menu__grid:has(.dish--photo) { padding-top: 30px; row-gap: 46px; }
+}
+.dish--photo .dish__add { top: auto; bottom: 14px; margin-top: 0; }
+.dish--photo {
+  grid-template-columns: 1fr;
+  background:
+    radial-gradient(120% 90% at 100% 0%, var(--orange-50), transparent 60%),
+    var(--paper);
+}
+.dish--photo .dish__text { padding-right: 56px; }
+.dish__media {
+  order: -1;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  height: 150px;
+  margin: -52px 0 0;
+  pointer-events: none;
+}
+.dish__media .food-img {
+  width: auto;
+  max-width: 88%;
+  height: 100%;
+  transform: rotate(-3deg);
+  transition: transform 0.45s var(--ease);
+}
+.dish--photo:hover .food-img { transform: rotate(-5deg) translateY(-6px) scale(1.05); }
+@media (min-width: 520px) {
+  .dish--photo { grid-template-columns: 1fr 44%; }
+  .dish--photo .dish__text { padding-right: 0; padding-bottom: 50px; }
+  .dish__media { order: 0; height: auto; margin: -50px -6px 0 0; }
+  .dish__media .food-img { width: 100%; max-width: none; height: auto; max-height: 190px; }
+}

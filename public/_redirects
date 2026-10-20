@@ -1,0 +1,4 @@
+# Netlify: the homepage is prerendered; other routes use the app shell.
+/checkout   /spa.html   200
+/order/*    /spa.html   200
+/*          /spa.html   404
