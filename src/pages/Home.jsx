@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { Checker } from '../components/Checker.jsx'
 import { IconArrowRight, IconClock, IconInstagram, IconPhone, IconPin, IconScooter, IconWhatsApp } from '../components/Icons.jsx'
 import { OpenStatus } from '../components/OpenStatus.jsx'
 import { Reveal } from '../components/Reveal.jsx'
@@ -7,6 +6,7 @@ import { restaurant } from '../config/restaurant.js'
 import { useCart } from '../context/CartContext.jsx'
 import { categories, featuredItems } from '../data/menu.js'
 import { usePageMeta } from '../hooks/usePageMeta.js'
+import { Price } from '../components/Price.jsx'
 import { formatPrice, phoneLink, whatsappLink } from '../lib/format.js'
 
 const instagram = restaurant.social.find((s) => s.id === 'instagram')
@@ -14,9 +14,9 @@ const instagram = restaurant.social.find((s) => s.id === 'instagram')
 // Captions are the restaurant's own words from their Instagram posts.
 const gallery = [
   { src: '/images/mozzarella-sticks.webp', w: 739, h: 922, alt: 'Mozzarella sticks in a red Jungs box', caption: 'Not everything can fix your day. Mozzarella sticks might.' },
-  { src: '/images/goat-cheese-salad.webp', w: 450, h: 380, alt: 'Goat cheese salad with strawberries, walnuts and dried cranberries', caption: 'Goat Cheese Salad' },
-  { src: '/images/grilled-chicken-burger.webp', w: 560, h: 355, alt: 'Grilled chicken burger cut in half showing melted cheese', caption: 'Grilled Chicken Burger, with a special twist' },
-  { src: '/images/jungs-combo.webp', w: 739, h: 378, alt: 'Jungs combo: sub, burger, fries, tenders and a soft drink', caption: 'Any burger or sub + fries + 2 tenders + soft drink' },
+  { src: '/images/goat-cheese-salad.webp', w: 450, h: 380, alt: 'Goat cheese salad with strawberries, walnuts and dried cranberries', caption: 'New items just dropped. Trust us, these are game changers.' },
+  { src: '/images/grilled-chicken-burger.webp', w: 560, h: 355, alt: 'Grilled chicken burger cut in half showing melted cheese', caption: 'Grilled Chicken Burger, with a special twist.' },
+  { src: '/images/jungs-combo.webp', w: 739, h: 378, alt: 'Jungs combo: sub, burger, fries, tenders and a soft drink', caption: 'Grab our combo and enjoy more for less.' },
 ]
 
 export default function Home() {
@@ -37,7 +37,8 @@ export default function Home() {
               </span>
             </h1>
             <p className="hero__lede">
-              Smashed burgers, loaded subs, crispy chicken and big salads in {restaurant.address.locality}. {restaurant.bio}.
+              Smashed burgers, steak subs, crispy chicken and big salads, made fresh in {restaurant.address.locality}. Grab the gang
+              and come hungry.
             </p>
             <div className="hero__ctas">
               <Link to="/menu" className="btn btn--primary btn--lg">
@@ -68,14 +69,13 @@ export default function Home() {
             </figcaption>
           </figure>
         </div>
-        <Checker tone="teal" />
       </section>
 
       <section className="deals" aria-labelledby="deals-title">
         <div className="container">
           <Reveal className="section-head section-head--light">
-            <p className="eyebrow">More for less</p>
-            <h2 id="deals-title" className="section-title">Meals &amp; offers</h2>
+            <h2 id="deals-title" className="section-title">Combos &amp; meal offers</h2>
+            <p className="section-sub">More food, less money. Pick your sandwich or burger and we&rsquo;ll do the rest.</p>
           </Reveal>
           <div className="deals__grid">
             {featuredItems.map((item, i) => (
@@ -86,7 +86,7 @@ export default function Home() {
                 </div>
                 <p className="deal__desc">{item.description}</p>
                 <div className="deal__foot">
-                  <span className="deal__price">{formatPrice(item.price)}</span>
+                  <Price value={item.price} className="deal__price" />
                   <button type="button" className="btn btn--light" onClick={() => openItem(item.id)}>
                     Add <span className="visually-hidden">{item.name}</span>
                   </button>
@@ -100,9 +100,8 @@ export default function Home() {
       <section className="menu-index" aria-labelledby="menu-index-title">
         <div className="container menu-index__inner">
           <Reveal className="section-head">
-            <p className="eyebrow">The menu</p>
-            <h2 id="menu-index-title" className="section-title">What are you having?</h2>
-            <p className="section-sub">Everything on the board, with prices. Tap a section to jump in.</p>
+            <h2 id="menu-index-title" className="section-title">So, what&rsquo;s for lunch today?</h2>
+            <p className="section-sub">The whole menu, prices included. Tap a section to see it.</p>
             <Link to="/menu" className="btn btn--ghost">
               Full menu <IconArrowRight size={18} />
             </Link>
@@ -115,8 +114,10 @@ export default function Home() {
                   <Link to={`/menu#${c.id}`} className={`menu-index__row tone-text-${c.tone}`}>
                     <span className="menu-index__name">{c.name}</span>
                     <span className="menu-index__meta">
-                      {c.items.length} {c.items.length === 1 ? 'item' : 'items'} · from {formatPrice(from)}
+                      {c.items.slice(0, 3).map((i) => i.name).join(', ')}
+                      {c.items.length > 3 ? ' and more' : ''}
                     </span>
+                    <span className="menu-index__from">from {formatPrice(from)}</span>
                     <IconArrowRight size={20} className="menu-index__arrow" />
                   </Link>
                 </li>
@@ -130,7 +131,7 @@ export default function Home() {
         <div className="container">
           <Reveal className="visit__inner">
             <h2 id="visit-title" className="visit__title">
-              Come by, or we&rsquo;ll bring it to you.
+              Dine in, or get it delivered.
             </h2>
             <ul className="visit__facts">
               <li>
@@ -174,7 +175,7 @@ export default function Home() {
       <section className="gallery" aria-labelledby="gallery-title">
         <div className="container">
           <Reveal className="gallery__head">
-            <h2 id="gallery-title" className="section-title">From the kitchen</h2>
+            <h2 id="gallery-title" className="section-title">Seen on our Instagram</h2>
             <a href={instagram.url} target="_blank" rel="noopener noreferrer" className="gallery__ig">
               <IconInstagram size={18} /> {instagram.handle}
             </a>

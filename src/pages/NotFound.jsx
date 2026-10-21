@@ -5,7 +5,6 @@ export default function NotFound() {
   usePageMeta('Page not found')
   return (
     <div className="container checkout-empty">
-      <p className="eyebrow">404</p>
       <h1 className="page-title">This page isn&rsquo;t on the menu.</h1>
       <p>The link may be old or mistyped.</p>
       <div className="confirm__help-actions">

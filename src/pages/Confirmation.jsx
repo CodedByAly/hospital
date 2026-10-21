@@ -49,7 +49,7 @@ export default function Confirmation() {
           <span className="confirm__badge" aria-hidden="true">
             <IconCheck size={30} />
           </span>
-          <p className="eyebrow">Order {order.number}</p>
+          <p className="confirm__number">Order {order.number}</p>
           <h1 className="confirm__title">Thanks, {firstName}. We&rsquo;ve got it from here.</h1>
           {ordersGoToWhatsApp ? (
             <div className="confirm__send">
@@ -141,9 +141,9 @@ export default function Confirmation() {
 
         <section className="confirm__help" aria-labelledby="help-title">
           <div>
-            <h2 id="help-title" className="confirm__help-title">Something not right?</h2>
+            <h2 id="help-title" className="confirm__help-title">Problem with your order?</h2>
             <p>
-              Call or message us and mention order <strong>{order.number}</strong>. We&rsquo;re open {restaurant.hours.label}.
+              Call or message us and give us your order number, <strong>{order.number}</strong>. We&rsquo;re open {restaurant.hours.label}.
             </p>
           </div>
           <div className="confirm__help-actions">

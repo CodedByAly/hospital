@@ -67,7 +67,6 @@ export default function Menu() {
 
   const jumpTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    history.replaceState(null, '', `#${id}`)
   }
 
   return (
@@ -75,7 +74,6 @@ export default function Menu() {
       <header className="menu-hero">
         <div className="container menu-hero__inner">
           <div>
-            <p className="eyebrow">Jungs menu</p>
             <h1 className="menu-hero__title">The menu</h1>
           </div>
           <div className="search">

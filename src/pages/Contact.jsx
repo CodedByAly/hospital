@@ -1,4 +1,3 @@
-import { Checker } from '../components/Checker.jsx'
 import { FeedbackForm } from '../components/FeedbackForm.jsx'
 import { IconClock, IconInstagram, IconMail, IconPhone, IconPin, IconWhatsApp } from '../components/Icons.jsx'
 import { OpenStatus } from '../components/OpenStatus.jsx'
@@ -24,14 +23,12 @@ export default function Contact() {
     <div className="contact">
       <header className="page-hero page-hero--yellow">
         <div className="container">
-          <p className="eyebrow">Contact</p>
           <h1 className="page-hero__title">Talk to us.</h1>
           <p className="page-hero__lede">
-            Questions about an order, a big group, or something we can do better. The quickest way is WhatsApp.
+            Calling about an order, coming with a big group, or just want to say hi? WhatsApp is the fastest way to reach us.
           </p>
           <OpenStatus />
         </div>
-        <Checker tone="red" />
       </header>
 
       <div className="container contact__body">

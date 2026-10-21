@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import { restaurant } from '../config/restaurant.js'
 import { emailLink, phoneLink, whatsappLink } from '../lib/format.js'
-import { Checker } from './Checker.jsx'
 import { navLinks } from './Header.jsx'
 import { Logo } from './Logo.jsx'
 import { SocialLinks } from './SocialLinks.jsx'
@@ -10,7 +9,6 @@ export function Footer() {
   const year = new Date().getFullYear()
   return (
     <footer className="footer">
-      <Checker tone="teal" />
       <div className="footer__inner container">
         <div className="footer__brand">
           <Logo size={48} tone="light" />

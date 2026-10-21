@@ -274,18 +274,6 @@
   }
 }
 
-/* ---------- Checker band ---------- */
-.checker {
-  --a: var(--teal);
-  --b: var(--teal-soft);
-  height: 28px;
-  background: repeating-conic-gradient(var(--a) 0 25%, var(--b) 0 50%) 0 0 / 28px 28px;
-}
-.checker--red {
-  --a: var(--red);
-  --b: var(--paper);
-}
-
 /* ---------- Footer ---------- */
 .footer {
   --focus: var(--yellow);
