@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Jungs – Burgers, Subs &amp; Salads in Chekka</title>
+    <meta name="description" content="Jungs in Chekka: smashed burgers, beef subs, chicken sandwiches and salads. Order for pickup or delivery, open 1pm – 12am. Call or WhatsApp 70 346 913." />
+    <meta name="theme-color" content="#DC5343" />
+    <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <meta property="og:type" content="restaurant" />
+    <meta property="og:site_name" content="Jungs" />
+    <meta property="og:title" content="Jungs – Feast with the guys" />
+    <meta property="og:description" content="Smashed burgers, subs, chicken and salads in Chekka. Dine in, pickup and delivery." />
+    <meta property="og:image" content="/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Restaurant",
+        "name": "Jungs",
+        "slogan": "Feast with the guys",
+        "description": "Burgers, subs, chicken sandwiches and salads in Chekka, Lebanon. Dine in, pickup and delivery.",
+        "servesCuisine": ["Burgers", "Sandwiches", "Salads"],
+        "priceRange": "$",
+        "telephone": "+96170346913",
+        "email": "jungs.lb1@gmail.com",
+        "image": "/og-image.jpg",
+        "logo": "/logo-mark.svg",
+        "hasMenu": "/menu",
+        "address": { "@type": "PostalAddress", "addressLocality": "Chekka", "addressCountry": "LB" },
+        "hasMap": "https://maps.app.goo.gl/RLyZMXXykiACEr1s9",
+        "sameAs": ["https://www.instagram.com/jungs__lb/"],
+        "paymentAccepted": "Cash, Whish Money",
+        "currenciesAccepted": "USD"
+      }
+    </script>
+
+    <style>
+      /* Splash: inline so it paints before any JS. The app renders underneath, so content and SEO are unaffected. */
+      #splash {
+        position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center;
+        background: #DC5343; transition: opacity .45s ease, visibility .45s;
+      }
+      #splash.is-done { opacity: 0; visibility: hidden; }
+      .splash__mark { width: 96px; height: 96px; animation: splash-in .7s cubic-bezier(.2,.8,.2,1) both; }
+      .splash__mark circle { fill: transparent; }
+      .splash__mark path { fill: #F0B72C; transform-origin: 50% 50%; animation: splash-turn .9s .1s cubic-bezier(.2,.8,.2,1) both; }
+      .splash__word {
+        margin-top: 14px; font: 800 30px/1 "Bricolage Grotesque", system-ui, sans-serif; letter-spacing: -.02em;
+        color: #F0B72C; text-align: center; animation: splash-word .6s .35s cubic-bezier(.2,.8,.2,1) both;
+      }
+      @keyframes splash-in { from { transform: scale(.6); opacity: 0; } to { transform: none; opacity: 1; } }
+      @keyframes splash-turn { from { transform: rotate(-90deg) scale(.5); } to { transform: none; } }
+      @keyframes splash-word { from { transform: translateY(10px); opacity: 0; } to { transform: none; opacity: 1; } }
+      html.no-splash #splash { display: none; }
+    </style>
+    <script>
+      try {
+        if (sessionStorage.getItem('jungs:splash') || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          document.documentElement.classList.add('no-splash')
+        }
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="splash" aria-hidden="true">
+      <div>
+        <svg class="splash__mark" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" /><path fill-rule="evenodd" d="M70.32 19.24 L68.42 19.14 L66.15 19.29 L64.04 20.11 L62.24 21.55 L61.06 23.20 L60.70 24.33 L60.24 24.95 L60.03 27.52 L60.19 30.92 L60.49 31.43 L60.60 32.15 L61.11 33.44 L61.21 34.31 L62.55 37.60 L64.20 40.43 L64.35 41.00 L65.90 43.26 L67.39 46.09 L68.62 47.89 L69.03 48.97 L70.01 50.26 L70.22 50.87 L74.85 58.80 L75.51 61.06 L75.51 62.96 L75.10 64.15 L74.49 64.92 L73.20 65.74 L70.16 66.46 L66.36 67.03 L60.44 68.36 L59.77 68.36 L59.16 68.62 L54.89 69.44 L53.03 69.65 L52.62 69.91 L49.90 70.06 L48.71 69.44 L47.84 68.16 L47.63 67.44 L48.25 65.38 L48.97 64.45 L51.23 63.07 L52.11 62.81 L55.56 60.96 L55.97 60.91 L58.59 59.47 L60.08 58.85 L60.91 58.28 L61.88 57.15 L62.45 55.71 L62.35 53.65 L61.73 52.31 L60.65 51.18 L59.31 50.41 L57.72 50.15 L55.45 50.15 L53.14 50.67 L52.01 51.13 L50.31 52.16 L49.79 52.26 L48.10 53.70 L46.45 55.56 L46.09 56.43 L45.11 57.92 L44.19 61.11 L43.98 62.76 L43.98 65.33 L44.34 68.11 L45.78 71.40 L47.43 73.87 L47.84 74.13 L49.59 75.98 L52.11 77.78 L56.33 79.73 L58.33 80.30 L59.21 80.35 L59.57 80.56 L62.91 80.81 L65.69 80.81 L69.19 80.30 L72.43 78.91 L72.79 78.45 L73.46 78.03 L74.49 77.06 L75.72 75.15 L75.93 74.38 L76.39 73.71 L77.21 70.68 L77.52 67.80 L77.73 67.13 L77.88 64.20 L77.83 28.14 L77.62 27.78 L77.06 24.90 L76.13 23.15 L74.90 21.50 L72.27 19.80Z M39.51 19.08 L36.37 19.08 L32.46 19.44 L29.99 20.27 L28.76 20.88 L26.65 22.58 L25.87 23.51 L25.26 24.59 L24.18 27.11 L23.41 30.56 L23.20 34.10 L22.99 34.98 L22.89 40.95 L22.94 70.73 L23.35 73.82 L24.23 75.93 L25.41 77.83 L26.70 79.06 L27.62 79.68 L30.09 80.66 L32.92 80.86 L35.13 80.50 L36.83 79.78 L38.63 78.45 L39.66 77.16 L40.74 74.13 L40.79 70.01 L39.92 66.41 L39.35 65.17 L39.20 64.40 L37.71 61.21 L36.01 58.49 L35.65 57.61 L34.00 55.14 L32.92 52.98 L25.98 41.20 L25.36 39.71 L25.26 38.99 L25.31 36.99 L25.62 36.06 L26.85 34.62 L29.22 33.80 L32.92 33.23 L35.70 32.56 L37.35 32.41 L38.63 31.94 L43.98 31.07 L45.01 30.71 L48.87 29.99 L50.87 29.89 L52.11 30.50 L52.93 31.43 L53.09 33.33 L52.88 34.16 L52.06 35.34 L51.13 36.06 L49.74 36.68 L48.20 37.65 L47.43 37.86 L43.62 39.87 L41.31 40.84 L39.92 41.67 L39.09 42.70 L38.43 44.70 L38.48 46.24 L38.99 47.53 L40.02 48.71 L41.46 49.43 L42.75 49.85 L46.14 49.79 L48.15 49.18 L51.29 47.58 L52.26 46.60 L52.73 46.35 L54.48 44.29 L55.97 41.62 L56.79 38.43 L56.89 34.77 L56.58 32.25 L55.50 29.32 L54.37 27.37 L53.50 26.23 L50.82 23.61 L47.38 21.35 L45.01 20.37 L44.03 20.22 L42.85 19.70 L41.92 19.65Z" /></svg>
+        <div class="splash__word">jungs</div>
+      </div>
+    </div>
+    <script>
+      ;(function () {
+        var el = document.getElementById('splash')
+        if (document.documentElement.classList.contains('no-splash')) return el.remove()
+        try { sessionStorage.setItem('jungs:splash', '1') } catch (e) {}
+        setTimeout(function () {
+          el.classList.add('is-done')
+          setTimeout(function () { el.remove() }, 500)
+        }, 1150)
+      })()
+    </script>
+    <div id="root"></div>
+    <noscript>
+      <p style="padding:24px;font-family:sans-serif">Jungs, Chekka. Open 1pm – 12am. Call or WhatsApp 70 346 913 to order.</p>
+    </noscript>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
