@@ -1,50 +1,67 @@
-# MediTrack - Hospital Patient Management System
+# عل منقل — الموقع الرسمي
 
-Course: CSCI390 Web Programming
+موقع مطعم **عل منقل** (Al Manqal). الموقع بالعربي بالكامل ومصمم من اليمين لليسار. فيه المنيو، والطلب أونلاين (توصيل أو استلام)، والدفع كاش أو عبر Whish Money، وصفحات من نحن والتواصل والملاحظات.
 
-## Project Description
+مبني على React 19 + Vite + React Router. الأنيميشن بـ CSS و Web Animations API، وما في مكتبات إضافية.
 
-MediTrack is a responsive web application built to help hospital staff manage patient records. It allows users to admit new patients, track their ward and status, search for specific patients, and edit or discharge them. All patient data is saved directly in the browser using local storage.
+## التشغيل
 
-## Project Pages
-
-1. Home: Main dashboard showing overall hospital stats like total, admitted, critical, and discharged patients.
-2. Patients: The main management page where staff can search, filter, admit, edit, or remove patients.
-3. About: Information about the project, the tools used, and the development team.
-4. Contact: A simple page with a message form and contact details.
-
-## Technologies Used
-
-- ReactJS with functional components and hooks
-- React Router for page navigation
-- Vite for running and building the project
-- CSS for layout and responsive design on desktop and mobile screens
-- Browser LocalStorage to store patient records
-
-## How to Run the Project Locally
-
-1. Install dependencies:
+```bash
 npm install
-
-2. Start the local server:
-npm run dev
-
-3. Open your browser and go to http://localhost:5173
-
-4. Build for production:
-npm run build
-
-5. Preview build locally:
+npm run dev       # http://localhost:5173
+npm run build     # نسخة الإنتاج داخل dist/
 npm run preview
+```
 
-## Live Demo Link
+الموقع SPA. ملف `public/_redirects` بيخلي كل الروابط تشتغل على Netlify.
 
-- Deployed Website: https://cozy-paletas-3da171.netlify.app/
+## وين بتعدّل المعلومات
 
-## Group Contribution Statement
+| الملف | شو فيه |
+| --- | --- |
+| `src/config/restaurant.js` | الاسم، الهاتف، واتساب، الموقع، الدوام، إنستغرام، رسوم ومناطق التوصيل، **رقم Whish**، روابط الطلبات والملاحظات |
+| `src/data/menu.js` | الأقسام والأصناف والأسعار والصور، والخيارات والإضافات والمكونات اللي بتنشال |
+| `index.html` | عنوان الصفحة، وصف SEO، Open Graph، والبيانات المنظمة (JSON-LD) |
+| `src/styles/base.css` | الألوان والخطوط (مأخوذة من اللوغو) |
 
-- CodedByAly: Built project pages, components, local storage data handling, layout styling, and project report setup.
+### معلومات ناقصة لازم تنعبّى
 
-## Academic Integrity
+- **رقم Whish Money**: `payment.whish.number` بـ `restaurant.js`. طالما هو فاضي، صفحة الدفع بتقول للزبون إنو الرقم بينبعتلو عالواتساب.
+- **العنوان المكتوب**: `address`. حالياً في بس رابط خرائط Google.
+- **رسوم التوصيل** (`deliveryFee`) و**مناطق التوصيل** (`deliveryAreas`). بلاهن الرسوم بتظهر «تُحدَّد عند التأكيد»، والمنطقة بتنكتب بإيد الزبون.
+- **فيسبوك / تيك توك**: بينضافوا لـ `social` إذا في حسابات.
+- **رابط الموقع** (`siteUrl`)، ولازم كمان تتحط روابط كاملة لـ `og:image` بـ `index.html` بعد النشر.
+- **الكباب**: المنيو المطبوع فيه «كباب» مرتين، مرة بـ 350,000 ومرة بـ 300,000. الصنفين محطوطين متل ما هني، ومعلَّمين بحقل `review` بـ `menu.js` لحتى يتأكد الفرق مع المطعم.
+- **«بوكس الجوانح»**: اسم وصفي للعرض (12 جوانح + ثوم + كول سلو + بطاطا + مشروب غازي بـ 10$) لأنو ما في اسم عربي رسمي إلو.
 
-This project was developed from scratch for CSCI390 Phase 2 without using pre-made template files.
+### الصور
+
+صور الأكل بـ `src/assets/images/`. الصنف اللي إلو صورة بيتعرّف هيك:
+
+```js
+import burger from '../assets/images/burger.webp'
+{ id: 'burger', ..., image: burger }
+```
+
+الأصناف اللي ما إلها صورة بيظهر مكانها مربع فيه اسم الصنف، بنفس ستايل لوح المنيو.
+
+### الخيارات والإضافات
+
+المنيو الحالي ما فيه إضافات، بس النظام جاهز. مثال:
+
+```js
+{
+  id: 'burger', name: 'برغر', category: 'sandwiches', price: lbp(350000),
+  options: [{ id: 'size', name: 'الحجم', required: true, choices: [{ id: 'single', name: 'عادي', price: 0 }] }],
+  addons: [{ id: 'cheese', name: 'جبنة', price: 50000 }],
+  removable: ['بصل', 'كبيس'],
+}
+```
+
+## الطلبات والدفع
+
+- ما في سيرفر حالياً. لما الزبون يأكّد الطلب، بينفتح واتساب على `78 785 060` ومعه رسالة الطلب كاملة، والزبون بيكبس إرسال. رقم الطلب وتفاصيلو بينحفظوا على جهاز الزبون لصفحة التأكيد.
+- إذا انحط `ordering.orderEndpoint`، الطلب بينبعت JSON بطلب POST بدل واتساب.
+- Whish Money: الموقع بيعرض الرقم وزر للنسخ. **ما في تحقق أوتوماتيكي من الدفع**: الزبون بيبعت صورة الإيصال عالواتساب والمطعم بيتأكد بإيدو.
+- الأسعار مخلوطة ليرة ودولار متل المنيو، فالمجموع بينحسب لكل عملة لحالها، بلا سعر صرف.
+- نموذج الملاحظات بيبعت عالواتساب، أو على `feedbackEndpoint` (مثلاً Formspree) إذا انحط.

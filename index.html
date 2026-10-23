@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>عل منقل | Al Manqal — مشاوي وساندويشات</title>
+    <meta
+      name="description"
+      content="مشاوي وساندويشات عالمنقل: شقف، كباب، طاووق، سجق ومقانق، وجبات وجاط عائلي. توصيل واستلام من المحل."
+    />
+    <meta name="theme-color" content="#1b1614" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <meta property="og:type" content="restaurant" />
+    <meta property="og:locale" content="ar_LB" />
+    <meta property="og:site_name" content="عل منقل" />
+    <meta property="og:title" content="عل منقل — من أول لقمة…" />
+    <meta property="og:description" content="مشاوي وساندويشات عالمنقل. اطلب توصيل أو استلام من المحل." />
+    <meta property="og:image" content="/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Restaurant",
+        "name": "عل منقل",
+        "alternateName": "Al Manqal",
+        "slogan": "من أول لقمة…",
+        "servesCuisine": ["Lebanese", "Grill"],
+        "telephone": "+96178785060",
+        "image": "/og-image.jpg",
+        "logo": "/icon-512.png",
+        "hasMap": "https://maps.app.goo.gl/zmvu1wofrC7jfMqc8",
+        "sameAs": ["https://www.instagram.com/almanqal.lb/"],
+        "address": { "@type": "PostalAddress", "addressCountry": "LB" },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            "opens": "16:00",
+            "closes": "02:00"
+          }
+        ],
+        "hasMenu": "/menu"
+      }
+    </script>
+
+    <style>
+      /* Splash — inline so it paints instantly, before the app bundle loads. */
+      #splash {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        display: grid;
+        place-items: center;
+        background: #1b1614;
+        transition: opacity 0.45s ease, visibility 0.45s;
+      }
+      #splash.is-leaving { opacity: 0; visibility: hidden; }
+      #splash .splash__logo {
+        width: 132px;
+        height: 132px;
+        border-radius: 50%;
+        animation: splash-in 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+        box-shadow: 0 0 0 0 rgba(241, 135, 2, 0.45);
+      }
+      #splash .splash__glow {
+        position: absolute;
+        width: 132px;
+        height: 132px;
+        border-radius: 50%;
+        animation: splash-ring 1.1s 0.25s ease-out both;
+        border: 2px solid rgba(241, 135, 2, 0.6);
+      }
+      @keyframes splash-in { from { opacity: 0; transform: scale(0.86); } to { opacity: 1; transform: scale(1); } }
+      @keyframes splash-ring { from { opacity: 0.9; transform: scale(1); } to { opacity: 0; transform: scale(1.7); } }
+      @media (prefers-reduced-motion: reduce) {
+        #splash .splash__logo, #splash .splash__glow { animation: none; }
+        #splash .splash__glow { display: none; }
+      }
+      html.no-splash #splash { display: none; }
+    </style>
+    <script>
+      try {
+        if (sessionStorage.getItem('almanqal.splash')) document.documentElement.classList.add('no-splash')
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="splash" aria-hidden="true">
+      <span class="splash__glow"></span>
+      <img class="splash__logo" src="/logo-badge.webp" alt="" width="132" height="132" />
+    </div>
+    <div id="root"></div>
+    <noscript>
+      <p style="padding: 24px; font-family: sans-serif">
+        عل منقل — للطلب: واتساب ‎+961 78 785 060‎ · إنستغرام @almanqal.lb
+      </p>
+    </noscript>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
