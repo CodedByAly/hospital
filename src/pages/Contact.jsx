@@ -1,5 +1,5 @@
 import { restaurant, phoneLink, whatsappLink } from '../config/restaurant'
-import { useI18n } from '../i18n/I18nProvider'
+import { t } from '../content/text'
 import HoursList from '../components/HoursList'
 import OpenStatus from '../components/OpenStatus'
 import SocialLinks from '../components/SocialLinks'
@@ -9,8 +9,7 @@ import Icon from '../components/Icon'
 import './InfoPages.css'
 
 export default function Contact() {
-  const { t, pick } = useI18n()
-  const address = pick(restaurant.address)
+  const address = restaurant.address
 
   const methods = [
     { icon: 'whatsapp', label: t('contact.whatsapp'), value: restaurant.phoneDisplay, href: whatsappLink(), external: true, ltr: true },

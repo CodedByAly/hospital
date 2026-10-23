@@ -23,14 +23,9 @@
   margin-top: 6px;
   font-family: var(--font-display);
   font-weight: 800;
-  font-stretch: 80%;
   font-size: 1.6rem;
   line-height: 1.05;
   color: var(--on-dark);
-}
-
-:lang(ar) .site-footer__tagline {
-  font-weight: 400;
 }
 
 .site-footer__blurb {
@@ -50,12 +45,6 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--amber);
-}
-
-:lang(ar) .site-footer__title {
-  font-size: 0.92rem;
-  letter-spacing: 0;
-  font-weight: 600;
 }
 
 .site-footer__list {

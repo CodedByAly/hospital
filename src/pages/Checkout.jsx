@@ -2,7 +2,7 @@ import { useMemo, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ordering } from '../config/restaurant'
 import { useCart } from '../context/CartContext'
-import { useI18n } from '../i18n/I18nProvider'
+import { t } from '../content/text'
 import { formatPrice } from '../lib/price'
 import { load, save } from '../lib/storage'
 import { createOrderNumber, orderWhatsAppUrl } from '../lib/order'
@@ -23,7 +23,6 @@ const showWhish = whishEnabled || import.meta.env.DEV
 const empty = { name: '', phone: '', area: '', street: '', building: '', floor: '', apartment: '', notes: '' }
 
 export default function Checkout() {
-  const { t, lang } = useI18n()
   const cart = useCart()
   const navigate = useNavigate()
   const status = useOpenStatus()
@@ -122,7 +121,7 @@ export default function Checkout() {
 
         {!status.open && (
           <p className="checkout__closed" role="note">
-            <Icon name="clock" size={18} /> {t('checkout.closedNotice', { status: statusText(status, t, lang) })}
+            <Icon name="clock" size={18} /> {t('checkout.closedNotice', { status: statusText(status) })}
           </p>
         )}
 
@@ -237,7 +236,6 @@ function PayOption({ id, current, onSelect, title, text, icon, children }) {
 }
 
 function WhishDetails({ totalCents }) {
-  const { t } = useI18n()
   const { number, accountName } = ordering.whish
 
   if (!number) {

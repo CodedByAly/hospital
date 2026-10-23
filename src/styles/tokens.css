@@ -33,8 +33,9 @@
   --success: #2f7d4f;
   --danger: #b3261e;
 
-  --font-display: 'Bricolage Grotesque Variable', 'Arial Narrow', system-ui, sans-serif;
-  --font-body: 'Bricolage Grotesque Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* Humanist faces: Alegreya Sans for headings, Nunito Sans for reading. */
+  --font-display: 'Alegreya Sans', 'Gill Sans', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Nunito Sans Variable', 'Nunito Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   --radius-s: 6px;
   --radius-m: 10px;
@@ -52,11 +53,6 @@
   --max: 1240px;
 
   color-scheme: light;
-}
-
-:root:lang(ar) {
-  --font-display: 'Lalezar', 'IBM Plex Sans Arabic', system-ui, sans-serif;
-  --font-body: 'IBM Plex Sans Arabic', system-ui, sans-serif;
 }
 
 @media (max-width: 860px) {

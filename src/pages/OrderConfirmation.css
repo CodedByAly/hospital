@@ -90,11 +90,6 @@
   color: var(--text-soft);
 }
 
-:lang(ar) .confirm__facts dt {
-  letter-spacing: 0;
-  font-size: 0.86rem;
-}
-
 .confirm__facts dd {
   margin: 4px 0 0;
   font-weight: 700;

@@ -17,8 +17,8 @@ export function orderMessage(order) {
   for (const line of order.lines) {
     const item = getItem(line.itemId)
     if (!item) continue
-    const { chosen, removed } = describeSelection(item, line.selection, 'en')
-    lines.push(`${line.qty} x ${item.name.en}  ${formatPrice(line.unitCents * line.qty)}`)
+    const { chosen, removed } = describeSelection(item, line.selection)
+    lines.push(`${line.qty} x ${item.name}  ${formatPrice(line.unitCents * line.qty)}`)
     if (chosen.length) lines.push(`   ${chosen.join(', ')}`)
     if (removed.length) lines.push(`   No ${removed.join(', no ')}`)
   }

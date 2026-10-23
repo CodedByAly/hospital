@@ -4,7 +4,7 @@ import { fullMenuOffer, getItem } from '../data/menu'
 import { restaurant } from '../config/restaurant'
 import { useCart } from '../context/CartContext'
 import { useUI } from '../context/UIContext'
-import { useI18n } from '../i18n/I18nProvider'
+import { t } from '../content/text'
 import { formatPrice, toCents } from '../lib/price'
 import { flyToCart } from '../lib/flyToCart'
 import { formatTime } from '../lib/hours'
@@ -20,11 +20,10 @@ const signature = ['the-smasher', 'swiss-shroom', 'fried-chick'].map(getItem)
 const sides = ['mozzarella-sticks', 'wings'].map(getItem)
 
 export default function Home() {
-  const { t, pick, lang } = useI18n()
   const { openItem, setMode } = useUI()
   const cart = useCart()
   const offerBtn = useRef(null)
-  const address = pick(restaurant.address)
+  const address = restaurant.address
   const lines = (text) => text.split('\n').map((line, i) => <span key={i}>{line}</span>)
 
   const addOffer = () => {
@@ -67,7 +66,7 @@ export default function Home() {
             <p className="hero__badge">
               <Icon name="moon" size={16} /> {t('home.lateTitle')}
               <bdi className="time">
-                {formatTime(restaurant.lateNight.open, lang)} – {formatTime(restaurant.lateNight.close, lang)}
+                {formatTime(restaurant.lateNight.open)} – {formatTime(restaurant.lateNight.close)}
               </bdi>
             </p>
           </div>
@@ -92,10 +91,10 @@ export default function Home() {
                 <button type="button" className="sig__btn" onClick={() => openItem(item.id)}>
                   <FoodImage item={item} sizes="(max-width: 700px) 90vw, 400px" />
                   <span className="sig__meta">
-                    <span className="sig__name">{pick(item.name)}</span>
+                    <span className="sig__name">{item.name}</span>
                     <span className="sig__price num">{formatPrice(toCents(item.price))}</span>
                   </span>
-                  <span className="sig__desc">{pick(item.description)}</span>
+                  <span className="sig__desc">{item.description}</span>
                 </button>
               </Reveal>
             ))}
@@ -107,7 +106,7 @@ export default function Home() {
                 <button type="button" className="side__btn" onClick={() => openItem(item.id)}>
                   <FoodImage item={item} sizes="(max-width: 700px) 100vw, 600px" />
                   <span className="side__caption">
-                    <span>{pick(item.name)}</span>
+                    <span>{item.name}</span>
                     <span className="num">{formatPrice(toCents(item.price))}</span>
                   </span>
                 </button>

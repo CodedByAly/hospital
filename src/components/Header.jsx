@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { useI18n } from '../i18n/I18nProvider'
+import { t } from '../content/text'
 import Logo from './Logo'
 import SocialLinks from './SocialLinks'
-import LanguageSwitch from './LanguageSwitch'
 import CartButton from './CartButton'
 import Icon from './Icon'
 import './Header.css'
@@ -16,7 +15,6 @@ export const navItems = [
 ]
 
 export default function Header() {
-  const { t } = useI18n()
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
@@ -51,12 +49,6 @@ export default function Header() {
         <div className="site-header__actions">
           <SocialLinks className="site-header__social" size={19} />
           <span className="site-header__divider" aria-hidden="true" />
-          <div className="site-header__lang">
-            <LanguageSwitch />
-          </div>
-          <div className="site-header__lang-compact">
-            <LanguageSwitch compact />
-          </div>
           <CartButton />
         </div>
       </div>
@@ -65,7 +57,6 @@ export default function Header() {
 }
 
 export function TabBar() {
-  const { t } = useI18n()
   return (
     <nav className="tab-bar" aria-label={t('nav.primary')}>
       {navItems.map((item) => (

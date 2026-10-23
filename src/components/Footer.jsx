@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { phoneLink, restaurant, whatsappLink } from '../config/restaurant'
-import { useI18n } from '../i18n/I18nProvider'
+import { t } from '../content/text'
 import HoursList from './HoursList'
 import Logo from './Logo'
 import SocialLinks from './SocialLinks'
@@ -9,15 +9,14 @@ import { navItems } from './Header'
 import './Footer.css'
 
 export default function Footer() {
-  const { t, pick } = useI18n()
-  const address = pick(restaurant.address)
+  const address = restaurant.address
 
   return (
     <footer className="site-footer">
       <div className="container site-footer__grid">
         <div className="site-footer__brand">
           <Logo size={76} />
-          <p className="site-footer__tagline">{pick(restaurant.tagline)}</p>
+          <p className="site-footer__tagline">{restaurant.tagline}</p>
           <p className="site-footer__blurb">{t('footer.blurb')}</p>
           <SocialLinks size={20} />
         </div>

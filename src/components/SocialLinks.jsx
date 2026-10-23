@@ -1,10 +1,9 @@
 import { restaurant, whatsappLink } from '../config/restaurant'
-import { useI18n } from '../i18n/I18nProvider'
+import { t } from '../content/text'
 import Icon from './Icon'
 
 /** Only platforms with a real link in the config are rendered. */
 export default function SocialLinks({ className = '', size = 20, includeWhatsApp = true }) {
-  const { t } = useI18n()
   const links = [
     restaurant.social.instagram && { key: 'instagram', href: restaurant.social.instagram },
     restaurant.social.facebook && { key: 'facebook', href: restaurant.social.facebook },

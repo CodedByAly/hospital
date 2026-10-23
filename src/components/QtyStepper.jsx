@@ -1,8 +1,7 @@
-import { useI18n } from '../i18n/I18nProvider'
+import { t } from '../content/text'
 import Icon from './Icon'
 
 export default function QtyStepper({ value, onChange, min = 1, max = 99, size = 'md', label }) {
-  const { t } = useI18n()
   return (
     <div className={`qty qty--${size}`} role="group" aria-label={label ?? t('item.quantity')}>
       <button

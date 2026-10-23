@@ -31,20 +31,17 @@
 .hero__title {
   display: grid;
   margin-top: 18px;
-  font-size: clamp(3.4rem, 9vw, 7.4rem);
-  line-height: 0.88;
-  font-stretch: 75%;
-  letter-spacing: -0.035em;
+  font-size: clamp(3.2rem, 7.2vw, 6.4rem);
+  line-height: 0.95;
+  letter-spacing: -0.005em;
+}
+
+.hero__title span {
+  white-space: nowrap;
 }
 
 .hero__title span:last-child {
   color: var(--amber);
-}
-
-:lang(ar) .hero__title {
-  font-size: clamp(3.2rem, 8vw, 6.4rem);
-  line-height: 1.12;
-  letter-spacing: 0;
 }
 
 .hero__lead {
@@ -250,13 +247,8 @@
   font-family: var(--font-display);
   font-size: 1.6rem;
   font-weight: 800;
-  font-stretch: 82%;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.005em;
   line-height: 1.05;
-}
-
-:lang(ar) .sig__name {
-  font-weight: 400;
 }
 
 .sig__price {
@@ -328,11 +320,6 @@
   color: var(--red);
 }
 
-:lang(ar) .offer__kicker {
-  letter-spacing: 0;
-  font-size: 0.95rem;
-}
-
 .offer h2 {
   max-width: 16ch;
   font-size: clamp(2.4rem, 6vw, 4.6rem);
@@ -342,7 +329,6 @@
   display: inline-block;
   color: var(--red);
   font-size: 1.25em;
-  font-stretch: 75%;
 }
 
 .offer__note {
@@ -407,16 +393,12 @@
 .find h2 {
   display: grid;
   font-size: clamp(2.6rem, 6.5vw, 5rem);
-  line-height: 0.92;
+  line-height: 1;
   color: var(--red);
 }
 
 .find h2 span:last-child {
   color: var(--ink);
-}
-
-:lang(ar) .find h2 {
-  line-height: 1.2;
 }
 
 .find__lead {
@@ -426,11 +408,6 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-muted);
-}
-
-:lang(ar) .find__lead {
-  letter-spacing: 0;
-  font-size: 0.95rem;
 }
 
 .find__address {

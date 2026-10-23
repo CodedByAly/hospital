@@ -2,7 +2,7 @@ import { useEffect, useId, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 import { useUI } from '../context/UIContext'
-import { useI18n } from '../i18n/I18nProvider'
+import { t } from '../content/text'
 import { useDialog } from '../hooks/useDialog'
 import { usePresence } from '../hooks/usePresence'
 import CartLines, { CartTotals } from './CartLines'
@@ -18,7 +18,6 @@ export default function CartDrawer() {
 }
 
 function DrawerPanel({ visible, trapFocus, onClose }) {
-  const { t } = useI18n()
   const cart = useCart()
   const titleId = useId()
   const ref = useDialog(visible && trapFocus, onClose)

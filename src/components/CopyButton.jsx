@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
-import { useI18n } from '../i18n/I18nProvider'
+import { t } from '../content/text'
 import Icon from './Icon'
 
 export default function CopyButton({ value, className = '' }) {
-  const { t } = useI18n()
   const [copied, setCopied] = useState(false)
 
   useEffect(() => {

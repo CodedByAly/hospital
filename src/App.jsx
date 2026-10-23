@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect } from 'react'
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
-import { I18nProvider, useI18n } from './i18n/I18nProvider'
+import { t } from './content/text'
 import { CartProvider } from './context/CartContext'
 import { UIProvider, useUI } from './context/UIContext'
 import Header, { TabBar } from './components/Header'
@@ -27,13 +27,12 @@ const titles = {
 /** Page title per route, scroll to top on navigation, close overlays. */
 function RouteEffects() {
   const { pathname, hash } = useLocation()
-  const { t } = useI18n()
   const { closeCart, closeItem } = useUI()
 
   useEffect(() => {
     const key = titles[pathname] ?? (pathname.startsWith('/order/') ? 'confirm.number' : null)
     document.title = key ? `${t(key)} | Moods Burger` : t('meta.title')
-  }, [pathname, t])
+  }, [pathname])
 
   useEffect(() => {
     closeCart()
@@ -45,7 +44,6 @@ function RouteEffects() {
 }
 
 function Layout() {
-  const { t } = useI18n()
   const location = useLocation()
 
   return (
@@ -79,14 +77,12 @@ function Layout() {
 
 export default function App() {
   return (
-    <I18nProvider>
-      <CartProvider>
-        <UIProvider>
-          <BrowserRouter>
-            <Layout />
-          </BrowserRouter>
-        </UIProvider>
-      </CartProvider>
-    </I18nProvider>
+    <CartProvider>
+      <UIProvider>
+        <BrowserRouter>
+          <Layout />
+        </BrowserRouter>
+      </UIProvider>
+    </CartProvider>
   )
 }

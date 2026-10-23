@@ -55,10 +55,6 @@ textarea.field__input {
   text-align: start;
 }
 
-[dir='rtl'] .field__input[dir='ltr'] {
-  text-align: right;
-}
-
 .field__hint {
   font-size: 0.82rem;
   color: var(--text-soft);

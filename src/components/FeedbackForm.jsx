@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { feedbackEndpoint, restaurant } from '../config/restaurant'
-import { useI18n } from '../i18n/I18nProvider'
+import { t } from '../content/text'
 import { isEmail, normalizeLebanesePhone } from '../lib/validate'
 import Field from './Field'
 import Icon from './Icon'
@@ -13,7 +13,6 @@ const empty = { name: '', contact: '', rating: 0, message: '' }
  * app with the message addressed to the restaurant.
  */
 export default function FeedbackForm() {
-  const { t } = useI18n()
   const [values, setValues] = useState(empty)
   const [errors, setErrors] = useState({})
   const [state, setState] = useState('idle') // idle | sending | sent | mailed | error

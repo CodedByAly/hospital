@@ -30,10 +30,6 @@
   transition: transform 0.4s var(--ease-out);
 }
 
-[dir='rtl'] .drawer__panel {
-  --from: -100%;
-}
-
 .drawer.is-open .drawer__panel {
   transform: none;
 }
@@ -44,10 +40,6 @@
   gap: 12px;
   padding: 18px 16px 18px 24px;
   border-bottom: 1px solid var(--line);
-}
-
-[dir='rtl'] .drawer__head {
-  padding: 18px 24px 18px 16px;
 }
 
 .drawer__head h2 {
@@ -174,10 +166,6 @@
   border-bottom-color: transparent;
 }
 
-[dir='rtl'] .cart-line {
-  --dir: -1;
-}
-
 @keyframes line-in {
   from {
     opacity: 0;
@@ -216,13 +204,8 @@
   font-family: var(--font-body);
   font-size: 1rem;
   font-weight: 700;
-  font-stretch: 100%;
   letter-spacing: 0;
   line-height: 1.3;
-}
-
-:lang(ar) .cart-line__name {
-  font-weight: 600;
 }
 
 .cart-line__price {

@@ -43,14 +43,14 @@ export function missingRequired(item, selection = {}) {
  * Price variations printed under an item in the menu list, built from the
  * groups flagged `listed`. e.g. The Smasher -> Triple patty 11$, Combo 13$, ...
  */
-export function listedVariants(item, lang) {
+export function listedVariants(item) {
   const groups = (item.groups ?? []).filter((g) => g.listed)
   if (!groups.length) return []
   let combos = [{ labels: [], cents: toCents(item.price) }]
   for (const group of groups) {
     combos = combos.flatMap((c) =>
       group.options.map((o) => ({
-        labels: o.plain ? c.labels : [...c.labels, o.name[lang]],
+        labels: o.plain ? c.labels : [...c.labels, o.name],
         cents: c.cents + toCents(o.price),
       })),
     )
@@ -62,7 +62,7 @@ export function listedVariants(item, lang) {
 }
 
 /** Human-readable summary lines for a cart line's chosen options. */
-export function describeSelection(item, selection = {}, lang = 'en') {
+export function describeSelection(item, selection = {}) {
   const chosen = []
   const removed = []
   for (const group of item.groups ?? []) {
@@ -70,8 +70,8 @@ export function describeSelection(item, selection = {}, lang = 'en') {
     const ids = Array.isArray(picked) ? picked : picked ? [picked] : []
     for (const option of group.options) {
       if (!ids.includes(option.id)) continue
-      if (group.type === 'remove') removed.push(option.name[lang])
-      else if (!option.plain) chosen.push(option.name[lang])
+      if (group.type === 'remove') removed.push(option.name)
+      else if (!option.plain) chosen.push(option.name)
     }
   }
   return { chosen, removed }

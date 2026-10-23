@@ -8,7 +8,7 @@
 
 export const restaurant = {
   name: 'Moods Burger',
-  tagline: { en: 'Good food, Good Mood.', ar: 'أكل طيّب، مود حلو.' },
+  tagline: 'Good food, Good Mood.',
 
   // Digits only, international format without "+". Used for calls and WhatsApp.
   phone: '96181810409',
@@ -16,16 +16,9 @@ export const restaurant = {
   email: 'Moodsburgerlb@gmail.com',
 
   address: {
-    en: {
-      area: 'Kraytem, Beirut',
-      street: 'Bader Demechkieh Street',
-      landmark: 'Near Al Baba Sweets, facing the Characters Store',
-    },
-    ar: {
-      area: 'قريطم، بيروت',
-      street: 'شارع بدر دمشقية',
-      landmark: 'قرب حلويات البابا، مقابل Characters Store',
-    },
+    area: 'Kraytem, Beirut',
+    street: 'Bader Demechkieh Street',
+    landmark: 'Near Al Baba Sweets, facing the Characters Store',
   },
   mapsUrl: 'https://maps.app.goo.gl/HNvEyx2PPxyNBEzi9',
 

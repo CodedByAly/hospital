@@ -49,11 +49,11 @@ export function openStatus(date = new Date()) {
   return { open: false, opensAt: entry.open, opensDay: next.day, opensToday: next.day === day }
 }
 
-/** "1:30 PM" / "1:30 م" style time, from "13:30". */
-export function formatTime(hhmm, lang) {
+/** "1:30 PM" style time, from "13:30". */
+export function formatTime(hhmm) {
   const [h, m] = hhmm.split(':').map(Number)
   const date = new Date(Date.UTC(2024, 0, 1, h, m))
-  return new Intl.DateTimeFormat(lang === 'ar' ? 'ar-LB-u-nu-latn' : 'en-US', {
+  return new Intl.DateTimeFormat('en-US', {
     hour: 'numeric',
     minute: m ? '2-digit' : undefined,
     timeZone: 'UTC',

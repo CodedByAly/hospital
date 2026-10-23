@@ -2,7 +2,7 @@ import { useEffect, useId, useMemo, useRef, useState } from 'react'
 import { getItem } from '../data/menu'
 import { useCart } from '../context/CartContext'
 import { useUI } from '../context/UIContext'
-import { useI18n } from '../i18n/I18nProvider'
+import { t } from '../content/text'
 import { defaultSelection, formatPrice, listedVariants, missingRequired, toCents, unitPriceCents } from '../lib/price'
 import { flyToCart } from '../lib/flyToCart'
 import { useDialog } from '../hooks/useDialog'
@@ -28,7 +28,6 @@ export default function ItemModal() {
 }
 
 function ItemPanel({ item, lineKey, visible, onClose }) {
-  const { t, pick, lang } = useI18n()
   const cart = useCart()
   const { canOrder } = useUI()
   const titleId = useId()
@@ -43,7 +42,7 @@ function ItemPanel({ item, lineKey, visible, onClose }) {
 
   const missing = missingRequired(item, selection)
   const unitCents = unitPriceCents(item, selection)
-  const variants = useMemo(() => listedVariants(item, lang), [item, lang])
+  const variants = useMemo(() => listedVariants(item), [item])
 
   const setSingle = (groupId, optionId) => setSelection((s) => ({ ...s, [groupId]: optionId }))
   const toggleMulti = (groupId, optionId) =>
@@ -88,9 +87,9 @@ function ItemPanel({ item, lineKey, visible, onClose }) {
         <div className="item-modal__content">
           <div className="item-modal__scroll" ref={bodyRef}>
             <header className="item-modal__head">
-              <h2 id={titleId}>{pick(item.name)}</h2>
+              <h2 id={titleId}>{item.name}</h2>
               <p className="item-modal__price num">{formatPrice(toCents(item.price))}</p>
-              {item.description && <p className="item-modal__desc">{pick(item.description)}</p>}
+              {item.description && <p className="item-modal__desc">{item.description}</p>}
               {variants.length > 0 && (
                 <ul className="item-modal__variants">
                   {variants.map((v) => (
@@ -121,7 +120,7 @@ function ItemPanel({ item, lineKey, visible, onClose }) {
             <footer className="item-modal__footer">
               <QtyStepper value={qty} onChange={setQty} />
               <button type="button" className="btn btn--primary btn--lg item-modal__add" onClick={submit}>
-                <span>{missing.length && attempted ? t('item.chooseFirst', { group: pick(missing[0].name).toLowerCase() }) : editing ? t('item.update') : t('item.add')}</span>
+                <span>{missing.length && attempted ? t('item.chooseFirst', { group: missing[0].name.toLowerCase() }) : editing ? t('item.update') : t('item.add')}</span>
                 <span className="item-modal__total num">{formatPrice(unitCents * qty)}</span>
               </button>
             </footer>
@@ -133,7 +132,6 @@ function ItemPanel({ item, lineKey, visible, onClose }) {
 }
 
 function OptionGroup({ group, value, invalid, readOnly, onSingle, onToggle }) {
-  const { t, pick } = useI18n()
   const name = useId()
   const selected = Array.isArray(value) ? value : value ? [value] : []
   const required = group.type === 'single' && group.required
@@ -141,7 +139,7 @@ function OptionGroup({ group, value, invalid, readOnly, onSingle, onToggle }) {
   return (
     <fieldset className={`opt-group ${invalid ? 'is-invalid' : ''}`} data-group={group.id} disabled={readOnly}>
       <legend className="opt-group__legend">
-        <span>{pick(group.name)}</span>
+        <span>{group.name}</span>
         {!readOnly && (
           <span className={`opt-group__badge ${required ? 'is-required' : ''}`}>
             {required ? t('item.required') : group.type === 'remove' ? t('item.removeHint') : t('item.optional')}
@@ -163,7 +161,7 @@ function OptionGroup({ group, value, invalid, readOnly, onSingle, onToggle }) {
                 disabled={readOnly}
               >
                 <Icon name={on ? 'close' : 'check'} size={14} />
-                <span>{on ? t('item.without', { name: pick(option.name).toLowerCase() }) : pick(option.name)}</span>
+                <span>{on ? t('item.without', { name: option.name.toLowerCase() }) : option.name}</span>
               </button>
             )
           })}
@@ -181,7 +179,7 @@ function OptionGroup({ group, value, invalid, readOnly, onSingle, onToggle }) {
                   onChange={() => (group.type === 'single' ? onSingle(option.id) : onToggle(option.id))}
                 />
                 <span className="opt-row__control" aria-hidden="true" />
-                <span className="opt-row__label">{pick(option.name)}</span>
+                <span className="opt-row__label">{option.name}</span>
                 {option.price ? <span className="opt-row__price num">+{formatPrice(toCents(option.price))}</span> : null}
               </label>
             )

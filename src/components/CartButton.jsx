@@ -1,13 +1,12 @@
 import { useCart } from '../context/CartContext'
 import { useUI } from '../context/UIContext'
-import { useI18n } from '../i18n/I18nProvider'
+import { t } from '../content/text'
 import { formatPrice } from '../lib/price'
 import Icon from './Icon'
 
 export default function CartButton({ variant = 'full' }) {
   const { count, subtotalCents } = useCart()
   const { openCart } = useUI()
-  const { t } = useI18n()
 
   return (
     <button

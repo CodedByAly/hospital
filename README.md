@@ -1,8 +1,7 @@
 # Moods Burger
 
 Website for Moods Burger, Kraytem, Beirut. Menu, online delivery ordering
-sent to the restaurant on WhatsApp, a dine-in menu, and full English / Arabic
-(RTL) support.
+sent to the restaurant on WhatsApp, and a dine-in menu.
 
 ## Run it
 
@@ -23,7 +22,7 @@ Deploys as a static site. `public/_redirects` (Netlify) and `vercel.json`
 | Phone, WhatsApp, email, address, map link, opening hours, social links | `src/config/restaurant.js` |
 | Whish Money number, delivery fee, feedback form endpoint | `src/config/restaurant.js` |
 | Menu items, prices, options, add-ons, removable ingredients | `src/data/menu.js` |
-| All website text (English / Arabic) | `src/i18n/en.js`, `src/i18n/ar.js` |
+| All other website text | `src/content/text.js` |
 | Colours, fonts, spacing | `src/styles/tokens.css` |
 | Food photos | `public/images/` (referenced by `image` in `menu.js`) |
 | Page title, description, social preview, Google structured data | `index.html` |
@@ -77,7 +76,7 @@ it: `https://<your-domain>/menu?mode=dine-in`.
 src/
   config/restaurant.js   restaurant details and ordering settings
   data/menu.js           the menu
-  i18n/                  English and Arabic text, language provider
+  content/text.js        website copy
   context/               cart (saved in the browser) and UI state
   lib/                   prices, opening hours, order message, fly-to-cart
   hooks/                 dialogs, scroll reveal, enter/exit animation
@@ -87,5 +86,4 @@ src/
 ```
 
 Built with React 18, React Router and Vite. No UI or animation libraries.
-Fonts are self-hosted: Bricolage Grotesque, plus IBM Plex Sans Arabic and
-Lalezar for Arabic.
+Fonts are self-hosted: Alegreya Sans for headings and Nunito Sans for text.

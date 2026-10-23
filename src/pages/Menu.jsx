@@ -2,38 +2,27 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { categories, fullMenuOffer, menuItems } from '../data/menu'
 import { useCart } from '../context/CartContext'
 import { useUI } from '../context/UIContext'
-import { useI18n } from '../i18n/I18nProvider'
+import { t } from '../content/text'
 import { formatPrice, toCents } from '../lib/price'
 import { flyToCart } from '../lib/flyToCart'
 import MenuRow from '../components/MenuRow'
 import Icon from '../components/Icon'
 import './Menu.css'
 
-// Lower-case, strip Latin accents and unify common Arabic letter variants.
 const normalize = (text = '') =>
   text
     .toLowerCase()
     .normalize('NFD')
-    .replace(/[̀-ًͯ-ٟ]/g, '')
-    .replace(/[أإآ]/g, 'ا')
-    .replace(/ة/g, 'ه')
-    .replace(/ى/g, 'ي')
+    .replace(/[\u0300-\u036f]/g, '')
 
 const searchIndex = menuItems.map((item) => ({
   item,
   text: normalize(
-    [
-      item.name.en,
-      item.name.ar,
-      item.description?.en,
-      item.description?.ar,
-      ...(item.groups ?? []).flatMap((g) => g.options.flatMap((o) => [o.name.en, o.name.ar])),
-    ].join(' '),
+    [item.name, item.description, ...(item.groups ?? []).flatMap((g) => g.options.map((o) => o.name))].join(' '),
   ),
 }))
 
 export default function Menu() {
-  const { t, pick } = useI18n()
   const { mode, setMode, canOrder, openCart } = useUI()
   const cart = useCart()
   const [query, setQuery] = useState('')
@@ -142,7 +131,7 @@ export default function Menu() {
               aria-current={active === c.id ? 'true' : undefined}
               onClick={() => jumpTo(c.id)}
             >
-              {pick(c.name)}
+              {c.name}
             </button>
           ))}
         </nav>
@@ -187,14 +176,14 @@ export default function Menu() {
           >
             <header className="menu-section__head">
               <h2 id={`cat-${category.id}`}>
-                {pick(category.name)}
+                {category.name}
                 {category.by && (
                   <span className="menu-section__by">
-                    {t('menu.by')} <span lang="en">{category.by}</span>
+                    {t('menu.by')} {category.by}
                   </span>
                 )}
               </h2>
-              {category.note && <p className="menu-section__note">{pick(category.note)}</p>}
+              {category.note && <p className="menu-section__note">{category.note}</p>}
             </header>
             <div className={`menu-grid menu-grid--${category.id}`}>
               {results
@@ -212,7 +201,7 @@ export default function Menu() {
             <h2 id="offer-title">
               {t('home.offerTitle')} <span className="num">{formatPrice(toCents(fullMenuOffer.price))}</span>
             </h2>
-            <p>{pick(fullMenuOffer.description)}</p>
+            <p>{fullMenuOffer.description}</p>
             {canOrder && (
               <button type="button" className="btn btn--primary" onClick={addOffer} ref={offerRef}>
                 <Icon name="plus" size={18} /> {t('home.offerCta')}

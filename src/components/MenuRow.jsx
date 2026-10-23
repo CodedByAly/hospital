@@ -1,20 +1,19 @@
 import { useRef } from 'react'
 import { useCart } from '../context/CartContext'
 import { useUI } from '../context/UIContext'
-import { useI18n } from '../i18n/I18nProvider'
+import { t } from '../content/text'
 import { defaultSelection, formatPrice, listedVariants, missingRequired, toCents } from '../lib/price'
 import { flyToCart } from '../lib/flyToCart'
 import FoodImage from './FoodImage'
 import Icon from './Icon'
 
 export default function MenuRow({ item }) {
-  const { t, pick, lang } = useI18n()
   const { openItem, canOrder } = useUI()
   const cart = useCart()
   const imgRef = useRef(null)
   const addRef = useRef(null)
-  const name = pick(item.name)
-  const variants = listedVariants(item, lang)
+  const name = item.name
+  const variants = listedVariants(item)
   const inCart = cart.lines.filter((l) => l.itemId === item.id).reduce((n, l) => n + l.qty, 0)
 
   // Items with nothing to choose go straight into the cart; the rest open the detail panel.
@@ -42,13 +41,13 @@ export default function MenuRow({ item }) {
             {formatPrice(toCents(item.price))}
           </span>
         </h3>
-        {item.description && <p className="menu-row__desc">{pick(item.description)}</p>}
+        {item.description && <p className="menu-row__desc">{item.description}</p>}
         {variants.length > 0 && (
           <p className="menu-row__variants">
             {variants.map((v, i) => (
               <span key={v.label}>
                 {i > 0 && <span className="menu-row__sep" aria-hidden="true"> | </span>}
-                <span className={/combo|كومبو/i.test(v.label) ? 'is-combo' : ''}>{v.label}</span>{' '}
+                <span className={/combo/i.test(v.label) ? 'is-combo' : ''}>{v.label}</span>{' '}
                 <span className="num">{formatPrice(v.cents)}</span>
               </span>
             ))}

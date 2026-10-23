@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { restaurant } from '../config/restaurant'
-import { useI18n } from '../i18n/I18nProvider'
+import { t } from '../content/text'
 import HoursList from '../components/HoursList'
 import OpenStatus from '../components/OpenStatus'
 import Reveal from '../components/Reveal'
@@ -8,14 +8,13 @@ import Icon from '../components/Icon'
 import './InfoPages.css'
 
 export default function About() {
-  const { t, pick } = useI18n()
-  const address = pick(restaurant.address)
+  const address = restaurant.address
 
   return (
     <div className="info-page">
       <header className="info-hero">
         <div className="container">
-          <p className="kicker">{pick(restaurant.tagline)}</p>
+          <p className="kicker">{restaurant.tagline}</p>
           <h1>{t('about.title')}</h1>
           <p className="info-hero__lead">{t('about.lead')}</p>
         </div>
@@ -31,8 +30,8 @@ export default function About() {
           </Link>
         </Reveal>
         <Reveal delay={0.1} className="about-story__photos">
-          <img src="/images/fried-chick-tray.webp" alt={pick({ en: 'A crispy chicken burger on a tray', ar: 'برغر دجاج مقرمش على صينية' })} width="500" height="395" loading="lazy" decoding="async" />
-          <img src="/images/wings.webp" alt={pick({ en: 'Wings from Moods Burger', ar: 'وينغز من Moods Burger' })} width="591" height="385" loading="lazy" decoding="async" />
+          <img src="/images/fried-chick-tray.webp" alt="A crispy chicken burger on a tray" width="500" height="395" loading="lazy" decoding="async" />
+          <img src="/images/wings.webp" alt="Wings from Moods Burger" width="591" height="385" loading="lazy" decoding="async" />
         </Reveal>
       </section>
 

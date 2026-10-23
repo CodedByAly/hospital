@@ -30,10 +30,6 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-:lang(ar) body {
-  line-height: 1.75;
-}
-
 img {
   display: block;
   max-width: 100%;
@@ -62,16 +58,9 @@ h4 {
   margin: 0;
   font-family: var(--font-display);
   font-weight: 800;
-  line-height: 1.02;
-  letter-spacing: -0.02em;
-  font-stretch: 82%;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
   text-wrap: balance;
-}
-
-:lang(ar) :is(h1, h2, h3, h4) {
-  font-weight: 400;
-  letter-spacing: 0;
-  line-height: 1.25;
 }
 
 p {
@@ -158,11 +147,6 @@ p {
   background: currentColor;
 }
 
-:lang(ar) .kicker {
-  letter-spacing: 0;
-  font-size: 0.9rem;
-}
-
 /* Buttons */
 .btn {
   --btn-bg: var(--ink);
@@ -244,11 +228,6 @@ p {
 
 .btn .icon {
   flex: none;
-}
-
-[dir='rtl'] .btn .icon--flip,
-[dir='rtl'] .icon--flip {
-  transform: scaleX(-1);
 }
 
 .text-link {

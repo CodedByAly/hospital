@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useCart } from '../context/CartContext'
 import { useUI } from '../context/UIContext'
-import { useI18n } from '../i18n/I18nProvider'
+import { t } from '../content/text'
 import { describeSelection, formatPrice } from '../lib/price'
 import FoodImage from './FoodImage'
 import QtyStepper from './QtyStepper'
@@ -12,7 +12,6 @@ const LEAVE_MS = 240
 export default function CartLines({ editable = false }) {
   const cart = useCart()
   const { openItem } = useUI()
-  const { t, pick, lang } = useI18n()
   const [leaving, setLeaving] = useState([])
 
   const removeLine = (key) => {
@@ -26,8 +25,8 @@ export default function CartLines({ editable = false }) {
   return (
     <ul className="cart-lines">
       {cart.lines.map((line) => {
-        const { chosen, removed } = describeSelection(line.item, line.selection, lang)
-        const name = pick(line.item.name)
+        const { chosen, removed } = describeSelection(line.item, line.selection)
+        const name = line.item.name
         return (
           <li key={line.key} className={`cart-line ${leaving.includes(line.key) ? 'is-leaving' : ''}`}>
             <div className="cart-line__inner">
@@ -40,7 +39,7 @@ export default function CartLines({ editable = false }) {
                 {chosen.length > 0 && <p className="cart-line__opts">{chosen.join(' · ')}</p>}
                 {removed.length > 0 && (
                   <p className="cart-line__removed">
-                    {t('cart.without')} {removed.join(lang === 'ar' ? '، ' : ', ').toLowerCase()}
+                    {t('cart.without')} {removed.join(', ').toLowerCase()}
                   </p>
                 )}
                 {line.qty > 1 && (
@@ -83,7 +82,6 @@ export default function CartLines({ editable = false }) {
 
 export function CartTotals() {
   const cart = useCart()
-  const { t } = useI18n()
   return (
     <dl className="cart-totals">
       <div>

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useI18n } from '../i18n/I18nProvider'
+import { t } from '../content/text'
 import Icon from './Icon'
 
 /**
@@ -7,7 +7,6 @@ import Icon from './Icon'
  * quiet branded placeholder instead of a stock image.
  */
 export default function FoodImage({ item, className = '', sizes, eager = false, imgRef }) {
-  const { pick, t } = useI18n()
   const [loaded, setLoaded] = useState(false)
   const [failed, setFailed] = useState(false)
   const studio = item.imageStyle === 'studio'
@@ -26,7 +25,7 @@ export default function FoodImage({ item, className = '', sizes, eager = false, 
       <img
         ref={imgRef}
         src={item.image}
-        alt={pick(item.name)}
+        alt={item.name}
         width="640"
         height="480"
         sizes={sizes}

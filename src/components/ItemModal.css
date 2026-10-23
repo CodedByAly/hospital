@@ -181,11 +181,6 @@
   color: var(--text-soft);
 }
 
-:lang(ar) .opt-group__badge {
-  letter-spacing: 0;
-  font-size: 0.8rem;
-}
-
 .opt-group__badge.is-required {
   color: var(--red);
 }

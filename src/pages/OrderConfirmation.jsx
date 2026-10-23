@@ -1,7 +1,7 @@
 import { Link, useParams } from 'react-router-dom'
 import { ordering, phoneLink, restaurant, whatsappLink } from '../config/restaurant'
 import { getItem } from '../data/menu'
-import { useI18n } from '../i18n/I18nProvider'
+import { t } from '../content/text'
 import { describeSelection, formatPrice } from '../lib/price'
 import { load } from '../lib/storage'
 import { orderWhatsAppUrl } from '../lib/order'
@@ -10,9 +10,8 @@ import './OrderConfirmation.css'
 
 export default function OrderConfirmation() {
   const { number } = useParams()
-  const { t, pick, lang } = useI18n()
   const order = load('moods:orders', {})[number]
-  const address = pick(restaurant.address)
+  const address = restaurant.address
 
   if (!order) {
     return (
@@ -74,7 +73,7 @@ export default function OrderConfirmation() {
                 <br />
                 {[c.area, c.street, c.building && `${t('checkout.building')} ${c.building}`, c.floor && `${t('checkout.floor')} ${c.floor}`, c.apartment && `${t('checkout.apartment')} ${c.apartment}`]
                   .filter(Boolean)
-                  .join(lang === 'ar' ? '، ' : ', ')}
+                  .join(', ')}
               </dd>
             </div>
           </dl>
@@ -99,16 +98,16 @@ export default function OrderConfirmation() {
               {order.lines.map((line) => {
                 const item = getItem(line.itemId)
                 if (!item) return null
-                const { chosen, removed } = describeSelection(item, line.selection, lang)
+                const { chosen, removed } = describeSelection(item, line.selection)
                 return (
                   <li key={line.key}>
                     <span className="num confirm__qty">{line.qty}×</span>
                     <span className="confirm__item">
-                      {pick(item.name)}
+                      {item.name}
                       {chosen.length > 0 && <small>{chosen.join(' · ')}</small>}
                       {removed.length > 0 && (
                         <small className="is-removed">
-                          {t('cart.without')} {removed.join(lang === 'ar' ? '، ' : ', ').toLowerCase()}
+                          {t('cart.without')} {removed.join(', ').toLowerCase()}
                         </small>
                       )}
                     </span>

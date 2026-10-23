@@ -1,14 +1,13 @@
 import { restaurant } from '../config/restaurant'
 import { formatTime, groupedHours } from '../lib/hours'
-import { useI18n } from '../i18n/I18nProvider'
+import { t } from '../content/text'
 
 export default function HoursList({ className = '', showLateNight = true }) {
-  const { t, lang } = useI18n()
   const short = t('daysShort')
   const range = (days) => (days.length > 1 ? `${short[days[0]]}–${short[days[days.length - 1]]}` : t('days')[days[0]])
   const time = (open, close) => (
     <bdi className="time">
-      {formatTime(open, lang)} – {formatTime(close, lang)}
+      {formatTime(open)} – {formatTime(close)}
     </bdi>
   )
 

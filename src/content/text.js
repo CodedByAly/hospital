@@ -1,4 +1,8 @@
-export default {
+/**
+ * All website copy in one place. Components call `t('section.key')`;
+ * `{name}` placeholders are filled from the second argument.
+ */
+const text = {
   meta: {
     title: 'Moods Burger | Smash burgers, wings & late-night bites in Kraytem, Beirut',
     description:
@@ -15,7 +19,6 @@ export default {
     skip: 'Skip to content',
     primary: 'Main',
   },
-  lang: { label: 'Language', switchTo: 'العربية', short: 'ع' },
   status: {
     openUntil: 'Open now · until {time}',
     closedOpensToday: 'Closed · opens at {time}',
@@ -249,4 +252,12 @@ export default {
     whatsapp: 'WhatsApp',
     opensNewTab: '(opens in a new tab)',
   },
+}
+
+const lookup = (key) => key.split('.').reduce((node, part) => node?.[part], text)
+
+export function t(key, vars) {
+  const value = lookup(key) ?? key
+  if (typeof value !== 'string' || !vars) return value
+  return value.replace(/\{(\w+)\}/g, (_, name) => vars[name] ?? '')
 }
