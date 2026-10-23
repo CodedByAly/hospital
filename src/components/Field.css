@@ -1,0 +1,71 @@
+/* Fields */
+.field {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+}
+
+.field__label {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.field__optional {
+  font-weight: 500;
+  color: var(--text-soft);
+}
+
+.field__input {
+  width: 100%;
+  min-height: 52px;
+  padding: 13px 15px;
+  border: 1.5px solid var(--line-strong);
+  border-radius: var(--radius-s);
+  background: #fffaf1;
+  font-size: 1rem; /* 16px keeps iOS from zooming in */
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+textarea.field__input {
+  resize: vertical;
+  min-height: 96px;
+}
+
+.field__input::placeholder {
+  color: var(--text-soft);
+}
+
+.field__input:hover {
+  border-color: var(--text-muted);
+}
+
+.field__input:focus {
+  outline: none;
+  border-color: var(--ink);
+  box-shadow: 0 0 0 3px rgba(243, 166, 58, 0.4);
+}
+
+.field.has-error .field__input {
+  border-color: var(--danger);
+}
+
+.field__input[dir='ltr'] {
+  text-align: start;
+}
+
+[dir='rtl'] .field__input[dir='ltr'] {
+  text-align: right;
+}
+
+.field__hint {
+  font-size: 0.82rem;
+  color: var(--text-soft);
+}
+
+.field__error {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--danger);
+}

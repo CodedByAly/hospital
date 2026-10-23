@@ -1,0 +1,67 @@
+/*
+ * Palette taken from the Moods Burger logo and printed menu:
+ * the black badge, the amber neon lettering, the deeper orange of the bun,
+ * the cream menu paper, its olive-black headers and the red "Combo" labels.
+ */
+:root {
+  --ink: #12100c;
+  --ink-2: #1c1812;
+  --ink-3: #2a251c;
+  --olive: #2b2a1d;
+
+  --amber: #f3a63a;
+  --amber-light: #ffc76b;
+  --amber-deep: #dc7a1e;
+  --red: #a6301f;
+  --red-light: #d24a33;
+
+  --paper: #f7f0e3;
+  --paper-2: #efe4d0;
+  --paper-3: #e5d6bb;
+  --studio: #faf6ee; /* matches the white-background product shots */
+
+  --text: #1d1913;
+  --text-muted: #6b6152;
+  --text-soft: #8c8070;
+  --on-dark: #f6ecdc;
+  --on-dark-muted: #b6a993;
+
+  --line: rgba(29, 25, 19, 0.14);
+  --line-strong: rgba(29, 25, 19, 0.28);
+  --line-dark: rgba(246, 236, 220, 0.14);
+
+  --success: #2f7d4f;
+  --danger: #b3261e;
+
+  --font-display: 'Bricolage Grotesque Variable', 'Arial Narrow', system-ui, sans-serif;
+  --font-body: 'Bricolage Grotesque Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --radius-s: 6px;
+  --radius-m: 10px;
+  --radius-l: 16px;
+
+  --shadow-pop: 0 18px 50px -12px rgba(18, 16, 12, 0.45);
+  --shadow-soft: 0 6px 24px -10px rgba(18, 16, 12, 0.25);
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --header-h: 68px;
+  --tabbar-h: 0px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --max: 1240px;
+
+  color-scheme: light;
+}
+
+:root:lang(ar) {
+  --font-display: 'Lalezar', 'IBM Plex Sans Arabic', system-ui, sans-serif;
+  --font-body: 'IBM Plex Sans Arabic', system-ui, sans-serif;
+}
+
+@media (max-width: 860px) {
+  :root {
+    --header-h: 60px;
+    --tabbar-h: 64px;
+  }
+}

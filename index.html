@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Moods Burger | Smash burgers, wings &amp; late-night bites in Kraytem, Beirut</title>
+    <meta
+      name="description"
+      content="Moods Burger in Kraytem, Beirut. Smash burgers, crispy chicken, wings and a PS gaming lounge. Order delivery online or browse the dine-in menu. Open until 1:30 AM."
+    />
+    <meta name="theme-color" content="#12100c" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preload" as="image" href="/images/logo.webp" type="image/webp" />
+
+    <!-- Open Graph / social previews. Set og:url and make og:image absolute once the domain is live. -->
+    <meta property="og:type" content="restaurant.restaurant" />
+    <meta property="og:site_name" content="Moods Burger" />
+    <meta property="og:title" content="Moods Burger | Good food, Good Mood." />
+    <meta
+      property="og:description"
+      content="Smash burgers, crispy chicken and wings in Kraytem, Beirut. Order delivery or browse the menu."
+    />
+    <meta property="og:image" content="/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="ar_LB" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Restaurant",
+        "name": "Moods Burger",
+        "slogan": "Good food, Good Mood.",
+        "servesCuisine": ["Burgers", "Chicken wings", "American"],
+        "priceRange": "$",
+        "currenciesAccepted": "USD",
+        "paymentAccepted": "Cash",
+        "telephone": "+96181810409",
+        "email": "Moodsburgerlb@gmail.com",
+        "image": "/og-image.jpg",
+        "logo": "/images/logo.png",
+        "hasMap": "https://maps.app.goo.gl/HNvEyx2PPxyNBEzi9",
+        "hasMenu": "/menu",
+        "acceptsReservations": false,
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Bader Demechkieh Street, near Al Baba Sweets, facing the Characters Store",
+          "addressLocality": "Kraytem, Beirut",
+          "addressCountry": "LB"
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "13:30",
+            "closes": "01:30"
+          },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "16:00", "closes": "00:00" }
+        ],
+        "sameAs": ["https://www.instagram.com/moods.burger/"]
+      }
+    </script>
+
+    <style>
+      /* Splash: painted before the app loads, removed by src/components/Splash.jsx */
+      #splash {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        display: grid;
+        place-items: center;
+        background: #12100c;
+        transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.5s;
+      }
+      #splash.is-leaving {
+        opacity: 0;
+        visibility: hidden;
+      }
+      #splash .splash__logo {
+        position: relative;
+        width: 148px;
+        height: 148px;
+        animation: splash-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+      }
+      #splash img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+      }
+      #splash .splash__ring {
+        position: absolute;
+        inset: -14px;
+        border-radius: 50%;
+        border: 1.5px solid rgba(243, 166, 58, 0.7);
+        animation: splash-ring 1s cubic-bezier(0.22, 1, 0.36, 1) both 0.15s;
+      }
+      #splash.is-leaving .splash__logo {
+        transform: scale(1.06);
+        transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      @keyframes splash-in {
+        from {
+          opacity: 0;
+          transform: scale(0.86);
+        }
+      }
+      @keyframes splash-ring {
+        from {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        to {
+          opacity: 0.55;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #splash .splash__logo,
+        #splash .splash__ring {
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="splash" aria-hidden="true">
+      <div class="splash__logo">
+        <span class="splash__ring"></span>
+        <img src="/images/logo.webp" alt="" width="148" height="148" />
+      </div>
+    </div>
+    <script>
+      // Restore language before first paint so Arabic visitors never see a flash of LTR.
+      try {
+        var lang = JSON.parse(localStorage.getItem('moods:lang'))
+        if (!lang) lang = (navigator.language || '').toLowerCase().indexOf('ar') === 0 ? 'ar' : 'en'
+        document.documentElement.lang = lang
+        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr'
+      } catch (e) {}
+      document.getElementById('splash').dataset.start = performance.now()
+      // Only show the splash once per visit.
+      try {
+        if (sessionStorage.getItem('moods:splash')) document.getElementById('splash').remove()
+        sessionStorage.setItem('moods:splash', '1')
+      } catch (e) {}
+    </script>
+    <noscript>
+      <style>
+        #splash {
+          display: none;
+        }
+      </style>
+      <p style="padding: 24px; font-family: system-ui">
+        Moods Burger, Kraytem, Beirut. Call or WhatsApp +961 81 810 409. Instagram: @moods.burger
+      </p>
+    </noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
