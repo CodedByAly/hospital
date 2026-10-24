@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Bean Avenue | Coffee house in Aley, Lebanon</title>
+    <meta
+      name="description"
+      content="Bean Avenue is a coffee house in Aley, Lebanon, open 7am to 12am. Espresso, V60, rakwah, teas, frappés, shakes, desserts, salads and sandwiches. See the full menu and prices."
+    />
+    <meta name="theme-color" content="#334d40" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <meta property="og:type" content="restaurant.restaurant" />
+    <meta property="og:site_name" content="Bean Avenue" />
+    <meta property="og:title" content="Bean Avenue | Coffee house in Aley" />
+    <meta property="og:description" content="Your coffee, your space. Open 7am to 12am in Aley. Full menu and prices inside." />
+    <meta property="og:image" content="/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preload" as="image" href="/images/iced-latte-sushi.webp" imagesrcset="/images/iced-latte-sushi-480.webp 480w, /images/iced-latte-sushi.webp 739w" imagesizes="(min-width: 960px) 42vw, 100vw" fetchpriority="high" />
+
+    <script>
+      // Runs before first paint: enables JS-only styling and skips the intro on repeat visits.
+      ;(function () {
+        var root = document.documentElement
+        root.classList.add('js')
+        try {
+          if (sessionStorage.getItem('ba:splash-seen') || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            root.classList.add('no-splash')
+          }
+        } catch (e) {
+          root.classList.add('no-splash')
+        }
+      })()
+    </script>
+    <!--structured-data-->
+  </head>
+  <body>
+    <div id="root"><!--app--></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

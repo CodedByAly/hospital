@@ -1,0 +1,298 @@
+/* Bean Avenue — tokens and base styles.
+   Palette is taken from the logo (forest), the printed menu bands (sage)
+   and the orange used on the Instagram highlight covers (ember). */
+
+:root {
+  --forest: #334d40;
+  --forest-deep: #26392f;
+  --sage: #4b6c59;
+  --sage-soft: #dfe6dc;
+  --ember: #c66521;
+  --ember-deep: #a9531a;
+
+  --paper: #f6f2ea;
+  --paper-raised: #fbf9f4;
+  --paper-sunk: #ede7db;
+  --ink: #1d2a23;
+  --ink-soft: #4d5c53;
+  --ink-faint: #7b867f;
+  --rule: rgba(51, 77, 64, 0.2);
+  --rule-strong: rgba(51, 77, 64, 0.42);
+
+  --font-display: 'Bricolage Grotesque Variable', 'Arial Narrow', sans-serif;
+  --font-body: 'Montserrat Variable', 'Helvetica Neue', Arial, sans-serif;
+
+  --gutter: clamp(1.1rem, 4vw, 2.75rem);
+  --max: 76rem;
+  --header-h: 4.25rem;
+  --radius: 4px;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  font-weight: 450;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body.is-locked {
+  overflow: hidden;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+figure,
+dl,
+dd {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+::selection {
+  background: var(--forest);
+  color: var(--paper);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+section[id] {
+  scroll-margin-top: var(--header-h);
+}
+
+/* ---------- Shared pieces ---------- */
+
+.wrap {
+  width: 100%;
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  padding: 0.7rem 1rem;
+  background: var(--forest);
+  color: var(--paper);
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: top 0.2s var(--ease-out);
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+.eyebrow {
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--sage);
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 75%;
+  line-height: 0.95;
+  letter-spacing: -0.005em;
+  color: var(--forest);
+}
+
+.section-title {
+  font-size: clamp(2.3rem, 6.5vw, 4.2rem);
+  text-transform: uppercase;
+}
+
+.lede {
+  font-size: clamp(1rem, 1.6vw, 1.12rem);
+  color: var(--ink-soft);
+  max-width: 34rem;
+}
+
+/* Buttons: square-ish, like the green bands on the printed menu */
+.btn {
+  --btn-bg: var(--forest);
+  --btn-fg: var(--paper);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3rem;
+  padding: 0.75rem 1.4rem;
+  border: 1.5px solid var(--btn-bg);
+  border-radius: var(--radius);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-size: 0.8rem;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s var(--ease-out);
+}
+
+.btn:hover {
+  --btn-bg: var(--forest-deep);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.25s var(--ease-out);
+}
+
+.btn:hover svg.nudge {
+  transform: translateX(3px);
+}
+
+.btn--ghost {
+  --btn-bg: transparent;
+  --btn-fg: var(--forest);
+  border-color: var(--rule-strong);
+}
+
+.btn--ghost:hover {
+  --btn-bg: transparent;
+  border-color: var(--forest);
+}
+
+.btn--ember {
+  --btn-bg: var(--ember);
+}
+
+.btn--ember:hover {
+  --btn-bg: var(--ember-deep);
+}
+
+/* Dashed rule — the same broken line used all over the printed menu */
+.dash {
+  height: 2px;
+  background-image: linear-gradient(to right, currentColor 0 55%, transparent 55% 100%);
+  background-size: 22px 2px;
+  background-repeat: repeat-x;
+  color: var(--rule-strong);
+}
+
+/* Reveal on scroll — only hides content once JS has confirmed it can show it again */
+.reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.7s var(--ease-out),
+    transform 0.7s var(--ease-out);
+}
+
+.reveal-ready [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal-ready [data-reveal] {
+    transform: none;
+  }
+}

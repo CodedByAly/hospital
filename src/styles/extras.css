@@ -1,0 +1,37 @@
+/* Floating back-to-top button */
+.to-top {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: var(--forest);
+  color: var(--paper);
+  box-shadow: 0 6px 20px rgba(29, 42, 35, 0.22);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.35s var(--ease-out),
+    visibility 0s linear 0.35s,
+    background-color 0.2s ease;
+}
+
+.to-top.is-shown {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity 0.3s ease,
+    transform 0.35s var(--ease-out),
+    background-color 0.2s ease;
+}
+
+.to-top:hover {
+  background: var(--forest-deep);
+}

@@ -1,0 +1,324 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: transparent;
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.header.is-scrolled,
+.header.is-open {
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  -webkit-backdrop-filter: saturate(1.4) blur(12px);
+  backdrop-filter: saturate(1.4) blur(12px);
+  box-shadow: 0 1px 0 var(--rule);
+}
+
+.header.is-open {
+  background: var(--paper);
+  /* backdrop-filter would make the fixed panel position itself inside the header */
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.header__bar {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  height: var(--header-h);
+}
+
+.header__logo {
+  color: var(--forest);
+  flex-shrink: 0;
+}
+
+.header__logo .lockup {
+  height: 2.15rem;
+  width: auto;
+}
+
+.header__nav,
+.header__aside {
+  display: none;
+}
+
+.header__toggle {
+  margin-inline-start: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-height: 2.75rem;
+  padding: 0 0.25rem 0 0.75rem;
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--forest);
+}
+
+.header__toggle-lines {
+  position: relative;
+  width: 22px;
+  height: 10px;
+}
+
+.header__toggle-lines span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background: currentColor;
+  transition:
+    transform 0.35s var(--ease-out),
+    top 0.35s var(--ease-out);
+}
+
+.header__toggle-lines span:first-child {
+  top: 0;
+}
+
+.header__toggle-lines span:last-child {
+  top: 8.5px;
+}
+
+.is-open .header__toggle-lines span:first-child {
+  top: 4.25px;
+  transform: rotate(45deg);
+}
+
+.is-open .header__toggle-lines span:last-child {
+  top: 4.25px;
+  transform: rotate(-45deg);
+}
+
+/* ---------- Mobile panel ---------- */
+
+.panel {
+  position: fixed;
+  inset: var(--header-h) 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-block: 1.5rem calc(1.5rem + env(safe-area-inset-bottom));
+  background: var(--paper);
+  overflow-y: auto;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition:
+    opacity 0.3s var(--ease-out),
+    transform 0.4s var(--ease-out),
+    visibility 0s linear 0.4s;
+}
+
+.is-open .panel {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.3s var(--ease-out),
+    transform 0.4s var(--ease-out),
+    visibility 0s;
+}
+
+.panel__nav li {
+  border-bottom: 1px solid var(--rule);
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 0.4s var(--ease-out),
+    transform 0.5s var(--ease-out);
+}
+
+.is-open .panel__nav li {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(0.05s + var(--i) * 0.05s);
+}
+
+.panel__nav a {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 1rem 0 0.85rem;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 75%;
+  font-size: clamp(2.6rem, 13vw, 3.6rem);
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--forest);
+}
+
+.panel__num {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--ember);
+  transform: translateY(-1.4em);
+}
+
+.panel__foot {
+  display: grid;
+  gap: 1rem;
+  padding-top: 2rem;
+}
+
+.panel__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.panel__action {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 3rem;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--forest);
+}
+
+.panel__action:active {
+  background: var(--sage-soft);
+}
+
+/* ---------- Open / closed pill ---------- */
+
+.open-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.open-status__dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ink-faint);
+}
+
+.open-status--open .open-status__dot {
+  background: #3f8a5c;
+}
+
+.open-status--open .open-status__dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: inherit;
+  animation: pulse 2.4s ease-out infinite;
+}
+
+.open-status--closed .open-status__dot {
+  background: var(--ember);
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  to {
+    transform: scale(2.8);
+    opacity: 0;
+  }
+}
+
+/* ---------- Desktop ---------- */
+
+@media (min-width: 960px) {
+  .header__toggle,
+  .panel {
+    display: none;
+  }
+
+  .header__logo .lockup {
+    height: 2.4rem;
+  }
+
+  .header__nav {
+    display: block;
+    margin-inline: auto;
+  }
+
+  .header__nav ul {
+    display: flex;
+    gap: 2.25rem;
+  }
+
+  .header__nav a {
+    position: relative;
+    display: inline-block;
+    padding-block: 0.5rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--forest);
+  }
+
+  .header__nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.2rem;
+    height: 1.5px;
+    background: var(--ember);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.35s var(--ease-out);
+  }
+
+  .header__nav a:hover::after,
+  .header__nav a[aria-current='true']::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .header__aside {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+  }
+
+  .header__icon {
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    color: var(--forest);
+    transition: background-color 0.2s ease;
+  }
+
+  .header__icon:hover {
+    background: var(--sage-soft);
+  }
+
+  .header__cta {
+    min-height: 2.6rem;
+    padding: 0.5rem 1.1rem;
+  }
+}
+
+@media (min-width: 960px) and (max-width: 1100px) {
+  .header__status {
+    display: none;
+  }
+}

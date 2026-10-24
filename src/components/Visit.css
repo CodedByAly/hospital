@@ -1,0 +1,150 @@
+.visit {
+  padding-block: clamp(4.5rem, 11vw, 8rem);
+  background: var(--paper-sunk);
+}
+
+.visit__grid {
+  display: grid;
+  gap: 3rem;
+}
+
+.visit__info {
+  display: grid;
+  gap: 0.9rem;
+  align-content: start;
+}
+
+.visit__list {
+  display: grid;
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+}
+
+.visit__list li {
+  display: grid;
+  grid-template-columns: 1.5rem 1fr;
+  gap: 1rem;
+  padding-block: 1.25rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.visit__list li > svg {
+  margin-top: 0.15rem;
+  color: var(--sage);
+}
+
+.visit__list li > div {
+  display: grid;
+  justify-items: start;
+  gap: 0.25rem;
+}
+
+.visit__label {
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.visit__value {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.45rem;
+  line-height: 1.2;
+  color: var(--forest);
+}
+
+.visit__value--link {
+  transition: color 0.2s ease;
+}
+
+.visit__value--link:hover {
+  color: var(--ember);
+}
+
+.visit__hint {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+.visit__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 2rem;
+  font-size: 0.82rem;
+  font-weight: 650;
+  color: var(--forest);
+}
+
+.visit__link svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.25s var(--ease-out);
+}
+
+.visit__link:hover {
+  color: var(--ember);
+}
+
+.visit__link:hover svg {
+  transform: translateX(3px);
+}
+
+.visit__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+}
+
+.visit__media {
+  margin-inline: calc(var(--gutter) * -1);
+}
+
+.visit__media img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  background: var(--paper);
+}
+
+.visit__media figcaption {
+  margin-top: 0.75rem;
+  padding-inline: var(--gutter);
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+}
+
+@media (max-width: 480px) {
+  .visit__actions .btn {
+    flex: 1 1 calc(50% - 0.3rem);
+  }
+
+  .visit__actions .btn:first-child {
+    flex-basis: 100%;
+  }
+}
+
+@media (min-width: 640px) {
+  .visit__media {
+    margin-inline: 0;
+  }
+
+  .visit__media img {
+    border-radius: var(--radius);
+  }
+
+  .visit__media figcaption {
+    padding-inline: 0;
+  }
+}
+
+@media (min-width: 960px) {
+  .visit__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(3rem, 6vw, 6rem);
+    align-items: center;
+  }
+}
