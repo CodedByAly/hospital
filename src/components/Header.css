@@ -1,0 +1,183 @@
+.site-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+  height: var(--header-h);
+  color: var(--text-inverse);
+  background: rgba(14, 13, 12, 0.92);
+  backdrop-filter: saturate(140%) blur(12px);
+  -webkit-backdrop-filter: saturate(140%) blur(12px);
+  border-bottom: 1px solid var(--ink-line);
+  transition: background-color 0.3s, border-color 0.3s;
+}
+.site-header.is-over-hero {
+  background: transparent;
+  border-color: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.site-header__bar {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.site-header__logo {
+  margin-right: auto;
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: inherit;
+}
+.logo__mark {
+  width: 40px;
+  color: var(--bronze);
+  flex-shrink: 0;
+}
+.logo__word {
+  display: grid;
+  line-height: 0.95;
+  text-transform: uppercase;
+  font-family: var(--font-display);
+}
+.logo__chicago {
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 0.02em;
+}
+.logo__burgers {
+  font-weight: 300;
+  font-size: 15px;
+  letter-spacing: 0.06em;
+}
+
+.site-nav {
+  display: none;
+  gap: 4px;
+}
+.site-nav__link {
+  position: relative;
+  padding: 10px 14px;
+  font-family: var(--font-display);
+  font-size: 15px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-inverse-muted);
+  transition: color 0.2s;
+}
+.site-nav__link::after {
+  content: '';
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 4px;
+  height: 2px;
+  background: var(--orange);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease-out);
+}
+.site-nav__link:hover,
+.site-nav__link.active {
+  color: var(--white);
+}
+.site-nav__link.active::after {
+  transform: scaleX(1);
+}
+
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.header-cart {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 44px;
+  margin-left: 10px;
+  padding: 0 16px 0 12px;
+  border-radius: 999px;
+  background: var(--orange);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: background-color 0.2s;
+}
+.header-cart:hover {
+  background: var(--peach);
+}
+.header-cart__icon {
+  position: relative;
+  display: grid;
+}
+.header-cart__total {
+  font-variant-numeric: tabular-nums;
+}
+.cart-badge {
+  position: absolute;
+  top: -7px;
+  right: -9px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--red);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 18px;
+  text-align: center;
+  letter-spacing: 0;
+  box-shadow: 0 0 0 2px var(--orange);
+  animation: badge-pop 0.35s var(--ease-out);
+}
+@keyframes badge-pop {
+  from {
+    transform: scale(0.4);
+  }
+}
+
+.show-mobile {
+  display: inline-grid;
+}
+.hide-mobile {
+  display: none;
+}
+@media (min-width: 900px) {
+  .site-nav {
+    display: flex;
+  }
+  .site-header__logo {
+    margin-right: 0;
+    flex: 1;
+  }
+  .site-header__actions {
+    flex: 1;
+    justify-content: flex-end;
+  }
+  .show-mobile {
+    display: none;
+  }
+  .hide-mobile {
+    display: inline-flex;
+  }
+  .logo__mark {
+    width: 46px;
+  }
+  .logo__chicago {
+    font-size: 20px;
+  }
+  .logo__burgers {
+    font-size: 16px;
+  }
+}

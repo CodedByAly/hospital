@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Chicago Burgers | Stacked High, Smashed Right</title>
+    <meta name="description" content="Chicago Burgers, Beirut. Smashed and flame-grilled beef burgers, chicken burgers, loaded fries and subs on Kamil Shamoun Blvd. Order online for pickup or delivery." />
+    <meta name="theme-color" content="#0e0d0c" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <meta property="og:type" content="restaurant.restaurant" />
+    <meta property="og:site_name" content="Chicago Burgers" />
+    <meta property="og:title" content="Chicago Burgers | Stacked High, Smashed Right" />
+    <meta property="og:description" content="Smashed and flame-grilled burgers, loaded fries and subs in Beirut. Order online for pickup or delivery." />
+    <meta property="og:image" content="/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Restaurant",
+        "name": "Chicago Burgers",
+        "slogan": "Stacked High, Smashed Right",
+        "servesCuisine": ["Burgers", "American", "Sandwiches"],
+        "telephone": "+961 70 796 761",
+        "priceRange": "$",
+        "currenciesAccepted": "USD",
+        "paymentAccepted": "Cash, Whish Money",
+        "acceptsReservations": false,
+        "image": "/og-image.jpg",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Gallery Semaan, Kamil Shamoun Blvd, Keserwani Center",
+          "addressLocality": "Beirut",
+          "addressCountry": "LB"
+        },
+        "hasMenu": "/menu",
+        "sameAs": ["https://www.instagram.com/chicagoburgerslb/"]
+      }
+    </script>
+
+    <style>
+      /* Splash: inline so it paints before any JS or CSS bundle loads. */
+      #splash {
+        position: fixed;
+        inset: 0;
+        z-index: 3000;
+        display: grid;
+        place-items: center;
+        background: #0e0d0c;
+        transition: opacity 0.45s ease, visibility 0.45s;
+      }
+      #splash.is-done {
+        opacity: 0;
+        visibility: hidden;
+      }
+      #splash .splash__inner {
+        display: grid;
+        justify-items: center;
+        gap: 22px;
+        transition: transform 0.45s ease;
+      }
+      #splash.is-done .splash__inner {
+        transform: scale(1.04);
+      }
+      #splash svg {
+        width: 120px;
+        overflow: visible;
+      }
+      #splash path {
+        stroke-dasharray: 1400;
+        stroke-dashoffset: 1400;
+        animation: splash-draw 1s cubic-bezier(0.6, 0, 0.3, 1) forwards;
+      }
+      #splash path:nth-child(2) { animation-delay: 0.15s; }
+      #splash path:nth-child(3) { animation-delay: 0.25s; }
+      #splash path:nth-child(4) { animation-delay: 0.35s; }
+      #splash .splash__word {
+        font: 600 26px/1 'Oswald', 'Arial Narrow', sans-serif;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: #f6f0e7;
+        opacity: 0;
+        animation: splash-word 0.6s 0.6s ease forwards;
+        padding-left: 0.32em;
+      }
+      #splash .splash__word span {
+        display: block;
+        margin-top: 8px;
+        font-weight: 300;
+        font-size: 18px;
+        letter-spacing: 0.5em;
+        padding-left: 0.5em;
+        color: #c98a3c;
+        text-align: center;
+      }
+      @keyframes splash-draw { to { stroke-dashoffset: 0; } }
+      @keyframes splash-word { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+    </style>
+  </head>
+  <body>
+    <div id="splash" aria-hidden="true">
+      <div class="splash__inner">
+        <svg viewBox="0 0 388 320" fill="none" stroke="#c98a3c" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"><path d="M42 206C24 206 12 196 12 176V162C12 72 96 10 194 10S376 72 376 162V176C376 196 364 206 346 206C316 206 300 202 284 192C256 175 232 166 194 166S132 175 104 192C88 202 72 206 42 206Z"/><path d="M14 170Q194 4 374 170"/><path d="M12 214H376V236H100L64 262L74 249H12Z"/><path d="M12 250V266C12 296 26 312 54 312H334C362 312 376 296 376 266V250H118"/></svg>
+        <div class="splash__word">Chicago<span>Burgers</span></div>
+      </div>
+    </div>
+    <script>
+      // Show the splash once per visit. Skip it for reduced motion or repeat page loads.
+      (function () {
+        var el = document.getElementById('splash');
+        var seen = false;
+        try { seen = sessionStorage.getItem('cb.splash') === '1'; sessionStorage.setItem('cb.splash', '1'); } catch (e) {}
+        var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (seen || reduce) { el.remove(); return; }
+        setTimeout(function () {
+          el.classList.add('is-done');
+          setTimeout(function () { el.remove(); }, 500);
+        }, 1500);
+      })();
+    </script>
+    <div id="root"></div>
+    <noscript>
+      <p style="padding:24px;font-family:sans-serif">Chicago Burgers, Gallery Semaan, Kamil Shamoun Blvd, Keserwani Center, Beirut. Call or WhatsApp +961 70 796 761 to order.</p>
+    </noscript>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

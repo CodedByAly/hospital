@@ -1,0 +1,108 @@
+.site-footer {
+  padding-bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom));
+}
+.site-footer__grid {
+  display: grid;
+  gap: 40px;
+  padding-block: 56px 40px;
+}
+.site-footer__brand .logo__mark {
+  width: 56px;
+}
+.site-footer__brand .logo__chicago {
+  font-size: 24px;
+}
+.site-footer__brand .logo__burgers {
+  font-size: 19px;
+}
+.site-footer__blurb {
+  margin-top: 18px;
+  max-width: 38ch;
+  color: var(--text-inverse-muted);
+  font-size: 14px;
+}
+.site-footer__social {
+  display: flex;
+  gap: 4px;
+  margin-top: 16px;
+  margin-left: -10px;
+}
+.site-footer__h {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bronze-soft);
+  margin-bottom: 14px;
+}
+.site-footer__h--spaced {
+  margin-top: 28px;
+}
+.site-footer__col ul {
+  display: grid;
+  gap: 4px;
+}
+.site-footer__col ul a,
+.site-footer address {
+  color: var(--text-inverse-muted);
+  font-size: 14px;
+  transition: color 0.2s;
+}
+.site-footer__col ul a {
+  display: inline-block;
+  padding: 4px 0;
+}
+.site-footer__col ul a:hover {
+  color: var(--white);
+}
+.site-footer address {
+  display: grid;
+  font-style: normal;
+  margin-bottom: 12px;
+}
+.site-footer .text-link {
+  font-size: 14px;
+}
+.site-footer .hours {
+  font-size: 14px;
+  color: var(--text-inverse-muted);
+}
+.site-footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding-block: 20px 28px;
+  border-top: 1px solid var(--ink-line);
+  font-size: 12.5px;
+  color: var(--text-inverse-muted);
+}
+.site-footer__legal a {
+  color: var(--text-inverse);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+@media (min-width: 700px) {
+  .site-footer__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (min-width: 1000px) {
+  .site-footer__grid {
+    grid-template-columns: 1.6fr 0.8fr 1fr 1fr;
+    gap: 48px;
+  }
+}
+.hours__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 6px 0;
+  border-bottom: 1px dashed currentColor;
+  border-color: rgba(127, 127, 127, 0.3);
+}
+.hours__row dt,
+.hours__row dd {
+  margin: 0;
+}

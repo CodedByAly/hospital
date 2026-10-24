@@ -1,0 +1,60 @@
+.tabbar {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: 100;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: center;
+  height: calc(var(--tabbar-h) + env(safe-area-inset-bottom));
+  padding-bottom: env(safe-area-inset-bottom);
+  background: rgba(14, 13, 12, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid var(--ink-line);
+  color: var(--text-inverse-muted);
+}
+.tabbar__item {
+  display: grid;
+  justify-items: center;
+  gap: 3px;
+  padding: 8px 0;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.tabbar__item.active {
+  color: var(--white);
+}
+.tabbar__item.active svg {
+  color: var(--orange);
+}
+.tabbar__cart {
+  display: grid;
+  place-items: center;
+  height: 100%;
+}
+.tabbar__cart-btn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  margin-top: -22px;
+  border-radius: 50%;
+  background: var(--orange);
+  color: var(--ink);
+  box-shadow:
+    0 0 0 5px var(--ink),
+    0 10px 24px -6px rgba(220, 135, 44, 0.5);
+}
+.tabbar__cart-btn .cart-badge {
+  top: 4px;
+  right: 2px;
+}
+@media (min-width: 900px) {
+  .tabbar {
+    display: none;
+  }
+}

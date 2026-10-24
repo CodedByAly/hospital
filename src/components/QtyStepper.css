@@ -1,0 +1,40 @@
+.qty {
+  display: inline-flex;
+  align-items: center;
+  border: 1.5px solid var(--paper-line);
+  border-radius: 999px;
+  background: var(--white);
+  flex-shrink: 0;
+}
+.qty__btn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  color: var(--text);
+  transition: background-color 0.15s, color 0.15s;
+}
+.qty__btn:hover:not(:disabled) {
+  background: var(--paper-2);
+}
+.qty__btn:disabled {
+  color: #c4bbb0;
+  cursor: not-allowed;
+}
+.qty__value {
+  min-width: 26px;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 17px;
+  font-variant-numeric: tabular-nums;
+}
+.qty--sm .qty__btn {
+  width: 36px;
+  height: 36px;
+}
+.qty--sm .qty__value {
+  min-width: 20px;
+  font-size: 15px;
+}

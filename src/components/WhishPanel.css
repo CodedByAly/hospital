@@ -1,0 +1,87 @@
+.whish {
+  margin-top: 14px;
+  padding: 20px;
+  border-radius: var(--radius);
+  background: var(--ink);
+  color: var(--text-inverse);
+  animation: rise-in 0.3s var(--ease-out);
+}
+.whish__number-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--ink-line);
+}
+.whish__label {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bronze-soft);
+}
+.whish__number {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(28px, 7vw, 36px);
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+.whish__name {
+  font-size: 13px;
+  color: var(--text-inverse-muted);
+}
+.whish__copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 1.5px solid var(--ink-line);
+  font-weight: 600;
+  font-size: 14px;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+.whish__copy:hover {
+  border-color: var(--text-inverse-muted);
+}
+.whish__copy.is-done {
+  background: var(--green);
+  border-color: var(--green);
+}
+.whish__steps {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+  counter-reset: step;
+  font-size: 14px;
+  color: var(--text-inverse-muted);
+}
+.whish__steps li {
+  counter-increment: step;
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 8px;
+}
+.whish__steps li::before {
+  content: counter(step);
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--ink-3);
+  color: var(--peach);
+  font-size: 12px;
+  font-weight: 600;
+}
+.whish__steps strong {
+  color: var(--white);
+}
+.whish__steps a {
+  color: var(--peach);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
