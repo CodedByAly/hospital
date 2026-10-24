@@ -1,0 +1,154 @@
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.modal__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(43, 29, 31, 0.45);
+  animation: scrim-in 0.28s ease both;
+}
+
+.modal__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: calc(100dvh - 1.5rem);
+  background: var(--cream-raised);
+  border-radius: 14px 14px 0 0;
+  box-shadow: 0 -10px 40px rgba(43, 29, 31, 0.18);
+  overflow: hidden;
+  animation: sheet-up 0.38s var(--ease-out) both;
+}
+
+.modal__close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: rgba(255, 253, 248, 0.92);
+  color: var(--ink);
+  box-shadow: 0 2px 10px rgba(43, 29, 31, 0.12);
+  transition: background-color 0.2s ease;
+}
+
+.modal__close:hover {
+  background: var(--cream-sunk);
+}
+
+.modal.is-closing .modal__scrim {
+  animation: scrim-out 0.28s ease both;
+}
+
+.modal.is-closing .modal__panel {
+  animation: sheet-down 0.28s var(--ease-in-out) both;
+}
+
+/* Drawer (cart) — full height on phones */
+.modal--drawer .modal__panel,
+.modal--page .modal__panel {
+  height: 100dvh;
+  max-height: none;
+  border-radius: 0;
+}
+
+@keyframes scrim-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes scrim-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes sheet-down {
+  to {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes drawer-in {
+  from {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes drawer-out {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+}
+
+@keyframes pop-out {
+  to {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+}
+
+@media (min-width: 760px) {
+  .modal--sheet {
+    align-items: center;
+    padding: 2rem;
+  }
+
+  .modal--sheet .modal__panel {
+    max-width: 52rem;
+    max-height: min(44rem, calc(100dvh - 4rem));
+    border-radius: 14px;
+    animation-name: pop-in;
+  }
+
+  .modal--sheet.is-closing .modal__panel {
+    animation-name: pop-out;
+  }
+
+  .modal--drawer {
+    justify-content: flex-end;
+    align-items: stretch;
+  }
+
+  .modal--drawer .modal__panel {
+    max-width: 30rem;
+    animation-name: drawer-in;
+  }
+
+  .modal--drawer.is-closing .modal__panel {
+    animation-name: drawer-out;
+  }
+
+  .modal--page .modal__panel {
+    animation-name: pop-in;
+  }
+
+  .modal--page.is-closing .modal__panel {
+    animation-name: pop-out;
+  }
+}

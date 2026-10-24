@@ -1,0 +1,74 @@
+.splash {
+  display: none;
+}
+
+.js:not(.no-splash) .splash {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: grid;
+  place-items: center;
+  background: var(--cream);
+  animation: splash-out 0.55s var(--ease-in-out) 1.2s forwards;
+}
+
+.splash__inner {
+  display: grid;
+  justify-items: center;
+  gap: 1.2rem;
+}
+
+.splash__logo {
+  width: min(250px, 60vw);
+  height: auto;
+  overflow: visible;
+}
+
+.splash__logo .logo__green {
+  transform-box: fill-box;
+  transform-origin: 30% 80%;
+  animation: splash-green 0.65s var(--ease-out) both;
+}
+
+.splash__logo .logo__red {
+  transform-box: fill-box;
+  animation: splash-red 0.65s var(--ease-out) 0.15s both;
+}
+
+.splash__tagline {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  opacity: 0;
+  animation: splash-fade 0.5s ease 0.6s forwards;
+}
+
+@keyframes splash-green {
+  from {
+    opacity: 0;
+    transform: translateY(-8%) rotate(-4deg);
+  }
+}
+
+@keyframes splash-red {
+  from {
+    opacity: 0;
+    transform: translateY(12%);
+  }
+}
+
+@keyframes splash-fade {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes splash-out {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

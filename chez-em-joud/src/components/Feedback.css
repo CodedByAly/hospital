@@ -1,0 +1,138 @@
+.feedback {
+  padding-block: clamp(4.5rem, 10vw, 7.5rem);
+}
+
+.feedback__grid {
+  display: grid;
+  gap: 2.5rem;
+}
+
+.feedback__intro {
+  display: grid;
+  gap: 0.9rem;
+  align-content: start;
+}
+
+.fb-form {
+  display: grid;
+  gap: 1.3rem;
+}
+
+.fb-form__row {
+  display: grid;
+  gap: 1.3rem;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.4rem;
+}
+
+.rating__opt {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: 50%;
+  font-weight: 650;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.rating__opt input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.rating__opt.is-on {
+  border-color: var(--wine);
+  background: var(--wine);
+  color: var(--cream);
+}
+
+.rating__opt:has(input:focus-visible) {
+  outline: 2px solid var(--olive);
+  outline-offset: 2px;
+}
+
+.rating__word {
+  margin-left: 0.5rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.fb-form__alert {
+  padding: 0.85rem 1rem;
+  border-left: 3px solid var(--error);
+  background: rgba(176, 42, 30, 0.07);
+  font-size: 0.9rem;
+}
+
+.fb-form__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+}
+
+.feedback__done {
+  display: grid;
+  justify-items: start;
+  gap: 0.8rem;
+  padding: 2rem;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--cream-raised);
+  animation: pop-in 0.45s var(--ease-out);
+}
+
+.feedback__done .display {
+  font-size: 2rem;
+}
+
+.feedback__done a {
+  font-weight: 650;
+  color: var(--wine);
+  text-decoration: underline;
+}
+
+.feedback__tick {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: var(--olive-deep);
+  color: var(--cream);
+}
+
+@media (max-width: 520px) {
+  .fb-form__foot .btn {
+    width: 100%;
+  }
+}
+
+@media (min-width: 640px) {
+  .fb-form__row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 960px) {
+  .feedback__grid {
+    grid-template-columns: 0.85fr 1fr;
+    gap: 6rem;
+  }
+}

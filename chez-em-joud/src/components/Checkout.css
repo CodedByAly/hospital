@@ -1,0 +1,186 @@
+.checkout__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 2rem;
+  margin-bottom: 0.2rem;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.checkout__back svg {
+  width: 16px;
+  height: 16px;
+  transform: scaleX(-1);
+}
+
+.checkout__body {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0.5rem var(--gutter) 1.5rem;
+}
+
+.checkout__section {
+  display: grid;
+  gap: 0.9rem;
+  padding-top: 1.4rem;
+}
+
+.checkout__legend {
+  float: left; /* lets the legend sit inside the grid like a normal heading */
+  width: 100%;
+  margin-bottom: 0.15rem;
+  font-family: var(--font-display);
+  font-weight: 620;
+  font-size: 1.15rem;
+  color: var(--wine);
+}
+
+.checkout__grid {
+  display: grid;
+  gap: 0.9rem;
+}
+
+@media (min-width: 420px) {
+  .checkout__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Segmented choice: delivery / pickup */
+.seg {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+
+.seg__opt {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-height: 3.6rem;
+  padding: 0.7rem 0.85rem;
+  border: 1.5px solid var(--rule-strong);
+  border-radius: var(--radius);
+  background: var(--cream);
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.seg__opt input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.seg__opt svg {
+  flex-shrink: 0;
+  color: var(--olive-deep);
+}
+
+.seg__opt span {
+  display: grid;
+  line-height: 1.25;
+}
+
+.seg__opt strong {
+  font-size: 0.95rem;
+}
+
+.seg__opt small {
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+}
+
+.seg__opt.is-on {
+  border-color: var(--wine);
+  background: var(--wine-soft);
+}
+
+.seg__opt.is-on svg {
+  color: var(--wine);
+}
+
+.seg__opt:has(input:focus-visible) {
+  outline: 2px solid var(--olive);
+  outline-offset: 2px;
+}
+
+.seg--small .seg__opt {
+  min-height: 3rem;
+}
+
+/* Payment */
+.pay {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.85rem 0.95rem;
+  border: 1.5px solid var(--wine);
+  border-radius: var(--radius);
+  background: var(--wine-soft);
+}
+
+.pay input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pay__dot {
+  flex-shrink: 0;
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-top: 0.15rem;
+  border: 5px solid var(--wine);
+  border-radius: 50%;
+  background: var(--cream);
+}
+
+.pay span:last-child {
+  display: grid;
+  line-height: 1.35;
+}
+
+.pay small {
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+}
+
+.summary {
+  display: grid;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+.summary li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.summary li span:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.checkout__how {
+  margin-bottom: 0.75rem;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+
+.checkout__submit {
+  --btn-bg: #1f7a4d;
+  min-height: 3.25rem;
+}
+
+.checkout__submit:hover {
+  --btn-bg: #186340;
+}

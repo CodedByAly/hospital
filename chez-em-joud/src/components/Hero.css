@@ -1,0 +1,222 @@
+.hero {
+  position: relative;
+  margin-top: calc(var(--header-h) * -1);
+  padding-top: calc(var(--header-h) + clamp(1.25rem, 4vw, 3.5rem));
+  padding-bottom: clamp(3rem, 8vw, 5.5rem);
+  overflow: hidden;
+}
+
+.hero__grid {
+  display: grid;
+  gap: 2.25rem;
+}
+
+.hero__title {
+  margin-top: 1.25rem;
+}
+
+.hero__title .logo {
+  width: clamp(14rem, 58vw, 23rem);
+  height: auto;
+}
+
+.hero__tagline {
+  margin-top: 1.5rem;
+  font-size: clamp(2.1rem, 6.4vw, 3.6rem);
+  font-style: italic;
+  font-weight: 560;
+}
+
+.hero__lede {
+  margin-top: 1rem;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1.9rem;
+}
+
+.hero__perks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.4rem;
+  margin-top: 2rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--olive-deep);
+}
+
+.hero__perks li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.hero__cash {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border: 1.7px solid currentColor;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+/* Photo with a little "menu card" pinned to it */
+.hero__media {
+  position: relative;
+  margin-inline: calc(var(--gutter) * -1);
+}
+
+.hero__frame {
+  aspect-ratio: 5 / 4;
+  overflow: hidden;
+  background: var(--cream-sunk);
+}
+
+.hero__frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: hero-img 1.4s var(--ease-out) both;
+}
+
+.js:not(.no-splash) .hero__frame img {
+  animation-delay: 1.2s;
+}
+
+@keyframes hero-img {
+  from {
+    transform: scale(1.06);
+  }
+}
+
+.hero__card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: -2.5rem var(--gutter) 0;
+  position: relative;
+  padding: 1rem 1rem 1rem 1.2rem;
+  border-radius: var(--radius);
+  background: var(--cream-raised);
+  box-shadow: 0 12px 32px rgba(43, 29, 31, 0.14);
+}
+
+.hero__card > div {
+  flex: 1;
+  min-width: 0;
+}
+
+.hero__card-name {
+  font-family: var(--font-display);
+  font-weight: 650;
+  font-size: 1.2rem;
+  color: var(--wine);
+}
+
+.hero__card-desc {
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+
+.hero__card-btn {
+  flex-direction: column;
+  gap: 0;
+  min-height: 3.4rem;
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+.hero__card-add {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+@media (max-width: 520px) {
+  .hero__actions .btn {
+    flex: 1 1 100%;
+  }
+}
+
+@media (min-width: 640px) {
+  .hero__media {
+    margin-inline: 0;
+  }
+
+  .hero__frame {
+    border-radius: var(--radius);
+  }
+}
+
+@media (min-width: 960px) {
+  .hero__grid {
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: center;
+    gap: clamp(3rem, 6vw, 6rem);
+  }
+
+  .hero__frame {
+    aspect-ratio: 4 / 4.4;
+  }
+
+  .hero__card {
+    position: absolute;
+    left: -2.5rem;
+    right: 2.5rem;
+    bottom: 2rem;
+    margin: 0;
+  }
+}
+
+/* Phones: food photo straight after the name */
+@media (max-width: 959px) {
+  .hero__grid {
+    gap: 0;
+  }
+
+  .hero__copy {
+    display: contents;
+  }
+
+  .hero__eyebrow {
+    order: 1;
+  }
+
+  .hero__title {
+    order: 2;
+  }
+
+  .hero__tagline {
+    order: 3;
+  }
+
+  .hero__media {
+    order: 4;
+    margin-top: 1.75rem;
+  }
+
+  .hero__lede {
+    order: 5;
+    margin-top: 1.75rem;
+  }
+
+  .hero__actions {
+    order: 6;
+  }
+
+  .hero__perks {
+    order: 7;
+  }
+}

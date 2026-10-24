@@ -1,0 +1,44 @@
+.to-top {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: var(--cream-raised);
+  color: var(--wine);
+  border: 1px solid var(--rule-strong);
+  box-shadow: 0 6px 20px rgba(43, 29, 31, 0.14);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.35s var(--ease-out),
+    bottom 0.35s var(--ease-out),
+    visibility 0s linear 0.35s;
+}
+
+.to-top.is-shown {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity 0.3s ease,
+    transform 0.35s var(--ease-out),
+    bottom 0.35s var(--ease-out);
+}
+
+/* Sit above the order bar when it's showing */
+body:has(.order-bar:not(.is-hidden)) .to-top {
+  bottom: calc(5.25rem + env(safe-area-inset-bottom));
+}
+
+@media (min-width: 960px) {
+  body:has(.order-bar:not(.is-hidden)) .to-top {
+    bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}

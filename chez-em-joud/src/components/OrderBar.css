@@ -1,0 +1,61 @@
+.order-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 70;
+  padding: 0.6rem var(--gutter) calc(0.6rem + env(safe-area-inset-bottom));
+  background: linear-gradient(to top, var(--cream) 60%, transparent);
+  animation: bar-in 0.4s var(--ease-out);
+}
+
+.order-bar.is-hidden {
+  display: none;
+}
+
+.order-bar__btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  min-height: 3.4rem;
+  padding: 0 1.2rem 0 0.6rem;
+  border-radius: 999px;
+  background: var(--wine);
+  color: var(--cream);
+  font-weight: 650;
+  box-shadow: 0 10px 28px rgba(132, 29, 42, 0.32);
+}
+
+.order-bar__count {
+  display: grid;
+  place-items: center;
+  min-width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 999px;
+  background: var(--cream);
+  color: var(--wine);
+  font-size: 0.9rem;
+  animation: count-pop 0.35s var(--ease-out);
+}
+
+.order-bar__label {
+  flex: 1;
+  text-align: left;
+}
+
+.order-bar__total {
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes bar-in {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+@media (min-width: 960px) {
+  .order-bar {
+    display: none;
+  }
+}

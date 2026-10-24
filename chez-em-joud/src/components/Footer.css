@@ -1,0 +1,82 @@
+.footer {
+  padding-top: clamp(3.5rem, 8vw, 5rem);
+  background: var(--wine-deep);
+  color: rgba(251, 248, 241, 0.78);
+  font-size: 0.92rem;
+}
+
+.footer a:hover {
+  color: var(--cream);
+}
+
+.footer :focus-visible {
+  outline-color: #d6dba8;
+}
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem 2rem;
+}
+
+.footer__brand {
+  grid-column: 1 / -1;
+  display: grid;
+  justify-items: start;
+  gap: 0.8rem;
+  max-width: 24rem;
+}
+
+.footer__logo {
+  width: 8.5rem;
+  height: auto;
+  color: var(--cream);
+}
+
+.footer__tagline {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: #d6dba8;
+}
+
+.footer__heading {
+  margin-bottom: 0.85rem;
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(251, 248, 241, 0.5);
+}
+
+.footer__col ul {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.footer__base {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 2rem;
+  margin-top: 3.5rem;
+  padding-block: 1.5rem calc(1.5rem + env(safe-area-inset-bottom));
+  border-top: 1px solid rgba(251, 248, 241, 0.14);
+  font-size: 0.8rem;
+  color: rgba(251, 248, 241, 0.5);
+}
+
+/* Room for the sticky order bar on phones */
+body:has(.order-bar:not(.is-hidden)) .footer__base {
+  padding-bottom: 6rem;
+}
+
+@media (min-width: 760px) {
+  .footer__grid {
+    grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  }
+
+  .footer__brand {
+    grid-column: auto;
+  }
+}

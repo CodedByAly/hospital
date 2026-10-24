@@ -1,0 +1,411 @@
+/* Chez Em Joud — tokens and base styles.
+   Wine and olive come straight from the logo; cream from the printed menu paper. */
+
+:root {
+  --wine: #841d2a;
+  --wine-deep: #67141f;
+  --wine-soft: #f3e3e2;
+  --olive: #7b8347;
+  --olive-deep: #5d6434;
+  --olive-soft: #e9eadb;
+
+  --cream: #fbf8f1;
+  --cream-raised: #fffdf8;
+  --cream-sunk: #f3ede1;
+  --ink: #2b1d1f;
+  --ink-soft: #5f5153;
+  --ink-faint: #8e8284;
+  --rule: rgba(43, 29, 31, 0.12);
+  --rule-strong: rgba(43, 29, 31, 0.28);
+  --error: #b02a1e;
+
+  --font-display: 'Fraunces Variable', Georgia, 'Times New Roman', serif;
+  --font-body: 'DM Sans Variable', 'Helvetica Neue', Arial, sans-serif;
+
+  --gutter: clamp(1.1rem, 4vw, 2.75rem);
+  --max: 74rem;
+  --header-h: 4.25rem;
+  --radius: 6px;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body.is-locked {
+  overflow: hidden;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+figure,
+dl,
+dd,
+fieldset {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+fieldset {
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+legend {
+  padding: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+::selection {
+  background: var(--wine);
+  color: var(--cream);
+}
+
+:focus-visible {
+  outline: 2px solid var(--olive);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+section[id] {
+  scroll-margin-top: var(--header-h);
+}
+
+/* ---------- Shared pieces ---------- */
+
+.wrap {
+  width: 100%;
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 300;
+  padding: 0.7rem 1rem;
+  background: var(--wine);
+  color: var(--cream);
+  font-weight: 600;
+  transition: top 0.2s var(--ease-out);
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+.eyebrow {
+  font-size: 0.74rem;
+  font-weight: 650;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--olive-deep);
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 650;
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  color: var(--wine);
+}
+
+.section-title {
+  font-size: clamp(2.2rem, 6vw, 3.6rem);
+}
+
+.lede {
+  font-size: clamp(1rem, 1.6vw, 1.12rem);
+  color: var(--ink-soft);
+  max-width: 34rem;
+}
+
+/* Leaf rule — the thin olive line under each heading on the printed menu */
+.rule {
+  height: 1.5px;
+  background: var(--olive);
+  opacity: 0.6;
+}
+
+.btn {
+  --btn-bg: var(--wine);
+  --btn-fg: var(--cream);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 3rem;
+  padding: 0.75rem 1.4rem;
+  border: 1.5px solid var(--btn-bg);
+  border-radius: 999px;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-size: 0.92rem;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.15s var(--ease-out);
+}
+
+.btn:hover {
+  --btn-bg: var(--wine-deep);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn[disabled] {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.btn--ghost {
+  --btn-bg: transparent;
+  --btn-fg: var(--wine);
+  border-color: var(--rule-strong);
+}
+
+.btn--ghost:hover {
+  --btn-bg: transparent;
+  border-color: var(--wine);
+}
+
+.btn--olive {
+  --btn-bg: var(--olive-deep);
+}
+
+.btn--olive:hover {
+  --btn-bg: #4d532b;
+}
+
+.btn--block {
+  width: 100%;
+}
+
+/* Quantity stepper used in the item sheet and the cart */
+.stepper {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--rule-strong);
+  border-radius: 999px;
+}
+
+.stepper button {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  color: var(--wine);
+  transition: background-color 0.15s ease;
+}
+
+.stepper button:hover:not([disabled]) {
+  background: var(--wine-soft);
+}
+
+.stepper button[disabled] {
+  color: var(--ink-faint);
+  cursor: not-allowed;
+}
+
+.stepper button svg {
+  width: 16px;
+  height: 16px;
+}
+
+.stepper output {
+  min-width: 1.75rem;
+  text-align: center;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+.stepper--sm button {
+  width: 2.1rem;
+  height: 2.1rem;
+}
+
+/* Form fields */
+.field {
+  display: grid;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.field > label,
+.field > legend,
+.field__label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.field__opt {
+  margin-left: 0.35rem;
+  font-weight: 450;
+  color: var(--ink-faint);
+}
+
+.input {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius);
+  background: var(--cream-raised);
+  font-size: 1rem; /* 16px keeps iOS from zooming in */
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+textarea.input {
+  min-height: 5.5rem;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--olive-deep);
+  box-shadow: 0 0 0 3px var(--olive-soft);
+}
+
+.input[aria-invalid='true'] {
+  border-color: var(--error);
+}
+
+.input[aria-invalid='true']:focus {
+  box-shadow: 0 0 0 3px rgba(176, 42, 30, 0.14);
+}
+
+.field__error {
+  font-size: 0.82rem;
+  font-weight: 550;
+  color: var(--error);
+}
+
+.field__hint {
+  font-size: 0.82rem;
+  color: var(--ink-faint);
+}
+
+/* Reveal on scroll — content is only hidden once JS is confirmed running */
+.reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.7s var(--ease-out),
+    transform 0.7s var(--ease-out);
+}
+
+.reveal-ready [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

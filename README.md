@@ -1,52 +1,31 @@
-# Bean Avenue
+# Restaurant websites
 
-Website for Bean Avenue, a coffee house in Aley, Lebanon. It is a single page with the dine-in
-menu, hours, location, contact details and a feedback form. There is no online ordering.
+Two independent sites live in this repository. Each one has its own README with setup and editing
+instructions.
 
-Built with React and Vite. At build time the page is prerendered to static HTML, so the full menu,
-prices and schema.org data are in the HTML that search engines and link previews read.
+| Folder | Site | What it does |
+| --- | --- | --- |
+| `/` (root) | **Bean Avenue**, coffee house in Aley | Dine-in menu, visit info, feedback |
+| `chez-em-joud/` | **Chez Em Joud** | Menu with ordering for delivery or pickup via WhatsApp, cash payment |
 
-## Running it
+## Bean Avenue
 
 ```bash
 npm install
-npm run dev       # http://localhost:5173
-npm run build     # outputs dist/ (static files, host anywhere)
-npm run preview   # serves the production build
+npm run dev
+npm run build     # outputs dist/
 ```
 
-To deploy on Netlify, use `npm run build` as the build command and `dist` as the publish
-directory (already set in `netlify.toml`).
+Menu: `src/data/menu.js` · Café details: `src/data/site.js` · Photos: `public/images/`.
+The feedback form opens WhatsApp unless `feedbackEndpoint` in `src/data/site.js` is set.
 
-## Updating content
+## Chez Em Joud
 
-You don't need to touch any components for everyday changes.
-
-| What | Where |
-| --- | --- |
-| Menu items, prices, categories, add-ons | `src/data/menu.js` |
-| Phone, WhatsApp, Instagram, Maps link, hours | `src/data/site.js` |
-| Feedback form destination | `feedbackEndpoint` in `src/data/site.js` |
-| Photos | `public/images/` |
-| Page title, description, share image | `index.html`, `public/og-image.jpg` |
-
-**Feedback form:** while `feedbackEndpoint` is empty, the form opens WhatsApp with the message
-already written out, ready to send to the café's number. Paste a Formspree, Getform or custom API
-URL into `feedbackEndpoint` and the form will POST JSON there instead.
-
-**Opening hours** drive the live "Open now" label, which uses Beirut time.
-
-## Structure
-
-```
-src/
-  data/          site.js (café details), menu.js (the menu)
-  components/    Header, Hero, menu/, About, Visit, Feedback, Footer, Splash, ...
-  hooks/         open/closed status, scroll reveal
-  styles/        design tokens and shared styles
-scripts/
-  prerender.js   puts the rendered HTML and structured data into dist/index.html
+```bash
+cd chez-em-joud
+npm install
+npm run dev
+npm run build     # outputs chez-em-joud/dist/
 ```
 
-The logo in `src/components/logoPaths.js` was traced from the café's Instagram assets. Swap it for
-the designer's original vector file if one is available.
+See `chez-em-joud/README.md`.
